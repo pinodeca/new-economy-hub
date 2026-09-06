@@ -54,11 +54,12 @@ an optional ISO country code, not as separate hard-coded sub-sites — see
 ## Content population strategy
 
 - **Events, organizations, forums**: expected to be populated primarily by
-  AI agents (research/scraping/summarization), not hand-entered. Every
-  record carries a `source_type` (`AI_GENERATED`, `AI_ASSISTED`, `HUMAN`) and
-  a `verified` flag, defaulting to unverified for AI-generated content until
-  a human (initially the founder) confirms it. Agents should never silently
-  mark their own output as verified.
+  AI agents (research/scraping/summarization) opening pull requests, not
+  hand-entered or written to a database directly. Every record carries a
+  `sourceType` (`AI_GENERATED`, `AI_ASSISTED`, `HUMAN`) and a `verified`
+  flag, defaulting to unverified for AI-generated content. Reviewing and
+  merging the PR *is* the verification step — agents should never mark
+  their own output as verified.
 - **Blog**: human-authored.
 - **Podcast**: human by default; AI-generated episodes are allowed but must
   carry an explicit, visible AI disclosure (not a footnote) in both the
@@ -66,13 +67,16 @@ an optional ISO country code, not as separate hard-coded sub-sites — see
 
 ## Technical direction
 
-- **Framework**: Next.js (TypeScript, App Router, Tailwind CSS).
-- **ORM**: Prisma.
-- **Database**: [Azure HorizonDB](https://learn.microsoft.com/en-us/azure/horizondb/overview)
-  (Postgres-compatible, currently in public preview) in Azure environments;
-  any Postgres-compatible instance works for local dev.
-- **Cloud/hosting**: Azure end-to-end (hosting, CI/CD targets, secrets,
-  monitoring) — chosen deliberately as a learning goal, not just a default.
+- **Framework**: Next.js (TypeScript, App Router, Tailwind CSS), built as a
+  fully static site (`output: "export"`) — no backend server. See
+  `docs/DECISIONS.md` for why, `docs/DATA_MODEL.md` for the content shape.
+- **Content**: git-tracked files under `content/`, added/edited via PR —
+  no database. Query power (joins, filtering, full-text search) comes from
+  a build-time step, not a live server.
+- **Cloud/hosting**: Azure Static Web Apps. Azure HorizonDB
+  (Postgres-compatible, currently in public preview) was the original plan
+  and remains a deliberate learning goal for later — it's just decoupled
+  from this project's critical path for now; see `docs/DECISIONS.md`.
 - **Repo philosophy**: AI-first / agentic. The repo should be structured so
   that coding agents (not just humans) can safely operate on it — see
   `CLAUDE.md`. Longer-term goal: agents that deploy changes, monitor the live
