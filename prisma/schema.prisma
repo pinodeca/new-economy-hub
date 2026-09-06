@@ -1,0 +1,131 @@
+// New Economy Hub — data model
+// See docs/DATA_MODEL.md for the rationale behind these shapes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum GeoScope {
+  US
+  INTERNATIONAL
+  COUNTRY
+}
+
+enum SourceType {
+  AI_GENERATED
+  AI_ASSISTED
+  HUMAN
+}
+
+enum BarrierToEntry {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ForumPlatform {
+  SLACK
+  DISCORD
+  FORUM
+  MAILING_LIST
+  OTHER
+}
+
+model Organization {
+  id            String     @id @default(cuid())
+  slug          String     @unique
+  name          String
+  description   String
+  url           String?
+  tags          String[]
+  geoScope      GeoScope
+  countryCode   String? // ISO 3166-1 alpha-2, required when geoScope = COUNTRY
+  activityLevel Int? // 1-5, subjective/derived signal of how active the org currently is
+  memberCount   Int?
+  sourceType    SourceType @default(AI_GENERATED)
+  verified      Boolean    @default(false)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  events Event[]
+  forums Forum[]
+
+  @@index([geoScope, countryCode])
+}
+
+model Event {
+  id             String         @id @default(cuid())
+  slug           String         @unique
+  title          String
+  description    String
+  url            String?
+  startAt        DateTime
+  endAt          DateTime?
+  isVirtual      Boolean        @default(false)
+  city           String?
+  geoScope       GeoScope
+  countryCode    String?
+  barrierToEntry BarrierToEntry @default(MEDIUM)
+  tags           String[]
+  sourceType     SourceType     @default(AI_GENERATED)
+  verified       Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([startAt])
+  @@index([geoScope, countryCode])
+}
+
+model Forum {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  name          String
+  description   String
+  platform      ForumPlatform
+  url           String
+  geoScope      GeoScope
+  countryCode   String?
+  memberCount   Int?
+  activityLevel Int? // 1-5
+  tags          String[]
+  sourceType    SourceType    @default(AI_GENERATED)
+  verified      Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([geoScope, countryCode])
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  body        String
+  author      String
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PodcastEpisode {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  description     String
+  audioUrl        String
+  aiGenerated     Boolean   @default(false)
+  aiDisclosure    String? // required, human-reviewed text when aiGenerated = true
+  publishedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
