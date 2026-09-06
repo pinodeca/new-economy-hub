@@ -1,0 +1,12 @@
+{
+  "slug": "usfwc-worker-coop-slack",
+  "name": "Worker Co-op Slack (USFWC)",
+  "description": "A Slack workspace run by the U.S. Federation of Worker Cooperatives for the worker co-op community, with channels for member councils, regional and peer networks, Spanish-speaking cooperatives, the energy sector, finance/accounting practices, and general announcements, plus a #principlesix channel for co-ops to share resources and opportunities with each other. Supplements rather than replaces USFWC's email list. Join via the invite link on USFWC's Connect page.",
+  "platform": "SLACK",
+  "url": "https://www.usworker.coop/connect/",
+  "tags": ["worker-cooperatives", "slack", "community"],
+  "organizationSlug": "us-federation-of-worker-cooperatives",
+  "sourceType": "AI_GENERATED",
+  "verified": false,
+  "geoScope": "US"
+}

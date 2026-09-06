@@ -14,9 +14,8 @@ This site's welcome pitch:
 > **So you want to build a better economy.** This site exists to help you:
 > (1) learn what's already happening across this space, (2) find the fastest
 > way to actually get involved — events, forums, and communities to join this
-> week, not someday — and (3) push toward a shared, organization-agnostic
-> center of gravity, so the movement compounds instead of fragmenting into a
-> hundred parallel efforts that never reach critical mass.
+> week or ASAP — and (3) push toward a shared, organization-agnostic
+> center of gravity, so the movement compounds and reaches critical mass.
 
 ## Who this is for (v1)
 

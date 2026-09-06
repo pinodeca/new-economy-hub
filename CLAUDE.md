@@ -6,7 +6,11 @@ Read [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md) first — it explains what
 this site is and why. Read [docs/DATA_MODEL.md](docs/DATA_MODEL.md) and
 [docs/DECISIONS.md](docs/DECISIONS.md) before touching
 `src/lib/content-types.ts` or proposing content changes — there is no
-database; content is git-tracked files reviewed via PR.
+database; content is git-tracked files reviewed via PR. Read
+[content/README.md](content/README.md) before adding or editing any file
+under `content/` — it has the concrete conventions (file format, slugs,
+tags, dedup checking, sourcing) that this file and DATA_MODEL.md don't
+spell out.
 
 ## Conventions specific to this repo
 

@@ -23,11 +23,6 @@ const sections = [
     title: "Blog",
     description: "Short write-ups on specific communities and projects.",
   },
-  {
-    href: "/podcast",
-    title: "Podcast",
-    description: "Conversations with people building this space.",
-  },
 ];
 
 const geoScopes = [
@@ -54,10 +49,9 @@ export default function Home() {
             This site exists to help you learn what&apos;s already happening
             across this space, find the fastest way to actually get
             involved&nbsp;&mdash; events, forums, and communities to join this
-            week, not someday&nbsp;&mdash; and push toward a shared,
+            week or ASAP&nbsp;&mdash; and push toward a shared,
             organization-agnostic center of gravity, so the movement compounds
-            instead of fragmenting into a hundred parallel efforts that never
-            reach critical mass.
+            and reaches critical mass.
           </p>
         </section>
 

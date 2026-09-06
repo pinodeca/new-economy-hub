@@ -1,8 +1,11 @@
 # Data model
 
-There is no database. Content is git-tracked files under `content/`
-(directory not created yet — see `docs/ROADMAP.md`), reviewed and merged
-like code. See [DECISIONS.md](DECISIONS.md) for why.
+There is no database. Content is git-tracked JSON files under `content/`,
+reviewed and merged like code. See [DECISIONS.md](DECISIONS.md) for why,
+and [`content/README.md`](../content/README.md) for the practical
+how-do-I-add-a-record conventions (slugs, tags, file format, dedup
+checking) — this file covers the schema and reasoning, that one covers the
+mechanics.
 
 The shape each content file must match lives in
 [`src/lib/content-types.ts`](../src/lib/content-types.ts) — treat that file
@@ -52,11 +55,20 @@ build pipeline exists, not just by convention.
 ## Querying at build time
 
 Next statically renders every page (`output: "export"` in
-`next.config.ts` — see DECISIONS.md). When list/filter pages are built
-(roadmap step 2), the plan is: a build step reads all content files and
-loads them into a throwaway SQLite file (`better-sqlite3`) to do joins,
-tag/geo filtering, and full-text search, then discards it — the SQLite
-file is a build artifact, never the source of truth, never shipped to the
-browser or a server. If fuzzy/semantic dedup across agent-sourced entries
-becomes a real problem, look at the `sqlite-vec` extension before
-reaching for a hosted vector database — see DECISIONS.md for the tradeoff.
+`next.config.ts` — see DECISIONS.md). The current implementation
+(`src/lib/content.ts`) is simpler than originally planned here: it reads
+every JSON file in `content/organizations|events|forums/` into a plain
+array and does sorting/filtering/joins (e.g. resolving `organizationSlug`)
+with plain JS — no SQLite involved. That's deliberately the minimum that
+works at today's content volume (low tens of records), not a permanent
+decision.
+
+The original, still-valid-if-needed plan: once list/filter pages need real
+joins, tag/geo filtering, or full-text search across enough records that
+array scans get slow or unwieldy, load content into a throwaway SQLite
+file (`better-sqlite3`) at build time to do that querying, then discard
+it — the SQLite file would be a build artifact, never the source of truth,
+never shipped to the browser or a server. If fuzzy/semantic dedup across
+agent-sourced entries becomes a real problem before then, look at the
+`sqlite-vec` extension before reaching for a hosted vector database — see
+DECISIONS.md for the tradeoff.
