@@ -21,7 +21,19 @@ delete it) once it's actually been thought through and scheduled.
 - **Aggregate a social media stream** — pull in relevant posts from these
   orgs' social accounts into a feed on the site.
 - **Represent recurring things.** `Event.startAt` is a single ISO date —
-  no way to model "office hours every Tuesday" or an ongoing workshop
-  series (found while researching L.A. Co-op Lab, see PR #13). Don't know
-  yet whether the right fix is a recurrence field on `Event` or a
-  different content type entirely.
+  no way to model "office hours every Tuesday," a Calendly-style rolling
+  open-booking slot, or an ongoing multi-week workshop series (found
+  while researching L.A. Co-op Lab and A Bookkeeping Cooperative, see PRs
+  #13 and #11). Don't know yet whether the right fix is a recurrence
+  field on `Event` or a different content type entirely.
+- **Surface newsletters, even though they're not Forums.** Per
+  `content/RESEARCH.md`, a one-way announcement newsletter doesn't meet
+  the "people actually talk to each other" bar for a `Forum` — correctly
+  excluded for Democracy at Work Institute, L.A. Co-op Lab, and A
+  Bookkeeping Cooperative (all three: Mailchimp-style email/name signups,
+  not discussion). But "how do I stay in the loop with this org" is still
+  a real, wanted answer, just a different kind of one from a Forum.
+  Worth a lightweight way to surface these — e.g. an optional
+  `newsletterUrl` on `Organization` — rather than either stretching
+  `Forum`'s meaning to cover one-way lists or dropping newsletter links
+  on the floor entirely.
