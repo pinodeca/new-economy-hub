@@ -24,6 +24,18 @@ Azure/static export at all.
     Also builds a temporary preview environment for every open PR
     (torn down automatically when the PR closes/merges) — see that
     workflow's `close_pull_request_job`.
+  - **Free tier caps concurrent PR preview environments at 3** (plus the
+    `default`/production one). A 4th simultaneously open PR's deploy job
+    fails outright with `BadRequest: ... already has the maximum number
+    of staging environments` — confirmed 2026-09-08 when 4 research PRs
+    were opened back to back. The PR's own `build` check (lint/typecheck)
+    is unaffected and can still pass/merge; only the preview link is
+    missing until an existing PR closes/merges and frees a slot. Check
+    current usage with `az staticwebapp environment list -n
+    new-economy-hub -g rg-new-economy-hub`. Worth remembering when
+    running a batch of research PRs concurrently — either keep at most 3
+    open at a time, or accept that later ones won't get a preview until
+    an earlier one merges (their content/build is still fine either way).
   - The workflow's `azure_static_web_apps_api_token` is a GitHub Actions
     secret Azure generated and pushed to the repo automatically; not
     something to regenerate manually unless the resource itself changes.
