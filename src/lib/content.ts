@@ -40,3 +40,7 @@ export function getForums(): Forum[] {
 export function getOrganizationBySlug(slug: string): Organization | undefined {
   return getOrganizations().find((org) => org.slug === slug);
 }
+
+export function getOrganizationsBySlug(): Record<string, Organization> {
+  return Object.fromEntries(getOrganizations().map((org) => [org.slug, org]));
+}
