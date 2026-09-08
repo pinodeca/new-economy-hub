@@ -10,7 +10,10 @@ database; content is git-tracked files reviewed via PR. Read
 [content/README.md](content/README.md) before adding or editing any file
 under `content/` — it has the concrete conventions (file format, slugs,
 tags, dedup checking, sourcing) that this file and DATA_MODEL.md don't
-spell out.
+spell out. Read [content/RESEARCH.md](content/RESEARCH.md) before doing
+any organization/event/forum research pass — an organization record
+without checking for its events/forums is an incomplete research pass,
+not a finished one.
 
 ## Conventions specific to this repo
 
