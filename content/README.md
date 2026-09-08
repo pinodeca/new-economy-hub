@@ -2,8 +2,11 @@
 
 This directory is the site's database — see [`../docs/DATA_MODEL.md`](../docs/DATA_MODEL.md)
 for why. Everything here is added or edited via PR; there is no in-app form
-and no admin UI. This file is the practical "how do I add a record" guide;
-`DATA_MODEL.md` is the conceptual one.
+and no admin UI. This file is the practical "how do I add a record" guide
+(file format, slugs, tags, sourcing); `DATA_MODEL.md` is the conceptual
+one; [`RESEARCH.md`](RESEARCH.md) is the methodology one — what a
+research pass has to actually find before it's done. Read that one before
+starting a new organization/event/forum research pass.
 
 ## Before you add anything
 

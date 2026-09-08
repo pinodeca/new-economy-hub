@@ -20,3 +20,8 @@ delete it) once it's actually been thought through and scheduled.
 - **Add a News tab.**
 - **Aggregate a social media stream** — pull in relevant posts from these
   orgs' social accounts into a feed on the site.
+- **Represent recurring things.** `Event.startAt` is a single ISO date —
+  no way to model "office hours every Tuesday" or an ongoing workshop
+  series (found while researching L.A. Co-op Lab, see PR #13). Don't know
+  yet whether the right fix is a recurrence field on `Event` or a
+  different content type entirely.
