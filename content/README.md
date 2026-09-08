@@ -31,10 +31,11 @@ start getting this wrong in practice).
   hand).
 - Slug = lowercase, hyphen-separated, derived from the name
   (`us-federation-of-worker-cooperatives`). Keep it short but unambiguous.
-- `Event.organizationSlug` / `Forum.organizationSlug` must exactly match an
-  existing organization's `slug`. Nothing currently validates this either —
-  a typo silently orphans the reference. Double check it resolves before
-  opening the PR.
+- `Event.organizationSlugs` / `Forum.organizationSlugs` (plural — a
+  co-hosted event or forum can list more than one) must each exactly match
+  an existing organization's `slug`. Nothing currently validates this
+  either — a typo silently orphans the reference. Double check every slug
+  resolves before opening the PR.
 
 ## Tags
 

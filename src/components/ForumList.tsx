@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import {
   GeoFilterBar,
+  OrganizationLinks,
   ProvenanceNote,
   TagList,
   TagMenu,
@@ -51,9 +51,9 @@ export function ForumList({
       ) : (
         <ul className="mt-6 flex flex-col gap-4">
           {filtered.map((forum) => {
-            const org = forum.organizationSlug
-              ? organizationsBySlug[forum.organizationSlug]
-              : undefined;
+            const orgs = (forum.organizationSlugs ?? [])
+              .map((slug) => organizationsBySlug[slug])
+              .filter((org): org is Organization => org !== undefined);
             return (
               <li
                 key={forum.slug}
@@ -81,17 +81,11 @@ export function ForumList({
                   {forum.memberCount !== undefined && (
                     <span>{forum.memberCount.toLocaleString()} members</span>
                   )}
-                  {org && (
+                  {orgs.length > 0 && (
                     <>
                       {forum.memberCount !== undefined && <span aria-hidden>·</span>}
                       <span>
-                        Run by{" "}
-                        <Link
-                          href={`/organizations/${org.slug}`}
-                          className="hover:underline"
-                        >
-                          {org.name}
-                        </Link>
+                        Run by <OrganizationLinks organizations={orgs} />
                       </span>
                     </>
                   )}

@@ -1,6 +1,33 @@
 "use client";
 
-import type { GeoScope, SourceType } from "@/lib/content-types";
+import Link from "next/link";
+import type { GeoScope, Organization, SourceType } from "@/lib/content-types";
+
+// Renders "X", "X and Y", or "X, Y, and Z" with each org linked to its
+// detail page — a co-hosted event/forum can have more than one.
+export function OrganizationLinks({
+  organizations,
+}: {
+  organizations: Organization[];
+}) {
+  return (
+    <>
+      {organizations.map((org, i) => (
+        <span key={org.slug}>
+          {i > 0 &&
+            (i === organizations.length - 1
+              ? organizations.length > 2
+                ? ", and "
+                : " and "
+              : ", ")}
+          <Link href={`/organizations/${org.slug}`} className="hover:underline">
+            {org.name}
+          </Link>
+        </span>
+      ))}
+    </>
+  );
+}
 
 function TagPill({
   active,

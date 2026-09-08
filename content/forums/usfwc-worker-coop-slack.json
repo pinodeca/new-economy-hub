@@ -5,7 +5,7 @@
   "platform": "SLACK",
   "url": "https://www.usworker.coop/connect/",
   "tags": ["worker-cooperatives", "slack", "community"],
-  "organizationSlug": "us-federation-of-worker-cooperatives",
+  "organizationSlugs": ["us-federation-of-worker-cooperatives"],
   "sourceType": "AI_GENERATED",
   "verified": false,
   "geoScope": "US"

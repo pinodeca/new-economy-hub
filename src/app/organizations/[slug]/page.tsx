@@ -20,8 +20,12 @@ export default async function OrganizationDetailPage({
   const org = getOrganizationBySlug(slug);
   if (!org) notFound();
 
-  const events = getEvents().filter((event) => event.organizationSlug === org.slug);
-  const forums = getForums().filter((forum) => forum.organizationSlug === org.slug);
+  const events = getEvents().filter((event) =>
+    event.organizationSlugs?.includes(org.slug),
+  );
+  const forums = getForums().filter((forum) =>
+    forum.organizationSlugs?.includes(org.slug),
+  );
 
   return (
     <div className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 sm:px-10">
