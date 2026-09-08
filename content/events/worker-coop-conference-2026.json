@@ -9,7 +9,7 @@
   "city": "Boston, MA",
   "barrierToEntry": "MEDIUM",
   "tags": ["worker-cooperatives", "conference", "networking"],
-  "organizationSlug": "us-federation-of-worker-cooperatives",
+  "organizationSlugs": ["us-federation-of-worker-cooperatives", "democracy-at-work-institute"],
   "sourceType": "AI_GENERATED",
   "verified": false,
   "geoScope": "US"

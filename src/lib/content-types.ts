@@ -52,7 +52,8 @@ export interface Event extends Provenance, Geography {
   city?: string;
   barrierToEntry: BarrierToEntry;
   tags: string[];
-  organizationSlug?: string;
+  /** Slugs of every hosting/organizing Organization — a co-hosted event lists more than one. */
+  organizationSlugs?: string[];
 }
 
 export interface Forum extends Provenance, Geography {
@@ -64,7 +65,8 @@ export interface Forum extends Provenance, Geography {
   memberCount?: number;
   activityLevel?: number;
   tags: string[];
-  organizationSlug?: string;
+  /** Slugs of every Organization that runs this forum. */
+  organizationSlugs?: string[];
 }
 
 export interface BlogPost {

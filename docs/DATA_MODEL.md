@@ -58,7 +58,7 @@ Next statically renders every page (`output: "export"` in
 `next.config.ts` — see DECISIONS.md). The current implementation
 (`src/lib/content.ts`) is simpler than originally planned here: it reads
 every JSON file in `content/organizations|events|forums/` into a plain
-array and does sorting/filtering/joins (e.g. resolving `organizationSlug`)
+array and does sorting/filtering/joins (e.g. resolving `organizationSlugs`)
 with plain JS — no SQLite involved. That's deliberately the minimum that
 works at today's content volume (low tens of records), not a permanent
 decision.

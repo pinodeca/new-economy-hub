@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import {
   GeoFilterBar,
+  OrganizationLinks,
   ProvenanceNote,
   TagList,
   TagMenu,
@@ -80,9 +80,9 @@ export function EventList({
       ) : (
         <ul className="mt-6 flex flex-col gap-4">
           {filtered.map((event) => {
-            const org = event.organizationSlug
-              ? organizationsBySlug[event.organizationSlug]
-              : undefined;
+            const orgs = (event.organizationSlugs ?? [])
+              .map((slug) => organizationsBySlug[slug])
+              .filter((org): org is Organization => org !== undefined);
             return (
               <li
                 key={event.slug}
@@ -116,17 +116,11 @@ export function EventList({
                   </span>
                   <span aria-hidden>·</span>
                   <span>{barrierLabel[event.barrierToEntry]}</span>
-                  {org && (
+                  {orgs.length > 0 && (
                     <>
                       <span aria-hidden>·</span>
                       <span>
-                        Hosted by{" "}
-                        <Link
-                          href={`/organizations/${org.slug}`}
-                          className="hover:underline"
-                        >
-                          {org.name}
-                        </Link>
+                        Hosted by <OrganizationLinks organizations={orgs} />
                       </span>
                     </>
                   )}
