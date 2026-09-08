@@ -3,7 +3,9 @@
 Status snapshot and the sequence of major work ahead. See
 [PROJECT_BRIEF.md](PROJECT_BRIEF.md) for the why, [DATA_MODEL.md](DATA_MODEL.md)
 for the content shape, and [DECISIONS.md](DECISIONS.md) for why there's no
-database. This file tracks the what's-next, not day-to-day tasks.
+database. This file tracks the what's-next, not day-to-day tasks — for
+untriaged/informal ideas that haven't been scheduled yet, see
+[IDEAS.md](IDEAS.md).
 
 ## Done
 
