@@ -1,9 +1,10 @@
 # Research methodology
 
-`content/README.md` covers the mechanics of adding a record (file format,
-slugs, tags, sourcing). This covers something different: what a research
-pass is actually supposed to produce, and the questions it must answer
-before it counts as done.
+[`../docs/RESEARCH_QUEUE.md`](../docs/RESEARCH_QUEUE.md) lists which
+organizations are waiting for a pass. `content/README.md` covers the
+mechanics of adding a record (file format, slugs, tags, sourcing). This
+covers something different: what a research pass is actually supposed to
+produce, and the questions it must answer before it counts as done.
 
 ## The org is scaffolding, not the point
 
