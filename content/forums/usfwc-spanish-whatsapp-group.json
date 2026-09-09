@@ -1,0 +1,12 @@
+{
+  "slug": "usfwc-spanish-whatsapp-group",
+  "name": "Grupo de WhatsApp en Español (USFWC)",
+  "description": "A Spanish-language WhatsApp group run by the U.S. Federation of Worker Cooperatives as a space for Spanish-speaking cooperativistas to share resources and information with each other. Join by request through USFWC's sign-up form. Distinct from USFWC's Slack workspace, which is primarily English-language.",
+  "platform": "OTHER",
+  "url": "https://info.usworker.coop/form/el-grupo-de-whatsapp-en-espa%C3%B1ol",
+  "tags": ["worker-cooperatives", "community", "spanish-language"],
+  "organizationSlugs": ["us-federation-of-worker-cooperatives"],
+  "sourceType": "AI_GENERATED",
+  "verified": false,
+  "geoScope": "US"
+}
