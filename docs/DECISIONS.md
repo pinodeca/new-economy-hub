@@ -4,6 +4,44 @@ Short log of architectural calls and the reasoning behind them, so later
 readers (human or agent) don't relitigate settled questions without the
 context that settled them. Newest first.
 
+## 2026-09-09: Next 16 — accept Turbopack rather than pin webpack
+
+**Decision**: Upgrade to Next 16.3.4 and run on Turbopack, which Next 16
+makes the default bundler for both `next dev` and `next build`, instead of
+pinning the previous pipeline with `--webpack`. Tailwind stays exactly as
+it was: `@tailwindcss/postcss` plus `postcss.config.mjs`, no bundler flag
+in either npm script.
+
+**Why**: The upgrade was worth doing on its own — it clears the `postcss`
+advisory that `npm audit` had been reporting as accepted-but-unfixable,
+since the fix only ever existed above Next 16. Once upgrading, the real
+question was whether to keep webpack.
+
+Taking the default won because the thing that made Turbopack risky here
+turned out to be obsolete. `CLAUDE.md` carried a warning that Turbopack
+would need `@tailwindcss/turbopack` wired through `next.config.ts`, and
+that mixing the two silently serves unstyled pages. Turbopack now
+processes PostCSS config files natively, so the existing setup needed no
+change — verified rather than assumed, by checking computed styles in a
+browser (`text-2xl` → 24px, `max-w-3xl` → 768px, `rounded-lg` → 8px) and
+confirming the emitted stylesheet actually contains Tailwind utilities.
+Pinning `--webpack` would have meant carrying a flag, and an
+increasingly off-the-beaten-path build, to avoid a problem that no longer
+exists.
+
+**What it gives up**: webpack-specific escape hatches, notably custom Sass
+functions (`sassOptions.functions`), which Turbopack can't execute. This
+repo uses no Sass. `next build --webpack` remains available if Turbopack
+ever causes trouble.
+
+**Also changed by the upgrade**: `eslint-config-next` 16 ships flat configs
+directly, so `eslint.config.mjs` no longer goes through the
+`@eslint/eslintrc` `FlatCompat` bridge — importing it that way now throws
+a circular-structure error rather than working. And Next 16 requires
+`jsx: "react-jsx"` in `tsconfig.json`; the build rewrites the file itself
+if it's set to `preserve`, so that change is committed rather than left to
+reappear on every build.
+
 ## 2026-09-06: No database for v1 — static site + git-based content
 
 **Decision**: No Postgres/HorizonDB. Content (organizations, events,

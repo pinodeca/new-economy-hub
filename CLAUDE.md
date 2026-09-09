@@ -61,16 +61,26 @@ not a finished one.
   at a canary build (16.4.0-canary.12) — the current stable line was on a
   differently-named tag. Before upgrading Next.js, check
   `npm view next dist-tags` and confirm you're looking at an actual
-  stable release, not just trusting `@latest`.
-- **If you ever add `--turbopack` to the `dev`/`build` scripts**, the
-  Tailwind plugin needs to change too: this repo uses
-  `@tailwindcss/postcss` + `postcss.config.mjs` for the default webpack
-  pipeline. Turbopack needs `@tailwindcss/turbopack` instead, wired via
-  `next.config.ts`, not `postcss.config.mjs`. Mixing them up doesn't
-  error — it just silently serves unstyled pages.
-- **A known low-risk `npm audit` finding will persist**: `postcss` is
-  bundled transitively inside Next's own build tooling and only gets
-  fixed by moving to Next 16 (not stable as of this writing). It's a
-  build-time-only exposure (arbitrary CSS/sourcemap file disclosure) —
-  accepted, not missed. Don't burn time re-investigating it; do check
-  whether a newer stable Next release has picked up the fix.
+  stable release, not just trusting `@latest`. As of the Next 16 upgrade
+  this was checked and `latest` was genuinely stable (16.3.4, with the
+  prerelease builds parked on separate `preview`/`beta` tags) — the point
+  is to check, not to assume either answer.
+- **Turbopack is the default bundler now, and the old Tailwind warning
+  here no longer applies.** This note used to say that switching to
+  Turbopack would mean swapping `@tailwindcss/postcss` for
+  `@tailwindcss/turbopack`, wired through `next.config.ts`. That stopped
+  being true in Next 16: Turbopack processes `postcss.config.mjs`
+  natively (see
+  `node_modules/next/dist/docs/01-app/03-api-reference/08-turbopack.md`),
+  so this repo's existing Tailwind setup works unchanged and the `dev`
+  and `build` scripts carry no bundler flag at all. What *is* still true
+  is the failure mode: a broken CSS pipeline doesn't error, it silently
+  serves unstyled pages. So if you touch it, check a computed style in a
+  browser rather than trusting a green build — a build that emits no
+  Tailwind utilities passes just as happily as one that does.
+  `next build --webpack` is the escape hatch if Turbopack ever bites.
+- **The `postcss` npm audit finding is resolved.** It was a build-time-only
+  exposure bundled inside Next's own tooling, unfixable below Next 16 and
+  knowingly accepted for a while. Upgrading to Next 16.3.4 cleared it;
+  `npm audit` reports 0 vulnerabilities. If it comes back, suspect
+  something pinned Next backwards rather than a new advisory.
