@@ -30,6 +30,39 @@ interface Geography {
   countryCode?: string;
 }
 
+/**
+ * The outcome of one of the two questions `content/RESEARCH.md` requires a
+ * research pass to answer. `NONE_FOUND` is a real result, not a gap — the
+ * whole point of recording this is that "checked, nothing there" and "nobody
+ * ever looked" are different, and nothing else in `content/` can tell them
+ * apart.
+ */
+export type ResearchFinding = "ADDED" | "NONE_FOUND" | "FOUND_NOT_REPRESENTABLE";
+
+/**
+ * Evidence that a `content/RESEARCH.md` pass actually happened, and what it
+ * concluded. Absent means the organization has never had one — don't add an
+ * empty block to make that go away.
+ */
+export interface ResearchPass {
+  /** ISO 8601 date the check was made. Findings age; this is how you tell. */
+  checkedAt: string;
+  /** RESEARCH.md question 1: does this org run anything with a date? */
+  events: ResearchFinding;
+  /** RESEARCH.md question 2: anything people can join and talk in? */
+  forums: ResearchFinding;
+  /** URLs actually looked at, so a negative result is auditable, not trusted. */
+  sourcesChecked: string[];
+  /**
+   * Things found that the current schema can't represent — recurring office
+   * hours, rolling booking slots, one-way newsletters. Required when either
+   * finding is `FOUND_NOT_REPRESENTABLE`, so they aren't silently lost.
+   */
+  notRepresentable?: string[];
+  /** Anything else a reviewer would want, e.g. why something was excluded. */
+  notes?: string;
+}
+
 export interface Organization extends Provenance, Geography {
   slug: string;
   name: string;
@@ -39,6 +72,7 @@ export interface Organization extends Provenance, Geography {
   /** 1-5, best-effort signal, not a verified fact. */
   activityLevel?: number;
   memberCount?: number;
+  research?: ResearchPass;
 }
 
 export interface Event extends Provenance, Geography {

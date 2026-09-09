@@ -6,5 +6,15 @@
   "tags": ["community-land-trust", "land-access", "agriculture"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-08",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://www.agrariantrust.org/",
+      "https://www.agrariantrust.org/learning-hub"
+    ],
+    "notes": "Only archived webinar and conference recordings, plus a one-way newsletter signup — no upcoming dated events, and no two-way community platform found anywhere on the site. Backfilled from PR #12."
+  }
 }

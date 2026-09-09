@@ -19,6 +19,14 @@ jobs:
 
       - run: npm ci
 
+      # Content checks run before lint/build so a bad content file fails on its
+      # own named step with a readable message, rather than deep inside a build
+      # log. `npm run build` also runs validate:content via `prebuild`, which is
+      # what protects the Azure deploy — that workflow doesn't run these steps.
+      - run: npm run validate:content
+
+      - run: npm run test:content
+
       - run: npm run lint
 
       - run: npm run build

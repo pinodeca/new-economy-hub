@@ -8,6 +8,23 @@ one; [`RESEARCH.md`](RESEARCH.md) is the methodology one — what a
 research pass has to actually find before it's done. Read that one before
 starting a new organization/event/forum research pass.
 
+## Check your work before opening the PR
+
+```bash
+npm run validate:content
+```
+
+This checks everything this file describes that a machine can check — slugs
+match filenames, `organizationSlugs` actually resolve, `verified` is false,
+tags are lowercase-hyphenated, dates are real dates, research blocks agree
+with the content that exists. It runs in CI, and again via `prebuild`, so
+bad content can't reach a deploy — but running it yourself is faster than
+waiting for a red check.
+
+It doesn't check whether your research is any good. That's what the PR
+review is for, which is exactly why it's worth having the mechanical part
+automated.
+
 ## Before you add anything
 
 **Check for an existing match first.** Full-text/tag search across
@@ -23,22 +40,20 @@ Business").
 
 **JSON, one file per record.** Not Markdown-with-frontmatter — the build
 step (`src/lib/content.ts`) only reads `*.json` files in these directories.
-A `.md` file dropped here will not error; it will just never render
-anywhere. This isn't enforced by any linter yet (worth adding if agents
-start getting this wrong in practice).
+A `.md` file dropped here would never render anywhere — `validate:content`
+fails on one for that reason, since silently vanishing is worse than an
+error.
 
 ## Slugs and filenames
 
 - Filename = `<slug>.json`, and the `slug` field inside must match the
-  filename (no build-time check enforces this yet — keep them in sync by
-  hand).
+  filename (`validate:content` enforces this).
 - Slug = lowercase, hyphen-separated, derived from the name
   (`us-federation-of-worker-cooperatives`). Keep it short but unambiguous.
 - `Event.organizationSlugs` / `Forum.organizationSlugs` (plural — a
   co-hosted event or forum can list more than one) must each exactly match
-  an existing organization's `slug`. Nothing currently validates this
-  either — a typo silently orphans the reference. Double check every slug
-  resolves before opening the PR.
+  an existing organization's `slug`. A typo would silently orphan the
+  reference, so `validate:content` fails on any slug that doesn't resolve.
 
 ## Tags
 
@@ -59,6 +74,42 @@ Every organization/event/forum file must set:
   in doubt about which describes your process.
 - `verified: false`. Always. See [`../CLAUDE.md`](../CLAUDE.md) — merging
   the PR is the verification step, not something you grant yourself.
+
+## Recording the research pass
+
+An organization may carry a `research` block recording what a
+[`RESEARCH.md`](RESEARCH.md) pass looked for and what it concluded:
+
+```json
+"research": {
+  "checkedAt": "2026-09-08",
+  "events": "NONE_FOUND",
+  "forums": "NONE_FOUND",
+  "sourcesChecked": ["https://example.org/", "https://example.org/events"],
+  "notRepresentable": ["Office hours are rolling booking slots, not a fixed date."],
+  "notes": "Their mailing list is one-way, so it doesn't meet the Forum bar."
+}
+```
+
+`events` and `forums` each answer one of RESEARCH.md's two questions with
+`ADDED`, `NONE_FOUND`, or `FOUND_NOT_REPRESENTABLE`. **`NONE_FOUND` is a
+result, not a gap** — that's the entire point of the block. Without it,
+nothing in `content/` distinguishes "we checked and this org genuinely runs
+nothing public" from "nobody has ever looked," and the two get treated the
+same by anyone reading the files later, human or agent.
+
+Rules `validate:content` enforces, so you don't have to remember them:
+
+- `ADDED` requires an actual event/forum in `content/` referencing this org.
+- `NONE_FOUND` requires that no such record exists.
+- `FOUND_NOT_REPRESENTABLE` requires `notRepresentable` to say what was
+  found, so a schema gap can't quietly swallow a real finding.
+- `sourcesChecked` must be non-empty — an unauditable negative is just an
+  assertion.
+
+**Omit the block entirely if you didn't do the pass.** An empty or
+invented one is worse than none: it converts "unknown" into a false
+"checked."
 
 ## Sourcing, for the human reviewer's sake
 

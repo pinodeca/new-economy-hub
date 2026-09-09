@@ -21,6 +21,18 @@ not a finished one.
   Event, or Forum must set `sourceType` correctly and must never set
   `verified: true` — a PR merge is the verification step, not something an
   agent grants itself.
+- **Run `npm run validate:content` before opening a content PR.** It
+  enforces the mechanical half of `content/README.md` (slug/filename
+  agreement, `organizationSlugs` resolving, `verified: false`, tag
+  spelling, real dates, research blocks matching reality) so review can
+  spend its attention on whether the research is any good. It also runs in
+  CI and via `prebuild`, so a mistake can't reach a deploy.
+- **A negative research result must be recorded, not just mentioned.** If
+  you check an organization for events/forums and find none, write that
+  into its `research` block (see `content/RESEARCH.md`) — not only the PR
+  description. Prose in a PR is invisible to the repo, so an org with
+  nothing attached is otherwise indistinguishable from one nobody has
+  looked at.
 - **AI-generated podcast content must be labeled.** Never let
   `PodcastEpisode.aiGenerated: true` ship without a non-null
   `aiDisclosure` string that gets rendered visibly in the UI.
