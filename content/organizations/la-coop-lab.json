@@ -6,5 +6,20 @@
   "tags": ["worker-cooperatives", "cooperative-development", "education"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-08",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://lacooplab.com/what-we-do/",
+      "https://lacooplab.com/summer-26/",
+      "https://lacooplab.com/office-hours-2-2/",
+      "https://lacooplab.com/contact-us/"
+    ],
+    "notRepresentable": [
+      "Office hours are Calendly rolling open-booking slots rather than a fixed recurring time, which a single event date cannot express."
+    ],
+    "notes": "The mailing list is a one-way Mailchimp-style signup, not a discussion space, so it doesn't meet the Forum bar. Backfilled from PR #13."
+  }
 }

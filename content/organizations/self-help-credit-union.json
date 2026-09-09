@@ -7,5 +7,15 @@
   "memberCount": 100000,
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-08",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://www.self-help.org/",
+      "https://cdfi.org/wp-content/uploads/2019/02/Self-Help.pdf"
+    ],
+    "notes": "A retail financial institution rather than a discussion community — no Slack, Discord, or forum found. Their free financial coaching is one-on-one and registration-based, not a group event with a public date, so it doesn't fit `Event` either. Backfilled from PR #14."
+  }
 }

@@ -6,5 +6,20 @@
   "tags": ["solidarity-economy", "worker-cooperatives", "cooperative-business", "financial-services"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-08",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://bookkeeping.coop/home/",
+      "https://bookkeeping.coop/events/",
+      "https://bookkeeping.coop/balance-sheet-fundamentals/",
+      "https://neweconomy.net/member-directory/"
+    ],
+    "notRepresentable": [
+      "Most of the public workshop series recurs across multiple weeks. An event here can only carry a single date, so only the one-session Balance Sheet FUNdamentals workshop could be added."
+    ],
+    "notes": "The mailing list is a one-way Mailchimp-style signup, not a discussion space, so it doesn't meet the Forum bar. Backfilled from PR #11."
+  }
 }

@@ -35,7 +35,7 @@ for that org's own "What We Do" page surfaced office hours, workshops,
 *and* an active mailing list, and none of it made it into the PR, because
 nobody explicitly asked the question.
 
-## Say which case you're in
+## Say which case you're in — in the record, not just the PR
 
 Every research PR's description must make clear which of these happened,
 for each of the two questions above — a reviewer can't tell "checked,
@@ -45,6 +45,22 @@ found nothing" apart from "didn't check" just by looking at a thin PR:
 - Checked and found nothing → say so explicitly and briefly (what you
   looked at) — a stated negative is a real research result, not a gap.
 - Genuinely not checked — don't ship this. Go check first.
+
+**And write it into the organization's `research` block**, not only the PR
+description. See [`README.md`](README.md#recording-the-research-pass) for
+the shape; `npm run validate:content` checks that the block agrees with the
+content that actually exists.
+
+This matters more than it sounds. A PR description is prose in GitHub — the
+repository itself, which is the declared source of truth, can't see it.
+Anything reading `content/` later sees an organization with no events and
+no forums attached and has no way to tell whether that means "checked,
+genuinely runs nothing public" or "never looked." That has already caused a
+wrong call: a status review of this repo reported six organizations as an
+unresearched gap, when two of them (Agrarian Trust, Self-Help Credit Union)
+had been properly checked under this document and correctly found to have
+nothing. The evidence existed — it was just somewhere the repo couldn't
+reach. Four organizations needed research; two were finished work.
 
 ## Known schema gap: recurring things
 

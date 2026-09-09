@@ -9,7 +9,74 @@ import {
   getUpcomingEvents,
 } from "@/lib/content";
 import { formatDateRange } from "@/lib/event-dates";
-import type { Event } from "@/lib/content-types";
+import type { Event, ResearchFinding, ResearchPass } from "@/lib/content-types";
+
+// A research pass that found nothing is a real result, not an empty space —
+// see content/RESEARCH.md. Saying so is more useful to a reader deciding where
+// to spend their time than leaving the page silently blank, and it's the only
+// way to tell "we looked" apart from "nobody has looked yet".
+const eventsClause: Record<ResearchFinding, string> = {
+  ADDED: "found the events listed above",
+  NONE_FOUND: "found no public events",
+  FOUND_NOT_REPRESENTABLE: "found events this site can't list yet",
+};
+
+const forumsClause: Record<ResearchFinding, string> = {
+  ADDED: "found the communities listed above",
+  NONE_FOUND: "found no community to join",
+  FOUND_NOT_REPRESENTABLE: "found a community this site can't list yet",
+};
+
+function ResearchCheck({ research }: { research: ResearchPass }) {
+  return (
+    <section className="mt-10 rounded-lg border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+        Research check
+      </h2>
+      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        Checked {formatDateRange(research.checkedAt)} for ways to get involved:{" "}
+        {eventsClause[research.events]}, and {forumsClause[research.forums]}.
+      </p>
+
+      {research.notRepresentable && research.notRepresentable.length > 0 && (
+        <div className="mt-3">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Found, but this site has no way to show it yet:
+          </p>
+          <ul className="mt-1 list-disc pl-5 text-sm text-zinc-500 dark:text-zinc-500">
+            {research.notRepresentable.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {research.notes && (
+        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-500">{research.notes}</p>
+      )}
+
+      <details className="mt-3">
+        <summary className="cursor-pointer text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300">
+          What was checked ({research.sourcesChecked.length})
+        </summary>
+        <ul className="mt-2 flex flex-col gap-1 pl-1 text-xs text-zinc-500 dark:text-zinc-500">
+          {research.sourcesChecked.map((source) => (
+            <li key={source}>
+              <a
+                href={source}
+                target="_blank"
+                rel="noreferrer"
+                className="break-all hover:underline"
+              >
+                {source}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </section>
+  );
+}
 
 export function generateStaticParams() {
   return getOrganizations().map((org) => ({ slug: org.slug }));
@@ -190,6 +257,8 @@ export default async function OrganizationDetailPage({
           </ul>
         </section>
       )}
+
+      {org.research && <ResearchCheck research={org.research} />}
     </div>
   );
 }

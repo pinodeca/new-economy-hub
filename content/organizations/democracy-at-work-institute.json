@@ -6,5 +6,16 @@
   "tags": ["worker-cooperatives", "cooperative-development", "research"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-08",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://institute.coop/",
+      "https://institute.coop/about",
+      "https://institute.coop/our-story-0"
+    ],
+    "notes": "Co-hosts the annual Worker Co-op Conference with USFWC. No DAWI-run two-way community found — their own signup is a one-way newsletter, which doesn't meet the Forum bar. The Worker Co-op Slack is USFWC's, not DAWI's. Backfilled from PR #10."
+  }
 }

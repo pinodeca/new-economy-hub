@@ -37,6 +37,27 @@ pull request. Every record tracks:
   the PR. There is deliberately no in-app moderation UI yet; the PR review
   itself *is* the verification step.
 
+## Research evidence (`Organization.research`)
+
+An optional `ResearchPass` recording what a `content/RESEARCH.md` pass
+looked for and concluded: `checkedAt`, an `events` and a `forums` finding
+(`ADDED` / `NONE_FOUND` / `FOUND_NOT_REPRESENTABLE`), the `sourcesChecked`
+URLs, and optional `notRepresentable` / `notes`.
+
+The reason this is modeled at all: without it, "checked, this org runs
+nothing public" and "nobody has ever looked" are the same thing in
+`content/` — an organization with no events and no forums attached. The
+distinction lived only in PR descriptions, which is outside the repo and
+therefore invisible to the site and to any agent reading the files. Absence
+of the block means genuinely unresearched; it should never be added
+speculatively to make an organization look done.
+
+`scripts/validate-content.mjs` cross-checks each finding against the
+content that exists, which turns a prose convention into something CI can
+fail on. It's rendered on the organization detail page, because "we looked
+and there's nothing to join here" is useful to a reader deciding where to
+spend their time.
+
 ## Activity signals
 
 `activityLevel` (1–5) and `memberCount` on organizations/forums are
@@ -48,9 +69,10 @@ best-effort signals, not verified facts.
 
 `PodcastEpisode.aiGenerated` + `aiDisclosure` exist so AI-hosted episodes
 can never ship without an explicit, human-reviewed disclosure string
-rendered visibly in the UI. Don't let `aiGenerated: true` ship with no
-`aiDisclosure` — enforce this at build time (reject the build) once the
-build pipeline exists, not just by convention.
+rendered visibly in the UI. This is now enforced rather than conventional:
+`scripts/validate-content.mjs` fails the build on any `content/podcast/`
+episode with `aiGenerated: true` and no `aiDisclosure`. The check is in
+place ahead of the feature, so the first episode can't slip through.
 
 ## Querying at build time
 
