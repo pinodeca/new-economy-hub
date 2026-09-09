@@ -15,6 +15,29 @@ delete it) once it's actually been thought through and scheduled.
   a static 1-5 best-effort number (see DATA_MODEL.md) with no sense of
   *when* an org/forum was last actually active. Want something that
   reflects "still alive" vs. "founded in 2015, hasn't posted since."
+  Two concrete pieces, both of which need the same underlying field —
+  something like a `lastActiveAt` date plus a note on what the evidence
+  was (a dated blog post, an event, a visible social feed):
+  - **Show the most recent content we found, per org, prominently.**
+    Not buried in the research block on the detail page — on the card,
+    next to the name. A reader deciding whether to spend an evening on an
+    org needs "last seen active: March 2024" more than they need a 1-5
+    number, and it's the honest thing to show given how much of this
+    directory is agent-researched. Note this is a different claim from
+    `research.checkedAt`, which says when *we* looked, not when *they*
+    last did anything — a record can be freshly checked and describe a
+    long-dead org, and both dates matter for different reasons.
+  - **Filter by "known active within."** Active in the last 6 months /
+    last year / any time. Same shape as the existing tag and geography
+    pills, so it fits `useContentFilters` without new machinery. Needs a
+    deliberate answer for records with no date at all — hiding them by
+    default silently buries everything researched before the field
+    existed.
+  The Solidarity Economy Association (UK) entry in RESEARCH_QUEUE.md is
+  the motivating case: live site, plausible-looking, newest content seen
+  was 2024, and an archived mirror of the domain exists. Nothing in the
+  current shape would let a reader see that, and nothing would stop a
+  future research pass from re-adding it as though it were thriving.
 - **Make orgs/projects/communities easy to find on social media.** Add
   social links to the Organization (and maybe Forum) content shape.
 - **Add a News tab.**
