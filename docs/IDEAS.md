@@ -49,6 +49,16 @@ delete it) once it's actually been thought through and scheduled.
   while researching L.A. Co-op Lab and A Bookkeeping Cooperative, see PRs
   #13 and #11). Don't know yet whether the right fix is a recurrence
   field on `Event` or a different content type entirely.
+  **This is now the most expensive open gap in the content model, not a
+  theoretical one.** Four organizations hit it, and for at least one it
+  is actively suppressing real content: Cooperation Jackson runs monthly
+  programming and shows zero events, because every one of them recurs.
+  An organization that is genuinely active reads on the site as one that
+  does nothing — the exact misreading `content/RESEARCH.md` exists to
+  prevent, arriving through the schema instead of through a lazy
+  research pass. Worth pulling into ROADMAP.md ahead of further
+  research passes: every additional pass adds more records that quietly
+  understate their orgs.
 - **Surface newsletters, even though they're not Forums.** Per
   `content/RESEARCH.md`, a one-way announcement newsletter doesn't meet
   the "people actually talk to each other" bar for a `Forum` — correctly
@@ -158,3 +168,21 @@ delete it) once it's actually been thought through and scheduled.
   buttons and two of them currently return nothing, which reads as broken
   rather than as young. Generating a visible "here's what we don't cover
   yet" view from the data turns a gap into a contribution request.
+- **Decide what `verified` means, or drop it.** Every record on the site
+  shows "Unverified", because nothing ever flips the flag. The docs are
+  clear that merging the PR *is* the verification step (see CLAUDE.md and
+  `content/README.md`), but that step happens in GitHub and never writes
+  back to the file — so a record the founder read line by line before
+  merging is indistinguishable from one nobody has looked at. That is the
+  same failure mode `content/RESEARCH.md` was written to fix, one level
+  up: a real human judgment that the repo can't see. Two coherent
+  answers, and the choice is a semantics decision, not a bug fix:
+  - **Make the merge flip it** — a CI step or merge hook that sets
+    `verified: true` on files touched by a merged PR. Keeps the flag
+    meaningful, but means a machine writes a claim about human review,
+    which needs to be genuinely true of the review process to be honest.
+  - **Drop the flag** and let `sourceType` carry provenance on its own,
+    since "it's in `main`" already implies a human merged it. Simpler, and
+    nothing on the site currently loses meaning.
+  Whichever way it goes belongs in `docs/DECISIONS.md`, since the current
+  state is the one option that's actively misleading.
