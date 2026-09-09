@@ -8,10 +8,18 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+  # The site is statically exported, so "upcoming events" is baked in at build
+  # time. Rebuild daily so events that have passed drop off the list without
+  # anyone pushing a commit. See docs/INFRASTRUCTURE.md.
+  schedule:
+    - cron: "17 9 * * *"
+  # Manual rebuild, for when the schedule has been disabled or missed.
+  workflow_dispatch:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    # Everything except a PR being closed, which the job below handles.
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
