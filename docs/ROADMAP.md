@@ -10,7 +10,7 @@ untriaged/informal ideas that haven't been scheduled yet, see
 ## Done
 
 - [x] Repo scaffolded: Next.js (TypeScript, App Router, Tailwind), pinned to
-      stable releases (Next 15.5.24).
+      stable releases (Next 16.3.4, on Turbopack — see DECISIONS.md).
 - [x] Homepage + route stubs for Events / Forums / Map / Blog / Podcast.
 - [x] CI on GitHub Actions: install, lint, build — runs on every push/PR to
       `main`.
