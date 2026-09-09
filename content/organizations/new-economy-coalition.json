@@ -8,5 +8,16 @@
   "memberCount": 200,
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-09",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://neweconomy.net/",
+      "https://neweconomy.net/news-and-resources/",
+      "https://neweconomy.net/programs-member-gatherings/"
+    ],
+    "notes": "The events listing's most recent entries are from April 2025 and no upcoming dated event is published. NEC does run an Annual All Member Meeting — virtual since 2022, drawing 175+ people from nearly 100 organizations — but no 2026 date is announced and it is members-only, so there is nothing to list yet; worth re-checking when a date appears. No Slack, Discord, or listserv found: members connect through periodic convenings, seven member-led working groups, a member directory, and a newsletter."
+  }
 }

@@ -6,5 +6,22 @@
   "tags": ["solidarity-economy", "worker-cooperatives", "community-land-trust", "bipoc-led"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-09",
+    "events": "FOUND_NOT_REPRESENTABLE",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://cooperationjackson.org/",
+      "https://cooperationjackson.org/events-calendar",
+      "https://cooperationjackson.org/become-a-member",
+      "https://cooperationjackson.org/announcementsblog/buildandfighteducationalseries"
+    ],
+    "notRepresentable": [
+      "The Build and Fight Formula Educational Series runs the second Tuesday of every month and streams on YouTube and social media — a monthly recurrence a single event date cannot express.",
+      "Membership orientation meetings run the third Saturday of every month.",
+      "The Really Really Free Market recurs periodically, with no 2026 dates published."
+    ],
+    "notes": "Cooperation Jackson clearly runs regular public programming, but the events calendar's most recent entries are from August 2025, so there is no upcoming single-dated event to list — everything current is recurring. Worth re-checking. No Slack, Discord, or forum: only an email updates list, which doesn't meet the Forum bar."
+  }
 }
