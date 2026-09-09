@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProvenanceNote, TagList, geoLabel } from "@/components/ContentMeta";
-import { getEvents, getForums, getOrganizationBySlug, getOrganizations } from "@/lib/content";
+import {
+  getForums,
+  getOrganizationBySlug,
+  getOrganizations,
+  getPastEvents,
+  getUpcomingEvents,
+} from "@/lib/content";
+import { formatDateRange } from "@/lib/event-dates";
+import type { Event } from "@/lib/content-types";
 
 export function generateStaticParams() {
   return getOrganizations().map((org) => ({ slug: org.slug }));
@@ -20,9 +28,9 @@ export default async function OrganizationDetailPage({
   const org = getOrganizationBySlug(slug);
   if (!org) notFound();
 
-  const events = getEvents().filter((event) =>
-    event.organizationSlugs?.includes(org.slug),
-  );
+  const hostedBy = (event: Event) => event.organizationSlugs?.includes(org.slug);
+  const upcomingEvents = getUpcomingEvents().filter(hostedBy);
+  const pastEvents = getPastEvents().filter(hostedBy);
   const forums = getForums().filter((forum) =>
     forum.organizationSlugs?.includes(org.slug),
   );
@@ -80,18 +88,57 @@ export default async function OrganizationDetailPage({
       <TagList tags={org.tags} />
       <ProvenanceNote sourceType={org.sourceType} verified={org.verified} />
 
-      {events.length > 0 && (
+      {upcomingEvents.length > 0 && (
         <section className="mt-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-            Events
+            Upcoming events
           </h2>
           <ul className="mt-4 flex flex-col gap-3">
-            {events.map((event) => (
+            {upcomingEvents.map((event) => (
               <li
                 key={event.slug}
                 className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
               >
-                <h3 className="font-medium text-zinc-950 dark:text-zinc-50">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="font-medium text-zinc-950 dark:text-zinc-50">
+                    {event.url ? (
+                      <a
+                        href={event.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hover:underline"
+                      >
+                        {event.title}
+                      </a>
+                    ) : (
+                      event.title
+                    )}
+                  </h3>
+                  <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {formatDateRange(event.startAt, event.endAt)}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  {event.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {pastEvents.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+            Past events
+          </h2>
+          <ul className="mt-4 flex flex-col gap-2">
+            {pastEvents.map((event) => (
+              <li
+                key={event.slug}
+                className="flex flex-wrap items-baseline justify-between gap-x-4 text-sm"
+              >
+                <span className="text-zinc-600 dark:text-zinc-400">
                   {event.url ? (
                     <a
                       href={event.url}
@@ -104,10 +151,10 @@ export default async function OrganizationDetailPage({
                   ) : (
                     event.title
                   )}
-                </h3>
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                  {event.description}
-                </p>
+                </span>
+                <span className="text-zinc-500 dark:text-zinc-500">
+                  {formatDateRange(event.startAt, event.endAt)}
+                </span>
               </li>
             ))}
           </ul>

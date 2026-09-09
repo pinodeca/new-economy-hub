@@ -7,6 +7,7 @@ import {
   TagList,
   TagMenu,
 } from "@/components/ContentMeta";
+import { formatDateRange } from "@/lib/event-dates";
 import { useContentFilters } from "@/lib/useContentFilters";
 import type { BarrierToEntry, Event, Organization } from "@/lib/content-types";
 
@@ -15,37 +16,6 @@ const barrierLabel: Record<BarrierToEntry, string> = {
   MEDIUM: "Medium barrier to entry",
   HIGH: "High barrier to entry",
 };
-
-const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
-
-// startAt/endAt are date-only ISO strings (see content-types.ts), which
-// `new Date()` parses as UTC midnight — read them back with UTC getters
-// (not toLocaleDateString's local-timezone defaults) so the displayed day
-// doesn't shift for viewers west of UTC.
-function formatDateRange(startAt: string, endAt?: string) {
-  const start = new Date(startAt);
-  const startMonth = MONTHS[start.getUTCMonth()];
-  const startDay = start.getUTCDate();
-  const startYear = start.getUTCFullYear();
-
-  if (!endAt) return `${startMonth} ${startDay}, ${startYear}`;
-
-  const end = new Date(endAt);
-  const endMonth = MONTHS[end.getUTCMonth()];
-  const endDay = end.getUTCDate();
-  const endYear = end.getUTCFullYear();
-
-  if (startYear === endYear && startMonth === endMonth) {
-    return `${startMonth} ${startDay}–${endDay}, ${startYear}`;
-  }
-  if (startYear === endYear) {
-    return `${startMonth} ${startDay} – ${endMonth} ${endDay}, ${startYear}`;
-  }
-  return `${startMonth} ${startDay}, ${startYear} – ${endMonth} ${endDay}, ${endYear}`;
-}
 
 export function EventList({
   events,

@@ -39,6 +39,18 @@ Azure/static export at all.
   - The workflow's `azure_static_web_apps_api_token` is a GitHub Actions
     secret Azure generated and pushed to the repo automatically; not
     something to regenerate manually unless the resource itself changes.
+  - **Also rebuilds on a daily schedule** (`cron: "17 9 * * *"`, ~09:17
+    UTC), plus `workflow_dispatch` for a manual run. This is not
+    decoration: the site is statically exported, so the upcoming/past
+    split on `/events` is computed at *build* time (`utcToday()` in
+    `src/lib/event-dates.ts`). Without a scheduled rebuild, an event that
+    has passed would keep showing as upcoming until somebody happened to
+    push a commit. **Gotcha**: GitHub disables scheduled workflows in
+    repos with no activity for 60 days, and emails the repo owner when it
+    does — if the events list starts looking stale, check that the
+    schedule is still enabled before debugging anything in the code. The
+    footer note on `/events` renders the build date, so a stalled rebuild
+    is visible on the site itself rather than silent.
 
 ## Domains
 

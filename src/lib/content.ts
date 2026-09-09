@@ -9,6 +9,7 @@
 import fs from "fs";
 import path from "path";
 import type { Event, Forum, Organization } from "./content-types";
+import { isPastEvent, utcToday } from "./event-dates";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -43,4 +44,27 @@ export function getOrganizationBySlug(slug: string): Organization | undefined {
 
 export function getOrganizationsBySlug(): Record<string, Organization> {
   return Object.fromEntries(getOrganizations().map((org) => [org.slug, org]));
+}
+
+// Events are split by date at BUILD time — the site is statically exported,
+// so an event only moves from upcoming to past when the site is rebuilt. The
+// scheduled rebuild in .github/workflows/azure-static-web-apps-*.yml is what
+// makes that happen without a push; see docs/INFRASTRUCTURE.md.
+
+export function getUpcomingEvents(): Event[] {
+  const cutoff = utcToday();
+  return getEvents().filter((event) => !isPastEvent(event, cutoff));
+}
+
+/** Most recently finished first — the reverse of the upcoming list's order. */
+export function getPastEvents(): Event[] {
+  const cutoff = utcToday();
+  return getEvents()
+    .filter((event) => isPastEvent(event, cutoff))
+    .reverse();
+}
+
+/** The date this build ran, as a date-only ISO string, for "as of" notes. */
+export function getBuildDate(): string {
+  return new Date().toISOString().slice(0, 10);
 }
