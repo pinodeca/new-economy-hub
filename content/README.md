@@ -6,7 +6,9 @@ and no admin UI. This file is the practical "how do I add a record" guide
 (file format, slugs, tags, sourcing); `DATA_MODEL.md` is the conceptual
 one; [`RESEARCH.md`](RESEARCH.md) is the methodology one — what a
 research pass has to actually find before it's done. Read that one before
-starting a new organization/event/forum research pass.
+starting a new organization/event/forum research pass, and
+[`../docs/RESEARCH_QUEUE.md`](../docs/RESEARCH_QUEUE.md) for the current list
+of candidate organizations waiting for one.
 
 ## Check your work before opening the PR
 

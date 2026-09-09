@@ -82,3 +82,56 @@ delete it) once it's actually been thought through and scheduled.
   goal, not the data-model gap in **Find local efforts** above; the orgs
   can be added under the existing `US` geo-scope today, they just won't
   be filterable by city until that lands.
+- **No free-text search.** The list pages have tag and geography filter
+  pills (`useContentFilters`), which only work if you already know the
+  vocabulary — there's no way to type "New Orleans" or "land trust" and
+  see what comes back. A build-time JSON index filtered client-side stays
+  inside the static-export constraint; no server needed.
+- **Nothing on the homepage answers "what can I join this week?"** The
+  brief promises a "start here" path and the fastest way to get involved,
+  but the homepage is four static section cards — the soonest event is
+  two clicks away. Consider surfacing the next few upcoming low-barrier
+  events directly on the homepage.
+- **`barrierToEntry` is displayed but not filterable.** `EventList` shows
+  the label on each event; `useContentFilters` only handles tag and
+  geography. "Low barrier only" is the one filter closest to the site's
+  actual pitch (open to newcomers, free/cheap, virtual-friendly) and it's
+  the one you can't apply.
+- **"AI-generated - Unverified" has nowhere to link.** `ProvenanceNote`
+  puts that label on every card, deliberately (see DATA_MODEL.md), but a
+  reader has no way to find out what it means, who verifies, or how. A
+  short public methodology page — the reader-facing version of
+  `content/RESEARCH.md` — that the label links to would turn a cryptic
+  disclaimer into a reason to trust the site. Pairs naturally with the
+  under-construction notice.
+- **The research block is invisible in list views.** Org detail pages
+  render "checked on <date>, found no events, no forums" — but in the map
+  list, an org that was checked and genuinely runs nothing looks exactly
+  like one nobody has researched. That's the same confusion
+  `content/RESEARCH.md` exists to prevent inside the repo, reproduced in
+  the UI. A small "checked <date>" line on the card would fix it.
+- **No sitemap, robots, or per-page metadata.** Only `layout.tsx` and the
+  organization detail route set metadata, so `/events`, `/forums`, `/map`,
+  and `/blog` all share the generic site title in search results and link
+  previews. There's no `sitemap.ts`, no `robots.ts`, and no OG image.
+  All of it is static-export-friendly and cheap.
+- **Publish events as iCal and/or RSS.** Static files generated at build
+  time, no backend — it fits the export constraint exactly, and it gives a
+  concrete answer to "how do I keep track of this without checking the
+  site." Also a partial answer to the newsletter question above.
+- **A link-rot checker that opens PRs.** Found while compiling
+  `RESEARCH_QUEUE.md` on 2026-09-09: Earthworker Cooperative's
+  `earthworkercooperative.com.au` now 301s to `earthworker.coop`, and
+  `bccm.coop` returns 403 to automated fetching. URLs in `content/` will
+  rot the same way. A scheduled agent that re-checks every URL and opens a
+  PR when one moves or dies is exactly the propose-and-a-human-approves
+  shape CLAUDE.md asks automation to take — and it needs no infrastructure
+  beyond CI.
+- **Make empty states an invitation.** "No forums yet." and "Nothing
+  coming up right now." are dead ends today. They're the highest-intent
+  moment on the site — someone looked for something and found nothing — so
+  they're the best place to point at the repo and ask for a suggestion.
+- **Show coverage gaps on purpose.** The geography filter renders three
+  buttons and two of them currently return nothing, which reads as broken
+  rather than as young. Generating a visible "here's what we don't cover
+  yet" view from the data turns a gap into a contribution request.
