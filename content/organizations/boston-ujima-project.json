@@ -6,5 +6,20 @@
   "tags": ["solidarity-economy", "community-investment", "cooperative-business", "bipoc-led"],
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-09",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://www.ujimaboston.com/",
+      "https://www.ujimaboston.com/events",
+      "https://www.ujimaboston.com/join"
+    ],
+    "notRepresentable": [
+      "#UjimaWednesdays runs every Wednesday at 6pm, and Biplaw Mondays open restaurant office hours run weekly. A single event date cannot express a weekly cadence, so only specific dated instances are listed.",
+      "Ujima Cafe is a twice-monthly series; the same limitation applies."
+    ],
+    "notes": "Members-only member-team meetings (Coalitions & Policy, Anchor Institution Organizing, Publications) were found and deliberately left out as not open to newcomers. No Slack, Discord, or forum: members engage through in-person and hybrid meetings plus a one-way newsletter, which doesn't meet the Forum bar."
+  }
 }

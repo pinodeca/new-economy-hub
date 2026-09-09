@@ -7,5 +7,16 @@
   "memberCount": 2000,
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-09",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://chcany.org/",
+      "https://chcany.org/careers/",
+      "https://chcany.org/2026-chca-care-giver-training-schedule/"
+    ],
+    "notes": "A worker-owned home care employer rather than a convening organization — participation runs through employment, not events. Its dated 2026 caregiver training schedule was checked and deliberately excluded: those are onboarding and certification classes for people being hired, not public events anyone can attend. No community platform of any kind, and no newsletter."
+  }
 }

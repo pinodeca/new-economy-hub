@@ -8,5 +8,19 @@
   "memberCount": 450,
   "sourceType": "AI_GENERATED",
   "verified": false,
-  "geoScope": "US"
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-09-09",
+    "events": "ADDED",
+    "forums": "ADDED",
+    "sourcesChecked": [
+      "https://www.usworker.coop/connect/",
+      "https://www.usworker.coop/calendar/",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=873"
+    ],
+    "notRepresentable": [
+      "USFWC's peer network and council meetings (Cannabis, Media, Black Cooperator, Union Co-ops, Racial & Economic Justice, and the Spanish-language Immigrant Movement council) recur monthly, which a single event date cannot express. They are also oriented to existing members rather than newcomers."
+    ],
+    "notes": "USFWC's records predate content/RESEARCH.md, so this is its first documented pass rather than new discovery. It found two things the seed content had missed: the Spanish-language WhatsApp group listed alongside the Slack on the same Connect page, and the Worker Cooperative Startup Webinar — the one entry on a ten-item calendar explicitly open to anyone rather than to members."
+  }
 }
