@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-const sections = [
+const sections: {
+  href: string;
+  title: string;
+  description: string;
+  comingSoon?: boolean;
+}[] = [
   {
     href: "/events",
     title: "Events & meetings",
@@ -21,6 +26,7 @@ const sections = [
   {
     href: "/blog",
     title: "Blog",
+    comingSoon: true,
     description: "Short write-ups on specific communities and projects.",
   },
 ];
@@ -62,8 +68,15 @@ export default function Home() {
               href={section.href}
               className="flex flex-col gap-2 rounded-lg border border-zinc-200 bg-white p-5 transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
             >
-              <span className="font-medium text-zinc-950 dark:text-zinc-50">
-                {section.title}
+              <span className="flex items-center gap-2">
+                <span className="font-medium text-zinc-950 dark:text-zinc-50">
+                  {section.title}
+                </span>
+                {section.comingSoon ? (
+                  <span className="rounded-full border border-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                    Coming soon
+                  </span>
+                ) : null}
               </span>
               <span className="text-sm text-zinc-600 dark:text-zinc-400">
                 {section.description}
