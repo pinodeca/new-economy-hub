@@ -1,9 +1,12 @@
 # Ideas / backlog
 
-Informal, untriaged list of things worth thinking about — lower commitment
-than a [ROADMAP.md](ROADMAP.md) line item, lower ceremony than opening an
-Issue. Add a line whenever something comes up; move it to ROADMAP.md (or
-delete it) once it's actually been thought through and scheduled.
+Informal, untriaged list of things worth thinking about — lower ceremony
+than opening an Issue. Add a line whenever something comes up; move it to
+[TODO.md](TODO.md) (or delete it) once the thinking is finished and only the
+doing is left.
+
+There is deliberately no roadmap: work gets picked up by interest, not by
+sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 
 - **Find local efforts.** Geography matters more when someone wants to
   actually show up in person than when they're fine joining remotely.
@@ -56,9 +59,9 @@ delete it) once it's actually been thought through and scheduled.
   An organization that is genuinely active reads on the site as one that
   does nothing — the exact misreading `content/RESEARCH.md` exists to
   prevent, arriving through the schema instead of through a lazy
-  research pass. Worth pulling into ROADMAP.md ahead of further
-  research passes: every additional pass adds more records that quietly
-  understate their orgs.
+  research pass. Doing it before more research passes land is now on
+  [TODO.md](TODO.md); the design call (recurrence field vs. separate
+  content type) is still open and still lives here.
 - **Surface newsletters, even though they're not Forums.** Per
   `content/RESEARCH.md`, a one-way announcement newsletter doesn't meet
   the "people actually talk to each other" bar for a `Forum` — correctly
@@ -93,8 +96,8 @@ delete it) once it's actually been thought through and scheduled.
   have (see DECISIONS.md) — so either a third-party embed
   (Giscus/Utterances back onto GitHub Discussions, or a hosted comment
   service) or the same "we need a write endpoint" decision already parked
-  under **Public submissions** in ROADMAP.md. Worth resolving those two
-  together rather than separately.
+  under **Public submissions** below. Worth resolving those two together
+  rather than separately.
 - **Say that the site is new and under construction.** It was created early
   September 2026 (first commit 2026-09-06) and the directory is visibly
   thin — a reader who lands on a near-empty section should know it's
@@ -130,9 +133,10 @@ delete it) once it's actually been thought through and scheduled.
   geography. "Low barrier only" is the one filter closest to the site's
   actual pitch (open to newcomers, free/cheap, virtual-friendly) and it's
   the one you can't apply.
-- **"AI-generated - Unverified" has nowhere to link.** `ProvenanceNote`
-  puts that label on every card, deliberately (see DATA_MODEL.md), but a
-  reader has no way to find out what it means, who verifies, or how. A
+- **The provenance label has nowhere to link.** `ProvenanceNote` puts a
+  source label on every card, deliberately (see DATA_MODEL.md), but a
+  reader has no way to find out what "AI-generated" means here, or how the
+  content gets checked before it lands. A
   short public methodology page — the reader-facing version of
   `content/RESEARCH.md` — that the label links to would turn a cryptic
   disclaimer into a reason to trust the site. Pairs naturally with the
@@ -168,21 +172,33 @@ delete it) once it's actually been thought through and scheduled.
   buttons and two of them currently return nothing, which reads as broken
   rather than as young. Generating a visible "here's what we don't cover
   yet" view from the data turns a gap into a contribution request.
-- **Decide what `verified` means, or drop it.** Every record on the site
-  shows "Unverified", because nothing ever flips the flag. The docs are
-  clear that merging the PR *is* the verification step (see CLAUDE.md and
-  `content/README.md`), but that step happens in GitHub and never writes
-  back to the file — so a record the founder read line by line before
-  merging is indistinguishable from one nobody has looked at. That is the
-  same failure mode `content/RESEARCH.md` was written to fix, one level
-  up: a real human judgment that the repo can't see. Two coherent
-  answers, and the choice is a semantics decision, not a bug fix:
-  - **Make the merge flip it** — a CI step or merge hook that sets
-    `verified: true` on files touched by a merged PR. Keeps the flag
-    meaningful, but means a machine writes a claim about human review,
-    which needs to be genuinely true of the review process to be honest.
-  - **Drop the flag** and let `sourceType` carry provenance on its own,
-    since "it's in `main`" already implies a human merged it. Simpler, and
-    nothing on the site currently loses meaning.
-  Whichever way it goes belongs in `docs/DECISIONS.md`, since the current
-  state is the one option that's actively misleading.
+
+## Carried over from the old roadmap
+
+These were the "later / not yet scoped in detail" items in `ROADMAP.md`
+before that file was deleted (see DECISIONS.md). None of them were ever
+scheduled, which is precisely why they belong here rather than in a plan.
+
+- **Public submissions** — people suggesting events/orgs/forums. This is
+  the point where a live write endpoint of *some* kind becomes necessary
+  again, since a form has to write somewhere. Worth reconsidering a
+  database at that point rather than before, and not before the
+  agent-populated directory proves useful. Overlaps directly with the
+  reader-participation question above — same wall, arrived at from two
+  directions.
+- **Semantic dedup** for agent-sourced entries, if plain text matching
+  turns out not to be good enough — look at the `sqlite-vec` extension
+  before reaching for a hosted vector database (see DECISIONS.md).
+- **Blog** — human-authored, no agent involvement planned for the content
+  itself, though agents may assist research. The homepage card now says
+  "coming soon" rather than implying it exists.
+- **Podcast** — human by default; any AI-generated episode requires a
+  visible, human-reviewed AI disclosure (`PodcastEpisode.aiDisclosure`)
+  before publishing. There isn't even a route stub for this yet.
+- **Operational agents**: deploy automation, uptime/error monitoring with
+  human-approval-gated fixes, periodic site-stats reports to the founder.
+  The link-rot checker above is the smallest useful version of this and a
+  reasonable first one to build.
+- **Country-specific sub-sections** spinning out of the `COUNTRY`
+  geo-scope bucket, if and when any one country has enough content to
+  warrant it. Nothing is close: `COUNTRY` currently holds zero records.

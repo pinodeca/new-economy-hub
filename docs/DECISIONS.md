@@ -87,8 +87,8 @@ critical path now. Worth revisiting if: data volume genuinely grows past
 what static generation handles comfortably, dedup quality becomes a real
 problem SQLite can't solve, or public submissions get built (which need a
 live write endpoint of *some* kind, database or otherwise) and Postgres
-ends up being the natural place to land that data. See
-`docs/ROADMAP.md`.
+ends up being the natural place to land that data. The conditions are
+also noted under **Public submissions** in `docs/IDEAS.md`.
 
 **What got reverted to get here**: `prisma/schema.prisma`,
 `prisma7.config.ts`, the `@prisma/client`/`prisma` npm packages, and the
@@ -96,3 +96,41 @@ Prisma-fetched agent-skill docs under `.agents/skills/` and
 `.claude/skills/` were all removed. The schema modeling itself wasn't
 wasted — it's carried forward as plain TypeScript types in
 `src/lib/content-types.ts`.
+
+## No roadmap
+
+**Decision (2026-09-09)**: `docs/ROADMAP.md` is deleted. Planning now lives
+in two files — [`IDEAS.md`](IDEAS.md) for things still being thought about,
+and [`TODO.md`](TODO.md) for things where the thinking is finished and only
+the doing is left. An item moves from one to the other when a call gets
+made.
+
+**Why**: the roadmap described a sequencing discipline the project doesn't
+actually have. Its "Next, in order" list was four numbered steps that were
+all finished, and the real process is the founder using the site himself and
+picking up whatever catches his interest from a much longer list of ideas. A
+document that implies committed order when the order isn't committed is
+worse than no document: it goes stale silently, and it makes an honest
+working style look like a failure to execute.
+
+This is not a claim that roadmaps are bad — it's that this project is one
+person working by interest, with no dependencies on anyone else's schedule
+and nothing being promised to anyone. If that changes (more contributors,
+funding, anything with a date attached to it), a roadmap becomes worth its
+upkeep again and can come back.
+
+**What was kept**: the "later / not yet scoped in detail" items moved to
+`IDEAS.md` under "Carried over from the old roadmap"; the out-of-scope list
+became the section below. The "Done" section was dropped — git history and
+the running site both record that better than a hand-maintained list.
+
+## Explicitly out of scope for now
+
+- Payments / paid membership.
+- User accounts.
+
+Both were listed in the old roadmap and remain true. They are recorded here
+rather than in `IDEAS.md` because they're decisions about what this project
+*isn't*, which is exactly what this file is for — an idea list is where
+things go to be reconsidered, and neither of these is currently up for
+reconsideration.
