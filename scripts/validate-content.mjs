@@ -102,15 +102,17 @@ function checkCommon(file, r, expectedSlug, seenSlugs) {
 
   if (!isNonEmptyString(r.description)) error(file, "missing `description`");
 
-  // Provenance. CLAUDE.md treats these as non-negotiable: merging the PR is
-  // the verification step, so no agent-authored record may arrive verified.
+  // Provenance. CLAUDE.md treats this as non-negotiable.
   if (!SOURCE_TYPES.includes(r.sourceType)) {
     error(file, `\`sourceType\` must be one of ${SOURCE_TYPES.join(", ")} (got ${JSON.stringify(r.sourceType)})`);
   }
-  if (r.verified !== false) {
+  // Removed on purpose, so reject it rather than silently ignore it: an agent
+  // working from older docs or habit would otherwise reintroduce a claim the
+  // site no longer reads, and no check would notice.
+  if ("verified" in r) {
     error(
       file,
-      "`verified` must be false — merging the PR is the verification step, an agent must never grant it (see CLAUDE.md)",
+      "`verified` was removed from the data model — the project runs no verification process for it to describe (see docs/DECISIONS.md)",
     );
   }
 

@@ -97,7 +97,6 @@ export function ForumList({
                 />
                 <ProvenanceNote
                   sourceType={forum.sourceType}
-                  verified={forum.verified}
                 />
               </li>
             );

@@ -26,16 +26,17 @@ This is a filterable attribute, not separate directories or routes, so a
 country can be split into its own section later purely by adding UI/routing
 on top of the existing `COUNTRY` + `countryCode` filter.
 
-## Provenance (`sourceType` / `verified`)
+## Provenance (`sourceType`)
 
 Events/orgs/forums are expected to be populated mostly by AI agents via
-pull request. Every record tracks:
+pull request. Every record tracks `sourceType`:
+`AI_GENERATED | AI_ASSISTED | HUMAN`, rendered on every card so a reader
+knows who wrote it.
 
-- `sourceType`: `AI_GENERATED | AI_ASSISTED | HUMAN`
-- `verified`: defaults to `false`. An agent must never set this to `true`
-  on its own output — that's a human action, exercised by approving/merging
-  the PR. There is deliberately no in-app moderation UI yet; the PR review
-  itself *is* the verification step.
+There used to be a `verified` flag as well. It was removed on 2026-09-09
+because no verification process stood behind it — see
+[DECISIONS.md](DECISIONS.md). A record being in `main` means a human
+merged the PR, nothing more; the site doesn't claim otherwise.
 
 ## Research evidence (`Organization.research`)
 

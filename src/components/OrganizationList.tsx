@@ -95,7 +95,6 @@ export function OrganizationList({
               />
               <ProvenanceNote
                 sourceType={org.sourceType}
-                verified={org.verified}
               />
             </li>
           ))}

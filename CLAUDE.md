@@ -18,12 +18,14 @@ not a finished one.
 ## Conventions specific to this repo
 
 - **Provenance is not optional.** Any content file for an Organization,
-  Event, or Forum must set `sourceType` correctly and must never set
-  `verified: true` — a PR merge is the verification step, not something an
-  agent grants itself.
+  Event, or Forum must set `sourceType` honestly — `AI_GENERATED` when an
+  agent researched and wrote it. There is no `verified` flag: it was
+  removed because the project runs no verification process it could
+  describe (see `docs/DECISIONS.md`). Don't reintroduce it, or any other
+  field claiming a record has been checked beyond being merged.
 - **Run `npm run validate:content` before opening a content PR.** It
   enforces the mechanical half of `content/README.md` (slug/filename
-  agreement, `organizationSlugs` resolving, `verified: false`, tag
+  agreement, `organizationSlugs` resolving, a valid `sourceType`, tag
   spelling, real dates, research blocks matching reality) so review can
   spend its attention on whether the research is any good. It also runs in
   CI and via `prebuild`, so a mistake can't reach a deploy.

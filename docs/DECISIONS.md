@@ -4,6 +4,27 @@ Short log of architectural calls and the reasoning behind them, so later
 readers (human or agent) don't relitigate settled questions without the
 context that settled them. Newest first.
 
+## 2026-09-09: Remove the `verified` flag
+
+**Decision**: Drop `verified` from `Provenance` entirely — from the type,
+every content file, the validator, and the "AI-generated · Unverified"
+line on every card. `sourceType` stays and is still shown.
+
+**Why**: The flag described a process that doesn't exist. The founder
+isn't running a verification standard they'd stand behind, so every
+record was permanently `false` and "Unverified" was a label with no path
+to ever reading anything else. The original framing — "the PR merge *is*
+the verification step" — made it worse: if merging verifies, then every
+record in `main` is verified and the flag should read `true`, which
+nobody wanted to claim. `sourceType` already tells a reader who wrote a
+record, and "it's in `main`" already tells them a human merged it.
+
+**What it gives up**: a place to record a real verification later. That's
+fine — if more people and an actual standard show up, the field can come
+back then, meaning something specific. The validator now *rejects* a
+`verified` key rather than ignoring it, so it can't drift back in through
+habit or stale docs before that decision is made on purpose.
+
 ## 2026-09-09: Next 16 — accept Turbopack rather than pin webpack
 
 **Decision**: Upgrade to Next 16.3.4 and run on Turbopack, which Next 16

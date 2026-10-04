@@ -153,7 +153,7 @@ export default async function OrganizationDetailPage({
       </div>
 
       <TagList tags={org.tags} />
-      <ProvenanceNote sourceType={org.sourceType} verified={org.verified} />
+      <ProvenanceNote sourceType={org.sourceType} />
 
       {upcomingEvents.length > 0 && (
         <section className="mt-10">
