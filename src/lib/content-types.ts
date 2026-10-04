@@ -75,6 +75,53 @@ export interface Organization extends Provenance, Geography {
   research?: ResearchPass;
 }
 
+export type Weekday = "MO" | "TU" | "WE" | "TH" | "FR" | "SA" | "SU";
+
+/**
+ * The cadences the site can compute a next date for. Deliberately small —
+ * it covers everything research passes have actually hit (weekly, every
+ * other week, "second Tuesday of the month") and nothing speculative. A
+ * cadence this can't express still gets listed; it just omits `rule` and
+ * relies on `Recurrence.schedule`.
+ */
+export type RecurrenceRule =
+  | {
+      frequency: "WEEKLY";
+      weekday: Weekday;
+      /** Every N weeks, counted from `Event.startAt`. Defaults to 1. */
+      interval?: number;
+    }
+  | {
+      frequency: "MONTHLY";
+      weekday: Weekday;
+      /** 1-4 for "first".."fourth", -1 for "last". */
+      weekOfMonth: 1 | 2 | 3 | 4 | -1;
+    };
+
+/**
+ * Makes an Event a repeating one (see docs/DECISIONS.md). On a recurring
+ * event, `startAt` is a known occurrence the series runs from — and must
+ * match `rule` when there is one — and `endAt`, if set, is the last session
+ * of a finite series. With no `endAt` the event stays upcoming until someone
+ * removes it, which is why `confirmedAt` exists.
+ */
+export interface Recurrence {
+  /**
+   * Plain-language cadence, shown to readers as-is, e.g. "Every Wednesday,
+   * 6pm ET". Always required: it's the only description for cadences `rule`
+   * can't express, and it carries the time of day, which `startAt` doesn't.
+   */
+  schedule: string;
+  /** When present, the site computes and shows the next date. */
+  rule?: RecurrenceRule;
+  /**
+   * ISO date the cadence was last confirmed on the organization's own site.
+   * A one-off event goes stale on its own date; a recurring one can quietly
+   * stop, and this is the only way to tell how old the claim is.
+   */
+  confirmedAt: string;
+}
+
 export interface Event extends Provenance, Geography {
   slug: string;
   title: string;
@@ -82,6 +129,7 @@ export interface Event extends Provenance, Geography {
   url?: string;
   startAt: string; // ISO 8601
   endAt?: string;
+  recurrence?: Recurrence;
   isVirtual: boolean;
   city?: string;
   barrierToEntry: BarrierToEntry;

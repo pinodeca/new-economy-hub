@@ -82,6 +82,24 @@ const cases = [
   ["malformed JSON", () => writeRaw("content/organizations/agrarian-trust.json", "{ not json"), 1, "invalid JSON"],
   ["endAt before startAt", mutate(EVENT, (e) => { e.endAt = "2026-09-01"; }), 1, "before `startAt`"],
   ["impossible calendar date", mutate(EVENT, (e) => { e.startAt = "2026-02-31"; }), 1, "startAt"],
+  // Recurring events. 2026-10-13 is the second Tuesday of October 2026.
+  ["recurrence with no schedule", mutate(EVENT, (e) => { e.recurrence = { confirmedAt: "2026-09-01" }; }), 1, "recurrence.schedule"],
+  ["recurrence with no confirmedAt", mutate(EVENT, (e) => { e.recurrence = { schedule: "Monthly" }; }), 1, "confirmedAt"],
+  ["recurrence startAt off its rule", mutate(EVENT, (e) => {
+    e.startAt = "2026-10-14"; delete e.endAt;
+    e.recurrence = { schedule: "Second Tuesday", confirmedAt: "2026-09-01", rule: { frequency: "MONTHLY", weekday: "TU", weekOfMonth: 2 } };
+  }), 1, "isn't a date"],
+  ["unsupported recurrence frequency", mutate(EVENT, (e) => {
+    e.recurrence = { schedule: "Daily", confirmedAt: "2026-09-01", rule: { frequency: "DAILY", weekday: "TU" } };
+  }), 1, "WEEKLY or MONTHLY"],
+  ["valid monthly recurrence passes", mutate(EVENT, (e) => {
+    e.startAt = "2026-10-13"; delete e.endAt;
+    e.recurrence = { schedule: "Second Tuesday of every month, 6pm CT", confirmedAt: "2026-09-01", rule: { frequency: "MONTHLY", weekday: "TU", weekOfMonth: 2 } };
+  }), 0, null],
+  ["valid last-weekday recurrence passes", mutate(EVENT, (e) => {
+    e.startAt = "2026-10-29"; delete e.endAt;
+    e.recurrence = { schedule: "Last Thursday", confirmedAt: "2026-09-01", rule: { frequency: "MONTHLY", weekday: "TH", weekOfMonth: -1 } };
+  }), 0, null],
   ["invalid forum platform", mutate(FORUM, (f) => { f.platform = "TELEGRAM"; }), 1, "platform"],
 
   // The research block — the checked-vs-never-checked distinction itself.

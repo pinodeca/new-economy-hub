@@ -38,7 +38,7 @@ rather than add a seventh worker-co-op development org.
 | U.S. Solidarity Economy Network | https://ussen.org/ | The US national SSE network and RIPESS's US member — a hub connecting much of the rest of this list | Member signup plus a listserv (check whether the listserv is two-way — if so it clears the Forum bar) |
 | Grassroots Economic Organizing (GEO) | https://geo.coop/ | Worker-owned media collective covering this space; a discovery source for future passes as much as a record | — |
 | Platform Cooperativism Consortium | https://platform.coop/ | Platform co-ops and the digital economy — a sector with zero coverage today; network spans 60+ countries | Runs conferences and an annual fellowship program |
-| Sustainable Economies Law Center | https://www.theselc.org/ | Legal infrastructure for co-ops, land trusts, worker ownership | Active events calendar, incl. recurring "Legal Cafe" sessions — likely hits the recurring-events schema gap |
+| Sustainable Economies Law Center | https://www.theselc.org/ | Legal infrastructure for co-ops, land trusts, worker ownership | Active events calendar, incl. recurring "Legal Cafe" sessions — a natural `Event.recurrence` case |
 | NCBA CLUSA | https://ncbaclusa.coop/ | The cross-sector US co-op association, not worker-co-op-specific | `/events/`; annual IMPACT Conference |
 | ICA Group | https://ica-group.org/ | Oldest US worker-co-op development nonprofit; frequent partner of orgs already indexed | URL **not yet verified** — confirm before the pass |
 

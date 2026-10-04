@@ -19,8 +19,8 @@ stops there has done the easy, low-value half of the job.
 questions**, not just researched the org's own mission/history/scale:
 
 1. **Does this org run anything with a date?** A conference, a recurring
-   meetup, office hours, a workshop series. If yes, add it as an `Event`
-   (see the schema note below for what doesn't fit yet).
+   meetup, office hours, a workshop series. If yes, add it as an `Event` —
+   recurring ones included (see "Recurring things" below).
 2. **Does it run anything people can join and talk in?** A Slack,
    Discord, mailing list, or forum — something two-way, where people
    actually interact, not a one-way announcement channel. A newsletter
@@ -63,15 +63,25 @@ had been properly checked under this document and correctly found to have
 nothing. The evidence existed — it was just somewhere the repo couldn't
 reach. Four organizations needed research; two were finished work.
 
-## Known schema gap: recurring things
+## Recurring things
 
-`Event.startAt` is a single ISO date — it has no way to represent
-"office hours every Tuesday" or an ongoing workshop series. Don't force a
-recurring thing into a single dated `Event` (picking one arbitrary
-occurrence would be misleading) and don't drop it either — flag it in the
-PR description as found-but-not-yet-representable, so it isn't silently
-lost, and note it in `docs/IDEAS.md` if it isn't already there. This is a
-real content-model gap, not something to solve ad hoc per-PR.
+A recurring meetup, a monthly education series, or a multi-week workshop is
+**one** `Event` with a `recurrence` block — not one file per occurrence, and
+not a single arbitrary occurrence standing in for the series. See
+[`README.md`](README.md#recurring-events) for the shape. This used to be a
+schema gap that suppressed real content — Cooperation Jackson ran monthly
+programming and showed zero events — so a recurring thing you find is now
+an `ADDED` finding like any other.
+
+What *still* doesn't fit, and stays `FOUND_NOT_REPRESENTABLE` with a
+`notRepresentable` line:
+
+- **Rolling booking** (a Calendly link for office hours). There's no time
+  a reader can show up; it's a way to contact the org, not an event.
+- **"Periodically," with no cadence and no published dates.** If you can't
+  tell a reader roughly when, it isn't listable yet. A cadence the rule
+  can't compute ("twice a month, dates on the calendar") is fine — omit
+  `rule` and say it in `schedule`.
 
 ## PR granularity
 

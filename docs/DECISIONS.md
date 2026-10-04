@@ -4,6 +4,37 @@ Short log of architectural calls and the reasoning behind them, so later
 readers (human or agent) don't relitigate settled questions without the
 context that settled them. Newest first.
 
+## 2026-10-04: Recurring events are a field on `Event`, not a new type
+
+**Decision**: Add an optional `recurrence` block to `Event` — a required
+plain-language `schedule`, an optional machine-readable `rule` (weekly,
+every N weeks, or nth/last weekday of the month), and a required
+`confirmedAt` date. Rolling-booking office hours and dateless "periodic"
+things stay out of scope.
+
+**Why**: Four organizations' research passes hit this, and it was
+suppressing real content: Cooperation Jackson runs monthly programming and
+showed zero events. A separate content type was the alternative, and lost
+because a reader asks one question of both — "what can I show up to?" —
+and every other `Event` field (hosts, city vs. virtual, barrier to entry,
+tags, geography) applies unchanged. A second type would duplicate all of
+that and add a third list to the events page and every org page.
+
+The `rule` is deliberately tiny rather than RFC 5545 RRULE: it covers
+every cadence actually found (every Wednesday; second Tuesday; third
+Saturday; monthly councils) and nothing speculative, and a cadence it can't
+express still lists — `schedule` alone, shown as "Recurring." `schedule`
+is required even when `rule` is present because it carries the time of day,
+which the date-only `startAt` can't.
+
+**What it gives up**: automatic expiry. A one-off event drops off the site
+on its own date; an open-ended recurring one lists until someone removes
+it, even if the org quietly stopped. `confirmedAt` is shown on the card,
+and `validate:content` warns once it's 90 days old — a warning, not a
+failure, so a stale schedule prompts a re-check without blocking deploys.
+Rolling booking (a Calendly link) was excluded because there's no time a
+reader can turn up; it's a contact method, and belongs with the org.
+
 ## 2026-09-09: Remove the `verified` flag
 
 **Decision**: Drop `verified` from `Provenance` entirely — from the type,

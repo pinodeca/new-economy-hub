@@ -46,22 +46,13 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 - **Add a News tab.**
 - **Aggregate a social media stream** — pull in relevant posts from these
   orgs' social accounts into a feed on the site.
-- **Represent recurring things.** `Event.startAt` is a single ISO date —
-  no way to model "office hours every Tuesday," a Calendly-style rolling
-  open-booking slot, or an ongoing multi-week workshop series (found
-  while researching L.A. Co-op Lab and A Bookkeeping Cooperative, see PRs
-  #13 and #11). Don't know yet whether the right fix is a recurrence
-  field on `Event` or a different content type entirely.
-  **This is now the most expensive open gap in the content model, not a
-  theoretical one.** Four organizations hit it, and for at least one it
-  is actively suppressing real content: Cooperation Jackson runs monthly
-  programming and shows zero events, because every one of them recurs.
-  An organization that is genuinely active reads on the site as one that
-  does nothing — the exact misreading `content/RESEARCH.md` exists to
-  prevent, arriving through the schema instead of through a lazy
-  research pass. Doing it before more research passes land is now on
-  [TODO.md](TODO.md); the design call (recurrence field vs. separate
-  content type) is still open and still lives here.
+- **Represent rolling-booking office hours.** Recurring events with a
+  cadence shipped as `Event.recurrence` (see DECISIONS.md, 2026-10-04).
+  What's left is the Calendly-style "book a slot any time" case found at
+  L.A. Co-op Lab (PR #13): no time a reader can turn up, so it isn't an
+  event. Probably an optional link on `Organization` (alongside the
+  newsletter idea below — both answer "how do I reach these people")
+  rather than anything on `Event`.
 - **Surface newsletters, even though they're not Forums.** Per
   `content/RESEARCH.md`, a one-way announcement newsletter doesn't meet
   the "people actually talk to each other" bar for a `Forum` — correctly

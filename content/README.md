@@ -79,6 +79,41 @@ There is no `verified` field — don't add one. It was removed (see
 [`../docs/DECISIONS.md`](../docs/DECISIONS.md)), and the validator rejects
 it.
 
+## Recurring events
+
+Something that repeats is one `Event` with a `recurrence` block, not one
+file per occurrence:
+
+```json
+"startAt": "2026-10-13",
+"recurrence": {
+  "schedule": "Second Tuesday of every month, 6pm CT",
+  "rule": { "frequency": "MONTHLY", "weekday": "TU", "weekOfMonth": 2 },
+  "confirmedAt": "2026-10-04"
+}
+```
+
+- `schedule` (required) is shown to readers exactly as written. Put the
+  time of day and timezone here — `startAt` is date-only.
+- `rule` (optional) lets the site show the next date. Two shapes:
+  `{ "frequency": "WEEKLY", "weekday": "WE" }` (add `"interval": 2` for
+  every other week, counted from `startAt`), or
+  `{ "frequency": "MONTHLY", "weekday": "TU", "weekOfMonth": 2 }` (`-1`
+  for the last one in the month). If the cadence doesn't fit either —
+  "twice a month, see calendar" — leave `rule` out; the event still lists,
+  with "Recurring" in place of a date.
+- `startAt` is a real occurrence the series runs from. With a `rule`, the
+  validator checks that `startAt` actually lands on it.
+- `endAt` is the last session of a finite series (a six-week workshop).
+  Leave it out for something ongoing — the event then stays listed until
+  someone removes it.
+- `confirmedAt` is when you saw the cadence on the org's own site.
+  `validate:content` warns once an open-ended one is over 90 days old,
+  because a recurring event never expires by itself; when you re-check it,
+  bump the date or delete the file.
+- Slugs for recurring events drop the year (`cooperation-jackson-build-and-fight-series`),
+  since the record isn't tied to one.
+
 ## Recording the research pass
 
 An organization may carry a `research` block recording what a
