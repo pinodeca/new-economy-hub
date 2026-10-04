@@ -65,7 +65,7 @@ const cases = [
   ["baseline: untouched content passes", () => {}, 0, null],
 
   // Provenance — CLAUDE.md's hard rules.
-  ["agent self-verifies", mutate(ORG, (o) => { o.verified = true; }), 1, "verification step"],
+  ["removed verified flag reappears", mutate(ORG, (o) => { o.verified = false; }), 1, "was removed"],
   ["invalid sourceType", mutate(ORG, (o) => { o.sourceType = "SCRAPED"; }), 1, "sourceType"],
 
   // The four "nothing validates this" gaps named in content/README.md.

@@ -17,7 +17,7 @@ npm run validate:content
 ```
 
 This checks everything this file describes that a machine can check — slugs
-match filenames, `organizationSlugs` actually resolve, `verified` is false,
+match filenames, `organizationSlugs` actually resolve, `sourceType` is valid,
 tags are lowercase-hyphenated, dates are real dates, research blocks agree
 with the content that exists. It runs in CI, and again via `prebuild`, so
 bad content can't reach a deploy — but running it yourself is faster than
@@ -74,8 +74,10 @@ Every organization/event/forum file must set:
   content yourself; `AI_ASSISTED` if a human wrote it with your help;
   `HUMAN` only if a human wrote it directly. Default to `AI_GENERATED` when
   in doubt about which describes your process.
-- `verified: false`. Always. See [`../CLAUDE.md`](../CLAUDE.md) — merging
-  the PR is the verification step, not something you grant yourself.
+
+There is no `verified` field — don't add one. It was removed (see
+[`../docs/DECISIONS.md`](../docs/DECISIONS.md)), and the validator rejects
+it.
 
 ## Recording the research pass
 

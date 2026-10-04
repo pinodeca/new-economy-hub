@@ -14,24 +14,6 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 
 ## Decided, not done
 
-- **Remove the `verified` flag entirely.** Decided 2026-09-09: the founder
-  isn't running a verification process they'd stand by, so a flag claiming
-  one is a promise the project can't keep. `sourceType` carries provenance
-  on its own, and "it's in `main`" already implies a human merged it. If a
-  real verification process exists later — more people, an actual standard
-  — it can come back then, meaning something. Touches:
-  - `Provenance` in `src/lib/content-types.ts`
-  - `ProvenanceNote` in `src/components/ContentMeta.tsx` (the rendered
-    "AI-generated · Unverified" line)
-  - the `verified: false` rule in `scripts/validate-content.mjs`
-  - the flag in all 20 content JSON files
-  - the prose in `CLAUDE.md`, `content/README.md`,
-    `docs/DATA_MODEL.md`, and `docs/PROJECT_BRIEF.md`, all of which
-    currently describe the merge as the verification step
-
-  Do it as one focused PR — it's mechanical, but it touches the provenance
-  rule that CLAUDE.md leads with, so it should be reviewable in isolation.
-
 - **Fix the recurring-events gap.** Promoted from IDEAS.md because it is now
   costing content rather than just being an open question: Cooperation
   Jackson runs monthly programming and shows zero events, and four

@@ -7,7 +7,8 @@
 
 export type GeoScope = "US" | "INTERNATIONAL" | "COUNTRY";
 
-// AI-generated content must never mark itself verified — see CLAUDE.md.
+// Who wrote a record. There is no `verified` flag alongside it — removed
+// 2026-09-09, see docs/DECISIONS.md.
 export type SourceType = "AI_GENERATED" | "AI_ASSISTED" | "HUMAN";
 
 export type BarrierToEntry = "LOW" | "MEDIUM" | "HIGH";
@@ -21,7 +22,6 @@ export type ForumPlatform =
 
 interface Provenance {
   sourceType: SourceType;
-  verified: boolean;
 }
 
 interface Geography {

@@ -102,7 +102,6 @@ export function EventList({
                 />
                 <ProvenanceNote
                   sourceType={event.sourceType}
-                  verified={event.verified}
                 />
               </li>
             );

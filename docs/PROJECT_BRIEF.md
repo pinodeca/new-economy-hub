@@ -55,10 +55,10 @@ an optional ISO country code, not as separate hard-coded sub-sites — see
 - **Events, organizations, forums**: expected to be populated primarily by
   AI agents (research/scraping/summarization) opening pull requests, not
   hand-entered or written to a database directly. Every record carries a
-  `sourceType` (`AI_GENERATED`, `AI_ASSISTED`, `HUMAN`) and a `verified`
-  flag, defaulting to unverified for AI-generated content. Reviewing and
-  merging the PR *is* the verification step — agents should never mark
-  their own output as verified.
+  `sourceType` (`AI_GENERATED`, `AI_ASSISTED`, `HUMAN`), shown on the
+  site. A human reviews and merges every PR, but the site makes no
+  stronger claim than that — there's no "verified" badge, because no
+  verification process stands behind one (see `docs/DECISIONS.md`).
 - **Blog**: human-authored.
 - **Podcast**: human by default; AI-generated episodes are allowed but must
   carry an explicit, visible AI disclosure (not a footnote) in both the
