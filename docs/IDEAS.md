@@ -161,9 +161,9 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
   event the validator warns about, does the `content/RESEARCH.md` check,
   and opens one PR is the same propose-and-approve shape as the link-rot
   checker above — and could be the same job.
-- **Link an event to its next edition.** The Worker Co-op Conference runs
-  every two years; a past conference record could point at the next one,
-  so "already happened" doesn't read as a dead end. Wait until there are
+- **Link an event to its next edition.** A past conference record (e.g.
+  the Worker Co-op Conference) could point at the next edition, so
+  "already happened" doesn't read as a dead end. Wait until there are
   enough recurring annual events for this to matter.
 - **Make empty states an invitation.** "No forums yet." and "Nothing
   coming up right now." are dead ends today. They're the highest-intent
