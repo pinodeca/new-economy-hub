@@ -9,7 +9,13 @@
 import fs from "fs";
 import path from "path";
 import type { Event, Forum, Organization } from "./content-types";
-import { isPastEvent, utcToday } from "./event-dates";
+import {
+  formatEventWhen,
+  formatRecurrence,
+  isPastEvent,
+  nextOccurrence,
+  utcToday,
+} from "./event-dates";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -51,9 +57,37 @@ export function getOrganizationsBySlug(): Record<string, Organization> {
 // scheduled rebuild in .github/workflows/azure-static-web-apps-*.yml is what
 // makes that happen without a push; see docs/INFRASTRUCTURE.md.
 
-export function getUpcomingEvents(): Event[] {
+/**
+ * An upcoming event plus its display strings, worked out at build time. They
+ * depend on "today" (a recurring event's next date, whether it has started
+ * yet), so they're computed here once rather than in the client-side list,
+ * where the browser's today would disagree with the prerendered HTML.
+ */
+export interface UpcomingEvent extends Event {
+  when: string;
+  cadence?: string;
+}
+
+/**
+ * Soonest first. A recurring event sorts by its next date; one with no rule
+ * to compute that from sorts as happening now, ahead of later one-offs —
+ * it's something a reader can join this week or next.
+ */
+export function getUpcomingEvents(): UpcomingEvent[] {
   const cutoff = utcToday();
-  return getEvents().filter((event) => !isPastEvent(event, cutoff));
+  const sortKey = (event: Event) => {
+    const next = nextOccurrence(event, cutoff);
+    if (next) return Date.parse(next);
+    return Math.max(Date.parse(event.startAt), event.recurrence ? cutoff : -Infinity);
+  };
+  return getEvents()
+    .filter((event) => !isPastEvent(event, cutoff))
+    .sort((a, b) => sortKey(a) - sortKey(b))
+    .map((event) => ({
+      ...event,
+      when: formatEventWhen(event, cutoff),
+      cadence: formatRecurrence(event, cutoff),
+    }));
 }
 
 /** Most recently finished first — the reverse of the upcoming list's order. */

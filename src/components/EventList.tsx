@@ -1,15 +1,16 @@
 "use client";
 
 import {
+  CadenceLine,
   GeoFilterBar,
   OrganizationLinks,
   ProvenanceNote,
   TagList,
   TagMenu,
 } from "@/components/ContentMeta";
-import { formatDateRange } from "@/lib/event-dates";
+import type { UpcomingEvent } from "@/lib/content";
 import { useContentFilters } from "@/lib/useContentFilters";
-import type { BarrierToEntry, Event, Organization } from "@/lib/content-types";
+import type { BarrierToEntry, Organization } from "@/lib/content-types";
 
 const barrierLabel: Record<BarrierToEntry, string> = {
   LOW: "Low barrier to entry",
@@ -21,7 +22,7 @@ export function EventList({
   events,
   organizationsBySlug,
 }: {
-  events: Event[];
+  events: UpcomingEvent[];
   organizationsBySlug: Record<string, Organization>;
 }) {
   const { filtered, tag, setTag, geo, setGeo, allTags, clear } =
@@ -74,9 +75,10 @@ export function EventList({
                     )}
                   </h2>
                   <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {formatDateRange(event.startAt, event.endAt)}
+                    {event.when}
                   </span>
                 </div>
+                {event.cadence && <CadenceLine cadence={event.cadence} />}
                 <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                   {event.description}
                 </p>
@@ -100,9 +102,7 @@ export function EventList({
                   activeTag={tag}
                   onTagClick={(t) => setTag(tag === t ? null : t)}
                 />
-                <ProvenanceNote
-                  sourceType={event.sourceType}
-                />
+                <ProvenanceNote sourceType={event.sourceType} />
               </li>
             );
           })}

@@ -14,10 +14,13 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 
 ## Decided, not done
 
-- **Fix the recurring-events gap.** Promoted from IDEAS.md because it is now
-  costing content rather than just being an open question: Cooperation
-  Jackson runs monthly programming and shows zero events, and four
-  organizations have hit it. Still needs the design call (a recurrence field
-  on `Event` vs. a separate content type) — that part is in IDEAS.md — but
-  the decision that it's worth doing before more research passes land is
-  made. Every additional pass adds records that understate their orgs.
+- **Backfill the recurring events the schema couldn't hold.** `Event.recurrence`
+  exists now, so the four organizations whose `research.notRepresentable`
+  lists a fixed cadence should get those events: Cooperation Jackson (Build
+  and Fight series, 2nd Tuesday; membership orientation, 3rd Saturday),
+  Boston Ujima Project (#UjimaWednesdays, Biplaw Mondays, Ujima Cafe), USFWC
+  (monthly peer councils — check which are open to newcomers), and A
+  Bookkeeping Cooperative (multi-week workshop series). Each needs the
+  cadence re-confirmed on the org's site, not copied from the September
+  notes, and its `research` block updated to match. L.A. Co-op Lab's
+  Calendly office hours stay out — see IDEAS.md.

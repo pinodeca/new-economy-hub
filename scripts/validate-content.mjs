@@ -23,6 +23,11 @@ const GEO_SCOPES = ["US", "INTERNATIONAL", "COUNTRY"];
 const BARRIERS = ["LOW", "MEDIUM", "HIGH"];
 const PLATFORMS = ["SLACK", "DISCORD", "FORUM", "MAILING_LIST", "OTHER"];
 const FINDINGS = ["ADDED", "NONE_FOUND", "FOUND_NOT_REPRESENTABLE"];
+const WEEKDAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"]; // getUTCDay() order
+const WEEKS_OF_MONTH = [1, 2, 3, 4, -1];
+// A recurring event with no end date stays listed until someone removes it,
+// so how long ago its cadence was confirmed is the only staleness signal.
+const RECURRENCE_STALE_DAYS = 90;
 
 const errors = [];
 const warnings = [];
@@ -160,6 +165,70 @@ function checkOrganizationRefs(file, r, orgSlugs) {
 }
 
 /**
+ * `Event.recurrence` (see content-types.ts). The rule-matching half mirrors
+ * matchesRule in src/lib/event-dates.ts: `startAt` has to be a real
+ * occurrence, otherwise every-N-weeks counting starts from the wrong week and
+ * a "second Tuesday" event dated on a Wednesday silently shows a wrong next
+ * date.
+ */
+function checkRecurrence(file, event) {
+  const rec = event.recurrence;
+  if (rec === undefined) return;
+  if (!isPlainObject(rec)) {
+    error(file, "`recurrence` must be an object");
+    return;
+  }
+  if (!isNonEmptyString(rec.schedule)) {
+    error(file, "`recurrence.schedule` is required — it's what readers see, e.g. \"Every Wednesday, 6pm ET\"");
+  }
+  if (!isIsoDate(rec.confirmedAt)) {
+    error(file, "`recurrence.confirmedAt` must be a YYYY-MM-DD date");
+  } else {
+    const ageDays = (Date.now() - new Date(rec.confirmedAt).getTime()) / 86_400_000;
+    if (ageDays < 0) error(file, `\`recurrence.confirmedAt\` is in the future (${rec.confirmedAt})`);
+    else if (ageDays > RECURRENCE_STALE_DAYS && event.endAt === undefined) {
+      warn(file, `recurring schedule last confirmed ${rec.confirmedAt}, over ${RECURRENCE_STALE_DAYS} days ago — re-check it's still running`);
+    }
+  }
+
+  const rule = rec.rule;
+  if (rule === undefined) return;
+  if (!isPlainObject(rule)) {
+    error(file, "`recurrence.rule` must be an object");
+    return;
+  }
+  if (!WEEKDAYS.includes(rule.weekday)) {
+    error(file, `\`recurrence.rule.weekday\` must be one of ${WEEKDAYS.join(", ")} (got ${JSON.stringify(rule.weekday)})`);
+    return;
+  }
+  if (rule.frequency === "WEEKLY") {
+    if (rule.interval !== undefined && !(Number.isInteger(rule.interval) && rule.interval >= 1)) {
+      error(file, "`recurrence.rule.interval` must be a positive integer");
+    }
+  } else if (rule.frequency === "MONTHLY") {
+    if (!WEEKS_OF_MONTH.includes(rule.weekOfMonth)) {
+      error(file, "`recurrence.rule.weekOfMonth` must be 1-4, or -1 for the last one in the month");
+      return;
+    }
+  } else {
+    error(file, `\`recurrence.rule.frequency\` must be WEEKLY or MONTHLY (got ${JSON.stringify(rule.frequency)})`);
+    return;
+  }
+
+  if (!isIsoDate(event.startAt)) return; // already reported
+  const start = new Date(event.startAt);
+  const onWeekday = WEEKDAYS[start.getUTCDay()] === rule.weekday;
+  const inWeek =
+    rule.frequency !== "MONTHLY" ||
+    (rule.weekOfMonth === -1
+      ? new Date(start.getTime() + 7 * 86_400_000).getUTCMonth() !== start.getUTCMonth()
+      : Math.ceil(start.getUTCDate() / 7) === rule.weekOfMonth);
+  if (!onWeekday || !inWeek) {
+    error(file, `\`startAt\` (${event.startAt}) isn't a date \`recurrence.rule\` lands on — set it to a real occurrence`);
+  }
+}
+
+/**
  * The research block. This is the part that stops "checked and found nothing"
  * from being indistinguishable from "never checked" — see content/RESEARCH.md.
  */
@@ -283,6 +352,7 @@ function main() {
     if (!BARRIERS.includes(data.barrierToEntry)) {
       error(file, `\`barrierToEntry\` must be one of ${BARRIERS.join(", ")} (got ${JSON.stringify(data.barrierToEntry)})`);
     }
+    checkRecurrence(file, data);
     checkOrganizationRefs(file, data, orgSlugs);
   }
 

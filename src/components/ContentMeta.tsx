@@ -114,6 +114,17 @@ export function TagMenu({
   );
 }
 
+// A recurring event's cadence, under its date line. Kept visually distinct
+// from the description so "every Wednesday" reads as when, not as prose.
+export function CadenceLine({ cadence }: { cadence: string }) {
+  return (
+    <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+      <span aria-hidden>↻ </span>
+      {cadence}
+    </p>
+  );
+}
+
 export const geoLabel: Record<GeoScope, string> = {
   US: "United States",
   INTERNATIONAL: "International",

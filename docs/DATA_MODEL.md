@@ -38,6 +38,22 @@ because no verification process stood behind it — see
 [DECISIONS.md](DECISIONS.md). A record being in `main` means a human
 merged the PR, nothing more; the site doesn't claim otherwise.
 
+## Recurring events (`Event.recurrence`)
+
+An `Event` can repeat. `recurrence.schedule` is a plain-language cadence
+shown to readers; an optional `recurrence.rule` (weekly / every N weeks, or
+"nth weekday of the month") lets the build compute the next date;
+`recurrence.confirmedAt` records when the cadence was last seen on the
+org's own site. `startAt` is a real occurrence, and `endAt` ends a finite
+series. See `content/README.md` for the conventions and
+[DECISIONS.md](DECISIONS.md) for why this is a field on `Event` rather
+than its own content type.
+
+A recurring event with no `endAt` is never "past" on its own, so it lists
+until it's removed — `confirmedAt` and the validator's 90-day staleness
+warning are the counterweight. Like the upcoming/past split, the next date
+is computed at build time and kept current by the daily rebuild.
+
 ## Research evidence (`Organization.research`)
 
 An optional `ResearchPass` recording what a `content/RESEARCH.md` pass

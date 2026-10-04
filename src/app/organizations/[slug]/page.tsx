@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ProvenanceNote, TagList, geoLabel } from "@/components/ContentMeta";
+import {
+  CadenceLine,
+  ProvenanceNote,
+  TagList,
+  geoLabel,
+} from "@/components/ContentMeta";
 import {
   getForums,
   getOrganizationBySlug,
@@ -182,9 +187,10 @@ export default async function OrganizationDetailPage({
                     )}
                   </h3>
                   <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {formatDateRange(event.startAt, event.endAt)}
+                    {event.when}
                   </span>
                 </div>
+                {event.cadence && <CadenceLine cadence={event.cadence} />}
                 <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                   {event.description}
                 </p>
