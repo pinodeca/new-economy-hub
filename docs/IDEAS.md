@@ -155,6 +155,16 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
   PR when one moves or dies is exactly the propose-and-a-human-approves
   shape CLAUDE.md asks automation to take — and it needs no infrastructure
   beyond CI.
+- **A scheduled agent for post-event checks.** `Event.outcome` and the
+  validator's 30-day warning exist (DECISIONS.md, 2026-10-04), but the
+  check itself is still done by hand. A scheduled run that picks up every
+  event the validator warns about, does the `content/RESEARCH.md` check,
+  and opens one PR is the same propose-and-approve shape as the link-rot
+  checker above — and could be the same job.
+- **Link an event to its next edition.** The Worker Co-op Conference runs
+  every two years; a past conference record could point at the next one,
+  so "already happened" doesn't read as a dead end. Wait until there are
+  enough recurring annual events for this to matter.
 - **Make empty states an invitation.** "No forums yet." and "Nothing
   coming up right now." are dead ends today. They're the highest-intent
   moment on the site — someone looked for something and found nothing — so

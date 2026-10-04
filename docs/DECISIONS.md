@@ -4,6 +4,31 @@ Short log of architectural calls and the reasoning behind them, so later
 readers (human or agent) don't relitigate settled questions without the
 context that settled them. Newest first.
 
+## 2026-10-04: Past events get a post-event check, recorded on the event
+
+**Decision**: Keep past events, and add two optional `Event` fields:
+`outcome` (a post-event check — did it happen, plus links to recordings,
+recaps, photos, press) and `archivedUrl` (a snapshot of the event page,
+taken when the event is added). `validate:content` warns when an event
+ended more than 30 days ago with no `outcome`.
+
+**Why**: Checking the five events that had passed by 2026-10-04 showed
+past events going wrong in three ways, none of which the repo could see.
+One was simply wrong: the Stone Maps reception moved from Sept 26 to
+Oct 3 for weather. Three of seven events linked to Boston Ujima Project's
+rolling calendar, which had already dropped two of them. And recaps lag:
+a week after the Worker Co-op Conference, its own site still called it
+upcoming. A past event is a record of what an org actually does, and a
+recording is still useful to a reader — but only if someone goes back.
+
+Modeled the same way as `Organization.research`, and for the same reason:
+absence has to mean "nobody checked," so a check that found nothing
+(`UNCONFIRMED`, with notes) is distinguishable from no check at all.
+
+**Not done (yet)**: a scheduled agent that runs the check and opens the PR
+(IDEAS.md). The 30-day warning makes the backlog visible in CI first; the
+automation can come once the manual check has shown what it involves.
+
 ## 2026-10-04: Recurring events are a field on `Event`, not a new type
 
 **Decision**: Add an optional `recurrence` block to `Event` — a required

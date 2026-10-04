@@ -6,6 +6,7 @@ import {
   TagList,
   geoLabel,
 } from "@/components/ContentMeta";
+import { PastEventList } from "@/components/PastEventList";
 import {
   getForums,
   getOrganizationBySlug,
@@ -205,32 +206,7 @@ export default async function OrganizationDetailPage({
           <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
             Past events
           </h2>
-          <ul className="mt-4 flex flex-col gap-2">
-            {pastEvents.map((event) => (
-              <li
-                key={event.slug}
-                className="flex flex-wrap items-baseline justify-between gap-x-4 text-sm"
-              >
-                <span className="text-zinc-600 dark:text-zinc-400">
-                  {event.url ? (
-                    <a
-                      href={event.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:underline"
-                    >
-                      {event.title}
-                    </a>
-                  ) : (
-                    event.title
-                  )}
-                </span>
-                <span className="text-zinc-500 dark:text-zinc-500">
-                  {formatDateRange(event.startAt, event.endAt)}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <PastEventList events={pastEvents} />
         </section>
       )}
 

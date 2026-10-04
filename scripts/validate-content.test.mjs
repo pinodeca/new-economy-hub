@@ -100,6 +100,21 @@ const cases = [
     e.startAt = "2026-10-29"; delete e.endAt;
     e.recurrence = { schedule: "Last Thursday", confirmedAt: "2026-09-01", rule: { frequency: "MONTHLY", weekday: "TH", weekOfMonth: -1 } };
   }), 0, null],
+  // Post-event outcomes. EVENT is the 2026-09-25–26 conference.
+  ["outcome checked before the event ended", mutate(EVENT, (e) => { e.outcome = { checkedAt: "2026-09-25", status: "HAPPENED" }; }), 1, "before the event ended"],
+  ["CANCELLED outcome with no notes", mutate(EVENT, (e) => { e.outcome = { checkedAt: "2026-10-01", status: "CANCELLED" }; }), 1, "how that was determined"],
+  ["outcome link with an unknown kind", mutate(EVENT, (e) => {
+    e.outcome = { checkedAt: "2026-10-01", status: "HAPPENED", links: [{ url: "https://example.org/v", kind: "VIDEO" }] };
+  }), 1, "kind must be one of"],
+  ["outcome on an open-ended recurring event", mutate(EVENT, (e) => {
+    e.startAt = "2026-09-01"; delete e.endAt;
+    e.recurrence = { schedule: "Weekly", confirmedAt: "2026-09-01" };
+    e.outcome = { checkedAt: "2026-10-01", status: "HAPPENED" };
+  }), 1, "open-ended recurring"],
+  ["valid outcome with links passes", mutate(EVENT, (e) => {
+    e.archivedUrl = "https://web.archive.org/web/2026/https://www.conference.coop/home/";
+    e.outcome = { checkedAt: "2026-10-01", status: "HAPPENED", links: [{ url: "https://example.org/recap", kind: "RECAP" }] };
+  }), 0, null],
   ["invalid forum platform", mutate(FORUM, (f) => { f.platform = "TELEGRAM"; }), 1, "platform"],
 
   // The research block — the checked-vs-never-checked distinction itself.

@@ -14,6 +14,12 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 
 ## Decided, not done
 
+- **Run the first post-event check** on the five events that passed in
+  September 2026 (see `content/RESEARCH.md`). Includes one known error: the
+  Stone Maps reception moved from Sept 26 to Oct 3 for weather (per its
+  Eventbrite page), and `ujima-stone-maps-opening-reception-2026.json`
+  still says Sept 26. Also back-fill `archivedUrl` for all seven events.
+
 - **Backfill the recurring events the schema couldn't hold.** `Event.recurrence`
   exists now, so the four organizations whose `research.notRepresentable`
   lists a fixed cadence should get those events: Cooperation Jackson (Build

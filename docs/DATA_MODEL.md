@@ -54,6 +54,17 @@ until it's removed — `confirmedAt` and the validator's 90-day staleness
 warning are the counterweight. Like the upcoming/past split, the next date
 is computed at build time and kept current by the daily rebuild.
 
+## After the event (`Event.outcome`, `Event.archivedUrl`)
+
+`outcome` records a post-event check: `checkedAt`, a `status`
+(`HAPPENED` / `CANCELLED` / `UNCONFIRMED`), optional `links` (recordings,
+recaps, photos, press — rendered under the event in the "already happened"
+lists), and `notes`. `archivedUrl` is a snapshot of the event page, taken
+when the event is added. Both exist because event pages rot faster than any
+other link in `content/`, and a past event with neither is unverifiable —
+see [DECISIONS.md](DECISIONS.md). Like `research`, a missing `outcome`
+means "not yet checked"; the validator warns 30 days after an event ends.
+
 ## Research evidence (`Organization.research`)
 
 An optional `ResearchPass` recording what a `content/RESEARCH.md` pass
