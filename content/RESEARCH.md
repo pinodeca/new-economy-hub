@@ -83,6 +83,36 @@ What *still* doesn't fit, and stays `FOUND_NOT_REPRESENTABLE` with a
   can't compute ("twice a month, dates on the calendar") is fine — omit
   `rule` and say it in `schedule`.
 
+## After an event: the post-event check
+
+An event's record isn't finished when its date passes. Event pages are
+rewritten or deleted within days — Boston Ujima Project's calendar dropped
+two September events within a week, and the Stone Maps reception was moved
+from Sept 26 to Oct 3 with nothing in this repo noticing. So once an event
+has ended, someone checks back and writes the answer into its `outcome`
+block (shape in [`README.md`](README.md#recording-what-happened)):
+
+1. **Did it happen as listed?** `HAPPENED`, `CANCELLED`, or `UNCONFIRMED`
+   (looked, found no evidence either way — say where in `notes`). If it
+   moved, fix `startAt`/`endAt` to the real dates and say so in `notes`;
+   don't leave the record describing an event that never took place.
+2. **What's left that a reader can use?** Recordings, recap posts, photo
+   galleries, press coverage — as `outcome.links`. A recording of a past
+   webinar is still worth something; this is the payoff for readers.
+3. **Is the event page still there?** If `archivedUrl` is missing, add one
+   now if a snapshot exists.
+
+Timing: about **30 days** after the event's last day. Earlier mostly finds
+nothing — one week after the 2026 Worker Co-op Conference, its own site
+still described it as upcoming — and `validate:content` starts warning
+about an unchecked event at the 30-day mark. Where to look: the event page
+itself, the org's blog/news and YouTube, its newsletter archive, and a
+search for the event's title (local press often covers what the org
+doesn't).
+
+A post-event check can be batched across organizations in one PR — it's a
+small, uniform edit per event, unlike a research pass.
+
 ## PR granularity
 
 One research unit (an org plus whatever events/forums it turns out to

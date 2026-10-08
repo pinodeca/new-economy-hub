@@ -28,6 +28,11 @@ const WEEKS_OF_MONTH = [1, 2, 3, 4, -1];
 // A recurring event with no end date stays listed until someone removes it,
 // so how long ago its cadence was confirmed is the only staleness signal.
 const RECURRENCE_STALE_DAYS = 90;
+const OUTCOME_STATUSES = ["HAPPENED", "CANCELLED", "UNCONFIRMED"];
+const OUTCOME_LINK_KINDS = ["RECORDING", "RECAP", "PHOTOS", "NEWS", "OTHER"];
+// Recaps and recordings typically surface weeks after an event, not days, so
+// checking sooner mostly finds nothing. Past this, an unchecked event is a gap.
+const OUTCOME_DUE_DAYS = 30;
 
 const errors = [];
 const warnings = [];
@@ -229,6 +234,70 @@ function checkRecurrence(file, event) {
 }
 
 /**
+ * `Event.outcome` and `Event.archivedUrl` — the post-event check (see
+ * content/RESEARCH.md). Like the research block, the point is that "checked,
+ * it happened" and "nobody looked" must not look the same in content/.
+ */
+function checkOutcome(file, event) {
+  if (event.archivedUrl !== undefined && !isHttpUrl(event.archivedUrl)) {
+    error(file, `\`archivedUrl\` is not a valid http(s) URL: ${JSON.stringify(event.archivedUrl)}`);
+  }
+
+  // Open-ended recurring events never end, so there's nothing to check.
+  const lastDay = event.recurrence && event.endAt === undefined ? null : (event.endAt ?? event.startAt);
+  const outcome = event.outcome;
+
+  if (outcome === undefined) {
+    if (lastDay && isIsoDate(lastDay)) {
+      const daysSince = (Date.now() - new Date(lastDay).getTime()) / 86_400_000;
+      if (daysSince > OUTCOME_DUE_DAYS + 1) {
+        warn(file, `ended ${lastDay}, over ${OUTCOME_DUE_DAYS} days ago, with no \`outcome\` — run the post-event check (content/RESEARCH.md)`);
+      }
+    }
+    return;
+  }
+  if (!isPlainObject(outcome)) {
+    error(file, "`outcome` must be an object");
+    return;
+  }
+  if (lastDay === null) {
+    error(file, "`outcome` on an open-ended recurring event — it never ends, so there's nothing to check; set `endAt` if the series has finished");
+    return;
+  }
+
+  if (!isIsoDate(outcome.checkedAt)) {
+    error(file, "`outcome.checkedAt` must be a YYYY-MM-DD date");
+  } else {
+    if (new Date(outcome.checkedAt) > new Date()) error(file, `\`outcome.checkedAt\` is in the future (${outcome.checkedAt})`);
+    if (isIsoDate(lastDay) && outcome.checkedAt < lastDay) {
+      error(file, `\`outcome.checkedAt\` (${outcome.checkedAt}) is before the event ended (${lastDay}) — an outcome can't be known yet`);
+    }
+  }
+  if (!OUTCOME_STATUSES.includes(outcome.status)) {
+    error(file, `\`outcome.status\` must be one of ${OUTCOME_STATUSES.join(", ")} (got ${JSON.stringify(outcome.status)})`);
+  }
+  if (outcome.status !== "HAPPENED" && !isNonEmptyString(outcome.notes)) {
+    error(file, `\`outcome.status\` is ${outcome.status}, so \`outcome.notes\` must say how that was determined — otherwise it's an unauditable assertion`);
+  }
+  if (outcome.notes !== undefined && !isNonEmptyString(outcome.notes)) {
+    error(file, "`outcome.notes` must be a non-empty string when present");
+  }
+  if (outcome.links !== undefined) {
+    if (!Array.isArray(outcome.links)) {
+      error(file, "`outcome.links` must be an array");
+    } else {
+      for (const link of outcome.links) {
+        if (!isPlainObject(link) || !isHttpUrl(link.url)) {
+          error(file, `\`outcome.links\` entry needs a valid http(s) \`url\`: ${JSON.stringify(link)}`);
+        } else if (!OUTCOME_LINK_KINDS.includes(link.kind)) {
+          error(file, `\`outcome.links\` kind must be one of ${OUTCOME_LINK_KINDS.join(", ")} (got ${JSON.stringify(link.kind)})`);
+        }
+      }
+    }
+  }
+}
+
+/**
  * The research block. This is the part that stops "checked and found nothing"
  * from being indistinguishable from "never checked" — see content/RESEARCH.md.
  */
@@ -353,6 +422,7 @@ function main() {
       error(file, `\`barrierToEntry\` must be one of ${BARRIERS.join(", ")} (got ${JSON.stringify(data.barrierToEntry)})`);
     }
     checkRecurrence(file, data);
+    checkOutcome(file, data);
     checkOrganizationRefs(file, data, orgSlugs);
   }
 

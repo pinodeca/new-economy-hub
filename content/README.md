@@ -114,6 +114,46 @@ file per occurrence:
 - Slugs for recurring events drop the year (`cooperation-jackson-build-and-fight-series`),
   since the record isn't tied to one.
 
+## Event links that survive the event
+
+When you add an event, also set `archivedUrl` to a snapshot of its `url`.
+Event pages are among the fastest-rotting links there are — rolling
+calendars drop past events within days — and a past event whose only
+source has vanished can't be checked. Look for an existing snapshot via
+`https://archive.org/wayback/available?url=<url>`; if there isn't one,
+`https://web.archive.org/save/<url>` creates one. Prefer a permalink
+(an Eventbrite, Meetup, or city-calendar page for that one event) over an
+org's rolling `/events` page for `url` itself when both exist.
+
+## Recording what happened
+
+Once an event has ended, a post-event check (see
+[`RESEARCH.md`](RESEARCH.md#after-an-event-the-post-event-check)) records
+its result:
+
+```json
+"outcome": {
+  "checkedAt": "2026-10-28",
+  "status": "HAPPENED",
+  "links": [
+    { "url": "https://www.youtube.com/watch?v=...", "kind": "RECORDING" },
+    { "url": "https://example.org/news/recap", "kind": "RECAP" },
+    { "url": "https://www.baystatebanner.com/...", "kind": "NEWS", "title": "Bay State Banner" }
+  ],
+  "notes": "Moved from Sept 26 to Oct 3 for weather; dates above are the real ones."
+}
+```
+
+- `status`: `HAPPENED`, `CANCELLED`, or `UNCONFIRMED`. Anything but
+  `HAPPENED` requires `notes` saying how you know.
+- `links[].kind`: `RECORDING`, `RECAP`, `PHOTOS`, `NEWS`, or `OTHER`. These
+  render on the site under the past event.
+- `checkedAt` must be on or after the event's last day.
+- Open-ended recurring events never get an `outcome` — they don't end.
+
+As with `research`: **omit `outcome` if you didn't check.** Its absence is
+how the validator knows an event is still due one.
+
 ## Recording the research pass
 
 An organization may carry a `research` block recording what a

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { EventList } from "@/components/EventList";
+import { PastEventList } from "@/components/PastEventList";
 import {
   getBuildDate,
   getOrganizationsBySlug,
   getPastEvents,
   getUpcomingEvents,
 } from "@/lib/content";
-import { formatDateRange } from "@/lib/event-dates";
 
 export default function EventsPage() {
   const upcoming = getUpcomingEvents();
@@ -42,32 +42,7 @@ export default function EventsPage() {
           <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">
             Kept as a record of what these organizations actually run.
           </p>
-          <ul className="mt-4 flex flex-col gap-2">
-            {past.map((event) => (
-              <li
-                key={event.slug}
-                className="flex flex-wrap items-baseline justify-between gap-x-4 text-sm"
-              >
-                <span className="text-zinc-600 dark:text-zinc-400">
-                  {event.url ? (
-                    <a
-                      href={event.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:underline"
-                    >
-                      {event.title}
-                    </a>
-                  ) : (
-                    event.title
-                  )}
-                </span>
-                <span className="text-zinc-500 dark:text-zinc-500">
-                  {formatDateRange(event.startAt, event.endAt)}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <PastEventList events={past} />
         </section>
       )}
 

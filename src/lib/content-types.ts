@@ -122,14 +122,52 @@ export interface Recurrence {
   confirmedAt: string;
 }
 
+export type OutcomeStatus = "HAPPENED" | "CANCELLED" | "UNCONFIRMED";
+
+export type OutcomeLinkKind = "RECORDING" | "RECAP" | "PHOTOS" | "NEWS" | "OTHER";
+
+export interface OutcomeLink {
+  url: string;
+  kind: OutcomeLinkKind;
+  /** Short label when the kind alone isn't enough, e.g. "Bay State Banner". */
+  title?: string;
+}
+
+/**
+ * What a post-event check found (see content/RESEARCH.md). Like
+ * `ResearchPass`, absence means nobody has looked — not that nothing
+ * happened. Only for events that have actually ended; an open-ended
+ * recurring event never gets one.
+ */
+export interface EventOutcome {
+  /** ISO date of the check. Must be on or after the event's last day. */
+  checkedAt: string;
+  /**
+   * `UNCONFIRMED` is a real result — checked, and found no evidence either
+   * way — not a placeholder; `notes` must say what was looked at.
+   */
+  status: OutcomeStatus;
+  /** Recordings, recaps, photos, press — what a reader can still use. */
+  links?: OutcomeLink[];
+  notes?: string;
+}
+
 export interface Event extends Provenance, Geography {
   slug: string;
   title: string;
   description: string;
   url?: string;
+  /**
+   * A snapshot of `url` (e.g. web.archive.org), taken when the event is
+   * added. Event pages get rewritten or vanish within days of the event —
+   * rolling calendars especially — and this is what keeps a past record
+   * checkable.
+   */
+  archivedUrl?: string;
   startAt: string; // ISO 8601
   endAt?: string;
   recurrence?: Recurrence;
+  outcome?: EventOutcome;
   isVirtual: boolean;
   city?: string;
   barrierToEntry: BarrierToEntry;
