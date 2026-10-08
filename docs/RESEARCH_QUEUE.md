@@ -50,6 +50,29 @@ and a directory of their members for later passes. URLs checked live
 | Co-operative Housing Federation of Canada (CHF Canada) | https://chfcanada.coop/ | `COUNTRY` CA — 900+ member housing co-ops | Online events, incl. an open-to-all Aging In Place Exchange Network chat (13 Oct 2026); annual meeting, date not given |
 | Confederation of Co-operative Housing (CCH) | https://www.cch.coop/ | `COUNTRY` GB — co-op and community-led housing | 2026 annual conference already held (video and slides "coming soon"); accredited advisor training programme |
 
+### Intentional communities
+
+Added 2026-10-08. Related to cooperative housing but its own subject:
+that one is about ownership and affordability, this one about shared
+living and governance — ecovillages, cohousing, income-sharing communes,
+faith-based communities, many of which aren't co-ops at all. Strong on
+the brief's "get involved this week" axis: courses, visitor programs,
+member groups.
+
+**Index the networks, not the communities — at least to start.** ic.org's
+directory lists 1,000+ communities, mostly self-submitted and claimed by
+whoever manages them. Treat it as a discovery source (like Co-operatives
+UK's directory below), not something to mirror: listings this site can't
+stand behind would swamp everything else, and many individual communities
+aren't open to a newcomer in the "join this week" sense.
+
+| Organization | URL | Scope | Already spotted |
+| --- | --- | --- | --- |
+| Foundation for Intentional Community (FIC) | https://www.ic.org/ | US-based hub, worldwide directory | CommUniversity online courses, dated: "Start Your Cooperative Business" (15 Oct 2026), "Equity & Power Dynamics" (28 Oct 2026). Member "Groups" and discussion groups — check whether they're active enough to clear the Forum bar. Its events page is self-contradictory ("no upcoming events" beside a listed Nov 2026 permaculture course), so source any event from its own page, not the listing. Funds a BIPOC Intentional Community Council |
+| Global Ecovillage Network (GEN) | https://ecovillage.org/ | `INTERNATIONAL` — 150+ communities, regional hubs | Groups, Needs & Offers, regional hubs, member-only groups. Visible events are all 2013–2015 — check whether activity has moved to the regional networks before concluding it's quiet |
+| Federation of Egalitarian Communities (FEC) | https://thefec.org/ | US income-sharing communes (Twin Oaks, East Wind, …) | ⚠️ No events or visitor programs on the homepage, and on 2026-10-08 the page carried unrelated product/brand links that look injected — **possibly compromised**. Confirm before citing it as a source, and look for visitor programs on member communities' own sites |
+| Cohousing Association of the US (Coho/US) | https://www.cohousing.org/ | US cohousing | ⚠️ cohousing.org now 301s to cohousingalliance.org, which returned 403 to automated fetching on 2026-10-08. A "Cohousing Alliance" brand also appears on cohousinginstitute.org, described as being developed by Coho/US. **Rebrand or program name — unresolved**; settle the org's current name before writing a record |
+
 ## United States — next 10
 
 Chosen to widen the sector mix (finance, law, media, policy, platform co-ops)
