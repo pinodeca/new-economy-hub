@@ -86,3 +86,10 @@ not a finished one.
   knowingly accepted for a while. Upgrading to Next 16.3.4 cleared it;
   `npm audit` reports 0 vulnerabilities. If it comes back, suspect
   something pinned Next backwards rather than a new advisory.
+- **A dev server can 404 every `/organizations/[slug]` page from a stale
+  cache.** Hit 2026-10-04, after switching branches between two dev-server
+  runs: `next dev` returned 404 for every org detail page while `/events`
+  rendered fine, with nothing useful in the logs. Restarting the dev
+  server fixed it, and the code was never the problem — the exact trigger
+  wasn't pinned down. If a dynamic route 404s for slugs that plainly
+  exist, restart before debugging.
