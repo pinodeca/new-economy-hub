@@ -14,11 +14,20 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
 
 ## Decided, not done
 
-- **Run the first post-event check** on the five events that passed in
-  September 2026 (see `content/RESEARCH.md`). Includes one known error: the
-  Stone Maps reception moved from Sept 26 to Oct 3 for weather (per its
-  Eventbrite page), and `ujima-stone-maps-opening-reception-2026.json`
-  still says Sept 26. Also back-fill `archivedUrl` for all seven events.
+- **Record outcomes for the five September events once they're due.**
+  Checked 2026-10-04 and too early: no recap, recording, or press for any
+  of them yet, so recording outcomes now would only silence the
+  validator's 30-day warning before anything could be found. They come due
+  between 2026-10-12 (Solidarity Summer Dance Party) and 2026-11-02
+  (Stone Maps, which moved to Oct 3 — date corrected 2026-10-04). Start
+  points: Ujima's YouTube channel (where its site says past events go),
+  the USFWC blog for the conference awards, local press.
+- **Archive snapshots for six events.** Only the conference had a usable
+  Wayback snapshot. The rest need one created via Save Page Now, which the
+  agent sessions here can't reach — a human can do it in a minute per URL.
+  Two can't be recovered: Ujima's rolling `/events` page already dropped
+  Holy Currencies and Ujima Cafe: District 7, and its only snapshot
+  (Aug 27) predates them.
 
 - **Backfill the recurring events the schema couldn't hold.** `Event.recurrence`
   exists now, so the four organizations whose `research.notRepresentable`
