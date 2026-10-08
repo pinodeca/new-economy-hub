@@ -24,6 +24,32 @@ Australian, or Indian content at all, so the `INTERNATIONAL` and `COUNTRY`
 geo-scopes are currently filters over an empty set — the geography filter bar
 renders three buttons, two of which return nothing.
 
+## Topics to dig into
+
+The lists below are organized by geography. This one is by subject: areas
+the founder wants to understand better and get covered soon, regardless of
+country. A topic here is a reason to research, not a record — each one
+still turns into organization passes like any other line in this file.
+Add a topic when it comes up; delete it once it has real coverage in
+`content/`.
+
+### Cooperative housing
+
+Added 2026-10-08. Zero coverage today: every indexed organization is a
+worker co-op, finance, land, or network org, and nothing touches housing —
+arguably the co-op form most people would actually live in. Overlaps with
+community land trusts (Agrarian Trust covers farmland only). The anchor
+bodies below are apex/federation organizations, the natural place to start
+and a directory of their members for later passes. URLs checked live
+2026-10-08.
+
+| Organization | URL | Scope | Already spotted |
+| --- | --- | --- | --- |
+| National Association of Housing Cooperatives (NAHC) | https://coophousing.org/ | US federation of housing co-ops | **66th Annual Conference, 4–7 Nov 2026, San Juan, Puerto Rico** — dated and upcoming; also Registered Cooperative Manager training |
+| Cooperative Housing International (CHI) | https://www.housinginternational.coop/ | `INTERNATIONAL` — the ICA's housing sector organization | Annual conference (Panama, with an online option, 17 Sept — year not stated on the page, likely alongside the ICA Global Conference, so probably already past) |
+| Co-operative Housing Federation of Canada (CHF Canada) | https://chfcanada.coop/ | `COUNTRY` CA — 900+ member housing co-ops | Online events, incl. an open-to-all Aging In Place Exchange Network chat (13 Oct 2026); annual meeting, date not given |
+| Confederation of Co-operative Housing (CCH) | https://www.cch.coop/ | `COUNTRY` GB — co-op and community-led housing | 2026 annual conference already held (video and slides "coming soon"); accredited advisor training programme |
+
 ## United States — next 10
 
 Chosen to widen the sector mix (finance, law, media, policy, platform co-ops)
