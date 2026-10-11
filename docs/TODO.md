@@ -21,7 +21,10 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
   between 2026-10-12 (Solidarity Summer Dance Party) and 2026-11-02
   (Stone Maps, which moved to Oct 3 — date corrected 2026-10-04). Start
   points: Ujima's YouTube channel (where its site says past events go),
-  the USFWC blog for the conference awards, local press.
+  the USFWC blog for the conference awards, local press. While on the
+  conference: its record calls it "the annual national gathering," but
+  conference.coop's past-events page lists 2020 and 2022 and no 2024, so
+  it may be every two years — correct the description if a source says so.
 - **Archive snapshots for six events.** Only the conference had a usable
   Wayback snapshot. The rest need one created via Save Page Now, which the
   agent sessions here can't reach — a human can do it in a minute per URL.

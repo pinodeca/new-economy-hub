@@ -125,6 +125,17 @@ source has vanished can't be checked. Look for an existing snapshot via
 (an Eventbrite, Meetup, or city-calendar page for that one event) over an
 org's rolling `/events` page for `url` itself when both exist.
 
+**From an agent session, only part of that works.** As of 2026-10 in this
+repo's sessions: WebFetch can't reach `web.archive.org` at all (so no Save
+Page Now, no CDX index, no reading a snapshot's contents), and `curl` to
+`archive.org` is rate-limited from the first request. What does work is
+WebFetch on the availability API, which also takes a target date:
+`https://archive.org/wayback/available?url=<url>&timestamp=YYYYMMDD`
+returns the snapshot closest to that date. Check the timestamp before using
+it — a rolling calendar's snapshot from before the event was listed is a
+snapshot of the wrong page. If there's no usable one, leave `archivedUrl`
+out and say so in the PR, so a human can create it.
+
 ## Recording what happened
 
 Once an event has ended, a post-event check (see
