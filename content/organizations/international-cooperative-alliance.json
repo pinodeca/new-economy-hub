@@ -1,0 +1,22 @@
+{
+  "slug": "international-cooperative-alliance",
+  "name": "International Cooperative Alliance (ICA)",
+  "description": "The global apex body for cooperatives, founded in 1895 and headquartered in Brussels — one of the oldest non-governmental organizations in the world, representing an estimated 3 million cooperatives and 1 billion co-op members. Its members are more than 330 national and international cooperative organizations from 106 countries, across agriculture, banking, consumer, fisheries, health, housing, insurance, and industry and services. It is the guardian of the Statement on the Cooperative Identity — the definition, 10 values, and 7 principles all cooperatives share — and works through four regional offices (Africa, the Americas, Asia-Pacific, Europe), eight global sectoral organizations (Cooperative Housing International among them), and committees and networks on gender, research, law, youth, and development. Its 2026 Global Conference in Panama City drew more than 1,100 people from 80 countries and adopted a 2026-2030 strategy for the movement.",
+  "url": "https://www.ica.coop/en",
+  "tags": ["cooperative-business", "membership-network", "advocacy"],
+  "memberCount": 330,
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://www.ica.coop/en",
+      "https://www.ica.coop/en/about-us/international-cooperative-alliance",
+      "https://www.ica.coop/en/events",
+      "https://www.ica.coop/en/events/webinar-cooperatives-international-decade-culture-sustainable-development"
+    ],
+    "notes": "Added the 2026-10-30 Cooperative Cultural Heritage webinar, the only upcoming event on its calendar. The Global Conference & Assemblies (Panama City, 2026-09-13 to 09-18) has already happened. Its October 2026 EU-partnership training sessions are past, and they are aimed at member organizations working with EU Delegations rather than at the public. No Slack, Discord, or forum: the member area is a login, and the rest is news and resources. Its regional offices and sectoral bodies (e.g. ICA Asia and Pacific, Cooperative Housing International) are separate research candidates."
+  }
+}

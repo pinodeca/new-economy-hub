@@ -1,0 +1,23 @@
+{
+  "slug": "doughnut-economics-action-lab",
+  "name": "Doughnut Economics Action Lab (DEAL)",
+  "description": "Works to turn the ideas of Doughnut Economics — economies that meet the needs of all people within the means of the living planet, \"regenerative and distributive by design\" — into practice. Founded as a UK Community Interest Company in July 2019, it launched an online Community Platform in September 2020 where practitioners worldwide share open-source tools, stories, and events, and works across communities and art, business, cities and regions, schools, research, and government policy. Its own role is thought leadership, policy influence, and co-creating tools with the community, most of which are made by community members rather than the DEAL team. It also convenes Global Donut Days, an annual community-led festival of local and online events.",
+  "url": "https://doughnuteconomics.org/",
+  "tags": ["research", "education", "movement-building"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "ADDED",
+    "sourcesChecked": [
+      "https://doughnuteconomics.org/",
+      "https://doughnuteconomics.org/about",
+      "https://doughnuteconomics.org/discover-the-community",
+      "https://doughnuteconomics.org/gdd2026",
+      "https://doughnuteconomics.org/events",
+      "https://doughnuteconomics.org/events.xml"
+    ],
+    "notes": "Added Global Donut Days 2026 as a single festival record rather than its individual sessions. Nearly every event on DEAL's calendar (24 in the RSS feed on 2026-10-21, most of them GDD sessions) is posted by a community member or local group, not DEAL — the same index-the-network-not-the-listings call RESEARCH_QUEUE.md makes for ic.org's directory. The DEAL Community Platform is added as a forum: members post tools, stories, and events and comment on each other's, and two dozen member-posted events in one week show it's active."
+  }
+}

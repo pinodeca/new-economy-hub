@@ -96,6 +96,7 @@ const cases = [
   ["time ending before it starts", mutate(EVENT, (e) => { e.time = { start: "18:00", end: "17:00", timeZone: "America/New_York" }; }), 1, "after `time.start`"],
   ["time with an abbreviation for a timezone", mutate(EVENT, (e) => { e.time = { start: "18:00", timeZone: "EST" }; }), 1, "IANA timezone"],
   ["valid time passes", mutate(EVENT, (e) => { e.time = { start: "09:00", end: "17:30", timeZone: "America/New_York" }; }), 0, null],
+  ["UTC time passes", mutate(EVENT, (e) => { e.time = { start: "17:00", end: "18:30", timeZone: "UTC" }; }), 0, null],
   ["valid monthly recurrence passes", mutate(EVENT, (e) => {
     e.startAt = "2026-10-13"; delete e.endAt;
     e.recurrence = { schedule: "Second Tuesday of every month, 6pm CT", confirmedAt: "2026-09-01", rule: { frequency: "MONTHLY", weekday: "TU", weekOfMonth: 2 } };
