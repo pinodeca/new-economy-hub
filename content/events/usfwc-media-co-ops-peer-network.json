@@ -1,0 +1,18 @@
+{
+  "slug": "usfwc-media-co-ops-peer-network",
+  "title": "Media Co-ops Peer Network Meeting",
+  "description": "A monthly meeting of the U.S. Federation of Worker Cooperatives' peer network for cooperatives in the audiovisual, print, and digital media industry, for mutual support and shared learning. USFWC states that the peer network is open to non-members. Held on Zoom in English; one hour.",
+  "url": "https://www.usworker.coop/calendar/",
+  "startAt": "2026-10-26",
+  "recurrence": {
+    "schedule": "Last Monday of every month, 2pm ET (11am PT), one hour on Zoom.",
+    "rule": { "frequency": "MONTHLY", "weekday": "MO", "weekOfMonth": -1 },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "MEDIUM",
+  "tags": ["worker-cooperatives", "networking"],
+  "organizationSlugs": ["us-federation-of-worker-cooperatives"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

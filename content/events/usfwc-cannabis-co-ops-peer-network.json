@@ -1,0 +1,18 @@
+{
+  "slug": "usfwc-cannabis-co-ops-peer-network",
+  "title": "Cannabis Co-ops Peer Network Meeting",
+  "description": "A monthly meeting of the U.S. Federation of Worker Cooperatives' peer network for workers starting or operating cooperative cannabis businesses, to connect, learn, and organize. Free; one hour on Zoom; English.",
+  "url": "https://www.usworker.coop/calendar/",
+  "startAt": "2026-11-19",
+  "recurrence": {
+    "schedule": "Third Thursday of every month, 1pm ET (10am PT), one hour on Zoom.",
+    "rule": { "frequency": "MONTHLY", "weekday": "TH", "weekOfMonth": 3 },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "MEDIUM",
+  "tags": ["worker-cooperatives", "networking"],
+  "organizationSlugs": ["us-federation-of-worker-cooperatives"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

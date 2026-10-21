@@ -1,0 +1,19 @@
+{
+  "slug": "ujima-wednesdays",
+  "title": "#UjimaWednesdays",
+  "description": "Boston Ujima Project's weekly member meetings, open to the public and dedicated to financial and political education and to Ujima's member working groups. Autumn 2026 sessions are a series on money — a talkback on \"hard currencies\" with Dr. Jared Ball and Dr. Erika Brown, \"Monetary Trust\" with Dr. Jessica Gordon-Nembhard, and a history of money with legal historian Christine Desan, author of Making Money — alongside hands-on workshops such as a mending session. Venue changes week to week (several are at COOP Social Club in Jamaica Plain); Ujima posts each one on its events page. Past sessions are on Ujima's YouTube channel.",
+  "url": "https://www.ujimaboston.com/events",
+  "startAt": "2026-10-21",
+  "recurrence": {
+    "schedule": "Every Wednesday from 6pm ET, in person in Boston; the venue varies, so check Ujima's events page for each week's location and RSVP.",
+    "rule": { "frequency": "WEEKLY", "weekday": "WE" },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": false,
+  "city": "Boston, MA",
+  "barrierToEntry": "LOW",
+  "tags": ["community", "education", "solidarity-economy"],
+  "organizationSlugs": ["boston-ujima-project"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

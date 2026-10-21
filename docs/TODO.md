@@ -30,15 +30,15 @@ sequence — see [DECISIONS.md](DECISIONS.md#no-roadmap).
   agent sessions here can't reach — a human can do it in a minute per URL.
   Two can't be recovered: Ujima's rolling `/events` page already dropped
   Holy Currencies and Ujima Cafe: District 7, and its only snapshot
-  (Aug 27) predates them.
-
-- **Backfill the recurring events the schema couldn't hold.** `Event.recurrence`
-  exists now, so the four organizations whose `research.notRepresentable`
-  lists a fixed cadence should get those events: Cooperation Jackson (Build
-  and Fight series, 2nd Tuesday; membership orientation, 3rd Saturday),
-  Boston Ujima Project (#UjimaWednesdays, Biplaw Mondays, Ujima Cafe), USFWC
-  (monthly peer councils — check which are open to newcomers), and A
-  Bookkeeping Cooperative (multi-week workshop series). Each needs the
-  cadence re-confirmed on the org's site, not copied from the September
-  notes, and its `research` block updated to match. L.A. Co-op Lab's
-  Calendly office hours stay out — see IDEAS.md.
+  (Aug 27) predates them. The ten events added by the 2026-10-21
+  recurrence backfill, plus the Startup Webinar it converted, have no
+  snapshots either — archive.org reset every connection from that session,
+  even with full network access. Their URLs come down to five pages:
+  Ujima's `/events`, USFWC's `/calendar/`, and three bookkeeping.coop
+  workshop pages.
+- **Re-check the backfill's loose ends when their dates come.** Ujima Cafe's
+  2027 season (spring — the 2026 one ended 2026-10-22 and no dates are out);
+  Cooperation Jackson's calendar, silent since August 2025 (if Build and
+  Fight resumes, it's a ready-made second-Tuesday `recurrence`); and A
+  Bookkeeping Cooperative's next Building Shared Futures and Patronage
+  rounds. Each is written up in its organization's `research.notes`.

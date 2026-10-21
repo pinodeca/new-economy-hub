@@ -7,18 +7,16 @@
   "sourceType": "AI_GENERATED",
   "geoScope": "US",
   "research": {
-    "checkedAt": "2026-09-08",
+    "checkedAt": "2026-10-21",
     "events": "ADDED",
     "forums": "NONE_FOUND",
     "sourcesChecked": [
-      "https://bookkeeping.coop/home/",
       "https://bookkeeping.coop/events/",
+      "https://bookkeeping.coop/financial-foundations-2/",
+      "https://bookkeeping.coop/spreadsheets-building-budget-templates/",
       "https://bookkeeping.coop/balance-sheet-fundamentals/",
-      "https://neweconomy.net/member-directory/"
+      "https://bookkeeping.coop/talleres-publicos-de-cosmos/"
     ],
-    "notRepresentable": [
-      "Most of the public workshop series recurs across multiple weeks. An event here can only carry a single date, so only the one-session Balance Sheet FUNdamentals workshop could be added."
-    ],
-    "notes": "The mailing list is a one-way Mailchimp-style signup, not a discussion space, so it doesn't meet the Forum bar. Backfilled from PR #11."
+    "notes": "Re-checked 2026-10-21 for the recurrence backfill: the multi-week series are now listed as finite recurring events (Financial Foundations, November 2026; Spreadsheets!, December 2026), plus the Spanish-language Comprensión Básica workshop (2026-11-18). Building Shared Futures' October round has closed and no next round is announced; Patronage in Worker Coops runs once a year and its 2027 date isn't published — add either when dates appear. Financial Foundations is offered several times a year with new dates, so these records are per-round, not open-ended — each new round is a new file. The mailing list is a one-way signup, not a discussion space, so it doesn't meet the Forum bar."
   }
 }

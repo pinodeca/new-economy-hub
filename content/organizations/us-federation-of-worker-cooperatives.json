@@ -9,17 +9,21 @@
   "sourceType": "AI_GENERATED",
   "geoScope": "US",
   "research": {
-    "checkedAt": "2026-09-09",
+    "checkedAt": "2026-10-21",
     "events": "ADDED",
     "forums": "ADDED",
     "sourcesChecked": [
       "https://www.usworker.coop/connect/",
       "https://www.usworker.coop/calendar/",
-      "https://info.usworker.coop/civicrm/event/info?reset=1&id=873"
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=873",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=874",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=885",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=858",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=899",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=908",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=916",
+      "https://info.usworker.coop/civicrm/event/info?reset=1&id=930"
     ],
-    "notRepresentable": [
-      "USFWC's peer network and council meetings (Cannabis, Media, Black Cooperator, Union Co-ops, Racial & Economic Justice, and the Spanish-language Immigrant Movement council) recur monthly, which a single event date cannot express. They are also oriented to existing members rather than newcomers."
-    ],
-    "notes": "USFWC's records predate content/RESEARCH.md, so this is its first documented pass rather than new discovery. It found two things the seed content had missed: the Spanish-language WhatsApp group listed alongside the Slack on the same Connect page, and the Worker Cooperative Startup Webinar — the one entry on a ten-item calendar explicitly open to anyone rather than to members."
+    "notes": "Re-checked 2026-10-21 for the recurrence backfill, opening each council and peer-network event page rather than relying on the September pass — which had called them all member-oriented, and was wrong for most of them. Added as recurring events: the Worker Cooperative Startup Webinar (first Wednesdays; converted from a single 2026-10-07 record), the Union Co-ops Council's public call, and the Media Co-ops, Black Cooperator, and Cannabis Co-ops peer networks — Media and Black Cooperator say outright that non-members are welcome. Left out: the Policy & Advocacy Council (its calls are \"for all members\", and registering adds you to a member listserv), the Immigrant Movement in Co-ops council (a Spanish-language meeting of representatives of immigrant-led co-ops, with no cadence published), and the Annual Member Meeting and Worker Benefits webinar, which are for members. The Racial & Economic Justice council has no meeting on the current calendar. Forums: the Worker Co-op Slack and the Spanish-language WhatsApp group are both still listed on the Connect page."
   }
 }

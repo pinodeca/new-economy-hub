@@ -1,0 +1,17 @@
+{
+  "slug": "usfwc-union-co-ops-council-call",
+  "title": "Union Co-ops Council Public Call",
+  "description": "The U.S. Federation of Worker Cooperatives' Union Co-ops Council, which builds bridges between worker cooperatives and organized labor, holds a monthly call that USFWC lists as public. Participants plan workshops at labor and co-op conferences, share information and resources about local union co-op projects, and arrange media exchanges. Free; 75 minutes on Zoom; English only. The council's own site is unioncoops.org.",
+  "url": "https://www.usworker.coop/calendar/",
+  "startAt": "2026-10-28",
+  "recurrence": {
+    "schedule": "Usually the last Wednesday of the month, 4pm ET (1pm PT), 75 minutes on Zoom — but not always: November 2026's call is on Wednesday, November 18. Check USFWC's calendar for each month's date.",
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "MEDIUM",
+  "tags": ["worker-cooperatives", "advocacy", "networking"],
+  "organizationSlugs": ["us-federation-of-worker-cooperatives"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}
