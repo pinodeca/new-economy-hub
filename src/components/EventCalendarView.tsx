@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { CalendarEntry, EventCalendar, UpcomingEvent } from "@/lib/content";
 
-// A month grid of upcoming events. Every date is worked out at build time
-// (getEventCalendar in lib/content.ts); this only pages through months,
+// A month grid of upcoming events. Every occurrence is worked out at build
+// time (getEventCalendar in lib/content.ts); this pages through months,
 // applies the list's filters, and opens an event's details in a dialog.
-// Dates are date-only strings handled in UTC throughout, like the rest of
-// the site, so a viewer's own timezone never shifts an event to another day.
+//
+// Timed entries are shown in the VIEWER's timezone — times and days both,
+// so two events an hour apart never look simultaneous, and a 6pm Pacific
+// event lands on the next morning for someone in Europe. That's only safe
+// because this component never prerenders: the events page starts on the
+// list and switches here after mount (EventList's useViewFromHash), so the
+// browser's timezone can't disagree with server HTML. All-day entries stay
+// on their own dates. Calendar dates are "YYYY-MM-DD" strings, handled with
+// UTC getters so the grid itself never shifts.
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -16,6 +23,69 @@ const MONTH_NAMES = [
 const WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const WEEKDAY_LONG = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MAX_CHIPS = 3;
+
+/** A calendar entry placed in the viewer's timezone. */
+interface PlacedEntry {
+  slug: string;
+  /** Viewer-local date the entry shows on. */
+  date: string;
+  /** "6pm", or undefined for all-day. */
+  startLabel?: string;
+  /** "6pm–7:30pm", or undefined for all-day. */
+  rangeLabel?: string;
+  /** Sort key: all-day first, then by start instant. */
+  sortKey: number;
+}
+
+function viewerZone(): string {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+/** Viewer-local "YYYY-MM-DD" for an instant. */
+function localDate(instant: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" })
+    .formatToParts(instant);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}
+
+/** Compact viewer-local clock time: "6pm", "12:50pm". */
+function clock(instant: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone, hour: "numeric", minute: "2-digit" }).formatToParts(instant);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  const minute = get("minute");
+  return `${get("hour")}${minute === "00" ? "" : `:${minute}`}${get("dayPeriod").toLowerCase()}`;
+}
+
+/**
+ * The viewer's timezone for the note under the grid, e.g. "Eastern Time" or
+ * "Central European Time" — the generic name, which stays true across a DST
+ * change inside the months on screen (an abbreviation like "EDT" wouldn't).
+ */
+function zoneName(timeZone: string): string {
+  return (
+    new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "longGeneric" })
+      .formatToParts(new Date())
+      .find((p) => p.type === "timeZoneName")?.value ?? timeZone
+  );
+}
+
+function place(entries: CalendarEntry[], timeZone: string): PlacedEntry[] {
+  return entries
+    .map((entry) => {
+      if (!entry.start) return { slug: entry.slug, date: entry.date, sortKey: -Infinity };
+      const start = new Date(entry.start);
+      const startLabel = clock(start, timeZone);
+      return {
+        slug: entry.slug,
+        date: localDate(start, timeZone),
+        startLabel,
+        rangeLabel: entry.end ? `${startLabel}–${clock(new Date(entry.end), timeZone)}` : startLabel,
+        sortKey: start.getTime(),
+      };
+    })
+    .sort((a, b) => a.date.localeCompare(b.date) || a.sortKey - b.sortKey);
+}
 
 function parseDay(date: string) {
   const d = new Date(`${date}T00:00:00Z`);
@@ -52,9 +122,13 @@ export function EventCalendarView({
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
+  const timeZone = useMemo(() => viewerZone(), []);
+  const today = useMemo(() => localDate(new Date(), timeZone), [timeZone]);
+  const placed = useMemo(() => place(calendar.entries, timeZone), [calendar.entries, timeZone]);
+
   const bySlug = new Map(events.map((event) => [event.slug, event]));
-  const byDay = new Map<string, CalendarEntry[]>();
-  for (const entry of calendar.entries) {
+  const byDay = new Map<string, PlacedEntry[]>();
+  for (const entry of placed) {
     if (!bySlug.has(entry.slug)) continue; // filtered out
     byDay.set(entry.date, [...(byDay.get(entry.date) ?? []), entry]);
   }
@@ -108,8 +182,8 @@ export function EventCalendarView({
               date={date}
               entries={byDay.get(date) ?? []}
               bySlug={bySlug}
-              isToday={date === calendar.today}
-              isPast={date < calendar.today}
+              isToday={date === today}
+              isPast={date < today}
               isSelected={date === selectedDay}
               onSelectDay={() => setSelectedDay(date === selectedDay ? null : date)}
               onOpenEvent={setOpenSlug}
@@ -138,7 +212,7 @@ export function EventCalendarView({
                     onClick={() => setOpenSlug(entry.slug)}
                     className="w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-zinc-100 dark:hover:bg-zinc-900"
                   >
-                    <span className="text-zinc-500 dark:text-zinc-400">{entry.time ?? "All day"}</span>
+                    <span className="text-zinc-500 dark:text-zinc-400">{entry.rangeLabel ?? "All day"}</span>
                     <span className="ml-2 text-zinc-950 dark:text-zinc-50">{bySlug.get(entry.slug)?.title}</span>
                   </button>
                 </li>
@@ -149,7 +223,7 @@ export function EventCalendarView({
       )}
 
       <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-500">
-        Times are shown in each event&apos;s own timezone. Recurring events whose
+        Times are in your timezone ({zoneName(timeZone)}). Recurring events whose
         dates vary show only their next confirmed date.
       </p>
 
@@ -195,7 +269,7 @@ function DayCell({
   onOpenEvent,
 }: {
   date: string;
-  entries: CalendarEntry[];
+  entries: PlacedEntry[];
   bySlug: Map<string, UpcomingEvent>;
   isToday: boolean;
   isPast: boolean;
@@ -249,8 +323,8 @@ function DayCell({
               title={bySlug.get(entry.slug)?.title}
               className="block w-full truncate rounded bg-zinc-100 px-1.5 py-0.5 text-left text-xs text-zinc-800 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
             >
-              {entry.time && (
-                <span className="text-zinc-500 dark:text-zinc-400">{entry.time.split(/[–\s]/)[0]} </span>
+              {entry.startLabel && (
+                <span className="text-zinc-500 dark:text-zinc-400">{entry.startLabel} </span>
               )}
               {bySlug.get(entry.slug)?.title}
             </button>

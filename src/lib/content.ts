@@ -11,7 +11,7 @@ import path from "path";
 import { calendarLinks, type CalendarLinks } from "./calendar";
 import type { Event, Forum, Organization } from "./content-types";
 import {
-  formatEventTime,
+  eventInstant,
   formatEventWhen,
   formatRecurrence,
   isPastEvent,
@@ -98,15 +98,18 @@ export function getUpcomingEvents(): UpcomingEvent[] {
 
 /** One day an upcoming event happens on, for the calendar view. */
 export interface CalendarEntry {
+  /** The date in the event's own timezone — where an all-day entry goes. */
   date: string;
   slug: string;
-  /** e.g. "6pm EDT"; absent for events with no `time`. */
-  time?: string;
+  /**
+   * UTC instants (ISO) for a timed entry. The calendar converts these to
+   * the viewer's timezone, which can also move the entry to another day.
+   */
+  start?: string;
+  end?: string;
 }
 
 export interface EventCalendar {
-  /** Build-time today, so the client highlights the same day the HTML does. */
-  today: string;
   /** First day of each month the view can show, "YYYY-MM-01". */
   months: string[];
   entries: CalendarEntry[];
@@ -117,8 +120,8 @@ const CALENDAR_MONTHS = 12;
 /**
  * Every date each upcoming event falls on, from today through the end of
  * the 12th month — worked out here at build time, like the rest of the
- * events page, so the client only has to page through it. Same day: earlier
- * times first, untimed (all-day) entries ahead of them.
+ * events page, so the client only has to page through it and convert times
+ * to the viewer's timezone.
  */
 export function getEventCalendar(events: Event[]): EventCalendar {
   const cutoff = utcToday();
@@ -127,17 +130,19 @@ export function getEventCalendar(events: Event[]): EventCalendar {
     new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + i, 1)).toISOString().slice(0, 10),
   );
   const end = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + CALENDAR_MONTHS, 0);
-  const startOf = (slug: string) => events.find((e) => e.slug === slug)?.time?.start ?? "";
-  const entries: CalendarEntry[] = events
-    .flatMap((event) =>
-      occurrenceDates(event, cutoff, end).map((date) => ({
+  const entries: CalendarEntry[] = events.flatMap((event) =>
+    occurrenceDates(event, cutoff, end).map((date) => {
+      const time = event.time;
+      if (!time) return { date, slug: event.slug };
+      return {
         date,
         slug: event.slug,
-        time: formatEventTime(event, date),
-      })),
-    )
-    .sort((a, b) => a.date.localeCompare(b.date) || startOf(a.slug).localeCompare(startOf(b.slug)));
-  return { today: new Date(cutoff).toISOString().slice(0, 10), months, entries };
+        start: eventInstant(date, time.start, time.timeZone),
+        ...(time.end ? { end: eventInstant(date, time.end, time.timeZone) } : {}),
+      };
+    }),
+  );
+  return { months, entries };
 }
 
 /** Most recently finished first — the reverse of the upcoming list's order. */

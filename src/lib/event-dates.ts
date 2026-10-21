@@ -6,6 +6,7 @@
 // toLocaleDateString's local-timezone defaults) so the displayed day doesn't
 // shift for viewers west of UTC, and compare them against a UTC cutoff.
 
+import { tzlib_get_offset } from "timezones-ical-library";
 import type { Event, RecurrenceRule, Weekday } from "./content-types";
 
 const MONTHS = [
@@ -149,28 +150,14 @@ export function occurrenceDates(event: Event, from: number, to: number): string[
   return dates;
 }
 
-/** "18:00" -> "6pm", "12:50" -> "12:50pm". */
-function formatClock(hhmm: string): string {
-  const [h, m] = hhmm.split(":").map(Number);
-  const suffix = h < 12 ? "am" : "pm";
-  const hour = h % 12 === 0 ? 12 : h % 12;
-  return m === 0 ? `${hour}${suffix}` : `${hour}:${String(m).padStart(2, "0")}${suffix}`;
-}
-
 /**
- * An event's time of day on a given date, in its own timezone, e.g.
- * "6pm EDT" or "1–2:30pm GMT+1". Shown in the event's timezone rather than
- * the viewer's: it's computed at build time, and it matches how the
- * organizer announced it. The abbreviation is read at noon UTC that day, so
- * it's right on either side of a DST change.
+ * The UTC instant an event's `time` falls at on a given date, as an ISO
+ * string — so the calendar view can show it in the viewer's own timezone.
+ * The offset is the event timezone's offset at that local date and time,
+ * which keeps DST right on either side of a change.
  */
-export function formatEventTime(event: Event, date: string): string | undefined {
-  const time = event.time;
-  if (!time) return undefined;
-  const zone = new Intl.DateTimeFormat("en-US", { timeZone: time.timeZone, timeZoneName: "short" })
-    .formatToParts(new Date(`${date}T12:00:00Z`))
-    .find((part) => part.type === "timeZoneName")?.value;
-  const start = formatClock(time.start);
-  const range = time.end ? `${start}–${formatClock(time.end)}` : start;
-  return zone ? `${range} ${zone}` : range;
+export function eventInstant(date: string, hhmm: string, timeZone: string): string {
+  const offset = tzlib_get_offset(timeZone, date, hhmm); // "+HHMM"
+  if (!/^[+-]\d{4}$/.test(offset)) throw new Error(`No UTC offset for ${timeZone} on ${date} ${hhmm}: ${offset}`);
+  return new Date(`${date}T${hhmm}:00${offset.slice(0, 3)}:${offset.slice(3)}`).toISOString();
 }
