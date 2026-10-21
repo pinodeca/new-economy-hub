@@ -22,6 +22,15 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    # The deploy action posts the PR's preview URL as a comment, which needs
+    # write access to PR/issue comments; the repo's default GITHUB_TOKEN is
+    # read-only, so without this the comment silently fails ("Unexpectedly
+    # failed to add GitHub comment" in the log). Setting permissions here
+    # replaces the defaults, so checkout's read access is listed too.
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
         with:
