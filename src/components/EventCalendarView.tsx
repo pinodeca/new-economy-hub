@@ -3,9 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { CalendarEntry, EventCalendar, UpcomingEvent } from "@/lib/content";
 
-// A month grid of upcoming events. Every occurrence is worked out at build
-// time (getEventCalendar in lib/content.ts); this pages through months,
-// applies the list's filters, and opens an event's details in a dialog.
+// The events page's calendar: a month grid, or a week agenda that shows
+// every title and time in the week at once (the default on phones, where
+// the month grid only has room for dots). Every occurrence is worked out at
+// build time (getEventCalendar in lib/content.ts); this pages through
+// months or weeks, applies the list's filters, and opens an event's
+// details in a dialog.
 //
 // Timed entries are shown in the VIEWER's timezone — times and days both,
 // so two events an hour apart never look simultaneous, and a 6pm Pacific
@@ -23,6 +26,11 @@ const MONTH_NAMES = [
 const WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const WEEKDAY_LONG = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MAX_CHIPS = 3;
+const DAY_MS = 86_400_000;
+/** Tailwind's `sm` breakpoint: below it, the calendar opens on the week view. */
+const PHONE_QUERY = "(max-width: 639px)";
+
+type Mode = "month" | "week";
 
 /** A calendar entry placed in the viewer's timezone. */
 interface PlacedEntry {
@@ -97,6 +105,25 @@ function longDate(date: string) {
   return `${WEEKDAY_LONG[weekday]}, ${MONTH_NAMES[month]} ${day}`;
 }
 
+function addDays(date: string, days: number): string {
+  return new Date(Date.parse(`${date}T00:00:00Z`) + days * DAY_MS).toISOString().slice(0, 10);
+}
+
+/** The Sunday a date's week starts on — weeks run Sunday-Saturday, like the month grid. */
+function weekStartOf(date: string): string {
+  return addDays(date, -parseDay(date).weekday);
+}
+
+/** "Oct 18 – 24, 2026", "Oct 25 – Nov 1, 2026", "Dec 27, 2026 – Jan 2, 2027". */
+function weekLabel(start: string): string {
+  const a = parseDay(start);
+  const b = parseDay(addDays(start, 6));
+  const short = (m: number) => MONTH_NAMES[m].slice(0, 3);
+  if (a.year !== b.year) return `${short(a.month)} ${a.day}, ${a.year} – ${short(b.month)} ${b.day}, ${b.year}`;
+  if (a.month !== b.month) return `${short(a.month)} ${a.day} – ${short(b.month)} ${b.day}, ${b.year}`;
+  return `${short(a.month)} ${a.day} – ${b.day}, ${b.year}`;
+}
+
 /** The month's days, padded with nulls to start on Sunday and fill the last week. */
 function monthCells(monthStart: string): (string | null)[] {
   const { year, month, weekday } = parseDay(monthStart);
@@ -118,13 +145,23 @@ export function EventCalendarView({
   calendar: EventCalendar;
   renderEvent: (event: UpcomingEvent) => React.ReactNode;
 }) {
+  // Safe to read window here: this component only ever renders in the
+  // browser (see the note at the top of the file).
+  const [mode, setMode] = useState<Mode>(() => (window.matchMedia(PHONE_QUERY).matches ? "week" : "month"));
   const [monthIndex, setMonthIndex] = useState(0);
+  const [weekIndex, setWeekIndex] = useState(0);
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
   const timeZone = useMemo(() => viewerZone(), []);
   const today = useMemo(() => localDate(new Date(), timeZone), [timeZone]);
   const placed = useMemo(() => place(calendar.entries, timeZone), [calendar.entries, timeZone]);
+  // Weeks from this one through the one holding the last day of the last
+  // month the calendar covers.
+  const firstWeek = weekStartOf(today);
+  const lastMonth = parseDay(calendar.months[calendar.months.length - 1]);
+  const lastDay = new Date(Date.UTC(lastMonth.year, lastMonth.month + 1, 0)).toISOString().slice(0, 10);
+  const weekCount = Math.round((Date.parse(weekStartOf(lastDay)) - Date.parse(firstWeek)) / (7 * DAY_MS)) + 1;
 
   const bySlug = new Map(events.map((event) => [event.slug, event]));
   const byDay = new Map<string, PlacedEntry[]>();
@@ -137,89 +174,126 @@ export function EventCalendarView({
   const { year, month } = parseDay(monthStart);
   const monthPrefix = monthStart.slice(0, 7);
   const monthHasEvents = [...byDay.keys()].some((date) => date.startsWith(monthPrefix));
+  const weekStart = addDays(firstWeek, weekIndex * 7);
+  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  const weekHasEvents = weekDays.some((date) => byDay.has(date));
+
   const goToMonth = (index: number) => {
     setMonthIndex(index);
     setSelectedDay(null);
   };
+  // Switching views keeps you near the same dates: month -> the first week
+  // of that month you can see (or this week); week -> that week's month.
+  const switchMode = (next: Mode) => {
+    if (next === mode) return;
+    if (next === "week") {
+      const target = monthIndex === 0 ? firstWeek : weekStartOf(monthStart);
+      setWeekIndex(Math.max(0, Math.round((Date.parse(target) - Date.parse(firstWeek)) / (7 * DAY_MS))));
+    } else {
+      const index = calendar.months.indexOf(`${weekStart.slice(0, 7)}-01`);
+      setMonthIndex(index === -1 ? 0 : index);
+    }
+    setSelectedDay(null);
+    setMode(next);
+  };
   const openEvent = openSlug ? bySlug.get(openSlug) : undefined;
   const selectedEntries = selectedDay ? (byDay.get(selectedDay) ?? []) : [];
 
+  const atStart = mode === "month" ? monthIndex === 0 : weekIndex === 0;
+  const atEnd = mode === "month" ? monthIndex === calendar.months.length - 1 : weekIndex === weekCount - 1;
+  const step = (delta: number) => (mode === "month" ? goToMonth(monthIndex + delta) : setWeekIndex(weekIndex + delta));
+
   return (
     <div className="mt-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-lg font-semibold text-zinc-950 dark:text-zinc-50" aria-live="polite">
-          {MONTH_NAMES[month]} {year}
+          {mode === "month" ? `${MONTH_NAMES[month]} ${year}` : weekLabel(weekStart)}
         </h2>
-        <div className="flex gap-2">
-          <NavButton disabled={monthIndex === 0} onClick={() => goToMonth(monthIndex - 1)} label="Previous month">
+        <div className="flex items-center gap-2">
+          <ModeToggle mode={mode} onChange={switchMode} />
+          <NavButton disabled={atStart} onClick={() => step(-1)} label={`Previous ${mode}`}>
             ‹
           </NavButton>
-          <NavButton
-            disabled={monthIndex === calendar.months.length - 1}
-            onClick={() => goToMonth(monthIndex + 1)}
-            label="Next month"
-          >
+          <NavButton disabled={atEnd} onClick={() => step(1)} label={`Next ${mode}`}>
             ›
           </NavButton>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-7 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-800" style={{ gap: "1px" }}>
-        {WEEKDAY_SHORT.map((name) => (
-          <div
-            key={name}
-            className="bg-zinc-50 py-1.5 text-center text-xs font-medium text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400"
-          >
-            {name}
-          </div>
-        ))}
-        {monthCells(monthStart).map((date, i) =>
-          date === null ? (
-            <div key={`pad-${i}`} className="bg-zinc-50 dark:bg-zinc-900/60" />
-          ) : (
-            <DayCell
-              key={date}
-              date={date}
-              entries={byDay.get(date) ?? []}
-              bySlug={bySlug}
-              isToday={date === today}
-              isPast={date < today}
-              isSelected={date === selectedDay}
-              onSelectDay={() => setSelectedDay(date === selectedDay ? null : date)}
-              onOpenEvent={setOpenSlug}
-            />
-          ),
-        )}
-      </div>
+      {mode === "week" ? (
+        <WeekAgenda
+          days={weekDays}
+          byDay={byDay}
+          bySlug={bySlug}
+          today={today}
+          onOpenEvent={setOpenSlug}
+        />
+      ) : (
+        <>
+        <div className="mt-4 grid grid-cols-7 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-800" style={{ gap: "1px" }}>
+          {WEEKDAY_SHORT.map((name) => (
+            <div
+              key={name}
+              className="bg-zinc-50 py-1.5 text-center text-xs font-medium text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400"
+            >
+              {name}
+            </div>
+          ))}
+          {monthCells(monthStart).map((date, i) =>
+            date === null ? (
+              <div key={`pad-${i}`} className="bg-zinc-50 dark:bg-zinc-900/60" />
+            ) : (
+              <DayCell
+                key={date}
+                date={date}
+                entries={byDay.get(date) ?? []}
+                bySlug={bySlug}
+                isToday={date === today}
+                isPast={date < today}
+                isSelected={date === selectedDay}
+                onSelectDay={() => setSelectedDay(date === selectedDay ? null : date)}
+                onOpenEvent={setOpenSlug}
+              />
+            ),
+          )}
+        </div>
 
-      {!monthHasEvents && (
-        <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-500">
-          {events.length === 0 ? "No events match these filters." : "Nothing listed this month."}
-        </p>
+        {!monthHasEvents && (
+          <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-500">
+            {events.length === 0 ? "No events match these filters." : "Nothing listed this month."}
+          </p>
+        )}
+
+        {selectedDay && (
+          <section className="mt-4 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+            <h3 className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">{longDate(selectedDay)}</h3>
+            {selectedEntries.length === 0 ? (
+              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">Nothing on this day.</p>
+            ) : (
+              <ul className="mt-2 flex flex-col gap-1">
+                {selectedEntries.map((entry) => (
+                  <li key={entry.slug}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenSlug(entry.slug)}
+                      className="w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                    >
+                      <span className="text-zinc-500 dark:text-zinc-400">{entry.rangeLabel ?? "All day"}</span>
+                      <span className="ml-2 text-zinc-950 dark:text-zinc-50">{bySlug.get(entry.slug)?.title}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
+        </>
       )}
 
-      {selectedDay && (
-        <section className="mt-4 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-          <h3 className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">{longDate(selectedDay)}</h3>
-          {selectedEntries.length === 0 ? (
-            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">Nothing on this day.</p>
-          ) : (
-            <ul className="mt-2 flex flex-col gap-1">
-              {selectedEntries.map((entry) => (
-                <li key={entry.slug}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenSlug(entry.slug)}
-                    className="w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-zinc-100 dark:hover:bg-zinc-900"
-                  >
-                    <span className="text-zinc-500 dark:text-zinc-400">{entry.rangeLabel ?? "All day"}</span>
-                    <span className="ml-2 text-zinc-950 dark:text-zinc-50">{bySlug.get(entry.slug)?.title}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+      {mode === "week" && !weekHasEvents && (
+        <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-500">
+          {events.length === 0 ? "No events match these filters." : "Nothing listed this week."}
+        </p>
       )}
 
       <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-500">
@@ -231,6 +305,93 @@ export function EventCalendarView({
         {openEvent && renderEvent(openEvent)}
       </EventDialog>
     </div>
+  );
+}
+
+function ModeToggle({ mode, onChange }: { mode: Mode; onChange: (mode: Mode) => void }) {
+  const option = (value: Mode, label: string) => (
+    <button
+      type="button"
+      onClick={() => onChange(value)}
+      aria-pressed={mode === value}
+      className={
+        mode === value
+          ? "rounded px-2 py-0.5 text-xs font-medium text-zinc-950 bg-white shadow-sm dark:bg-zinc-800 dark:text-zinc-50"
+          : "rounded px-2 py-0.5 text-xs text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+      }
+    >
+      {label}
+    </button>
+  );
+  return (
+    <div role="group" aria-label="Calendar range" className="flex rounded-md bg-zinc-100 p-0.5 dark:bg-zinc-900">
+      {option("month", "Month")}
+      {option("week", "Week")}
+    </div>
+  );
+}
+
+/**
+ * Seven days with every event's time and full title. Stacked on phones, so
+ * nothing truncates; side by side as columns from `sm` up, titles wrapping.
+ */
+function WeekAgenda({
+  days,
+  byDay,
+  bySlug,
+  today,
+  onOpenEvent,
+}: {
+  days: string[];
+  byDay: Map<string, PlacedEntry[]>;
+  bySlug: Map<string, UpcomingEvent>;
+  today: string;
+  onOpenEvent: (slug: string) => void;
+}) {
+  return (
+    <ol className="mt-4 flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-zinc-200 sm:grid sm:grid-cols-7 dark:border-zinc-800 dark:bg-zinc-800" style={{ gap: "1px" }}>
+      {days.map((date) => {
+        const { day, weekday } = parseDay(date);
+        const entries = byDay.get(date) ?? [];
+        const isToday = date === today;
+        const isPast = date < today;
+        return (
+          <li key={date} className="flex min-w-0 flex-col bg-white p-2 sm:min-h-40 dark:bg-zinc-950" aria-label={longDate(date)}>
+            <div className={`flex items-baseline gap-1.5 text-xs ${isPast ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400"}`}>
+              <span className="font-medium">{WEEKDAY_SHORT[weekday]}</span>
+              <span
+                className={
+                  isToday
+                    ? "inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-zinc-900 px-1 font-semibold text-white dark:bg-zinc-50 dark:text-zinc-900"
+                    : ""
+                }
+              >
+                {day}
+              </span>
+              {isToday && <span className="sm:hidden">Today</span>}
+            </div>
+            {entries.length === 0 ? (
+              <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-600">{isPast ? "" : "Nothing listed"}</p>
+            ) : (
+              <ul className="mt-1 flex flex-col gap-1">
+                {entries.map((entry) => (
+                  <li key={entry.slug}>
+                    <button
+                      type="button"
+                      onClick={() => onOpenEvent(entry.slug)}
+                      className="w-full rounded px-1.5 py-1 text-left text-sm leading-snug hover:bg-zinc-100 sm:bg-zinc-100 sm:text-xs sm:hover:bg-zinc-200 dark:hover:bg-zinc-900 sm:dark:bg-zinc-800 sm:dark:hover:bg-zinc-700"
+                    >
+                      <span className="block text-xs text-zinc-500 dark:text-zinc-400">{entry.rangeLabel ?? "All day"}</span>
+                      <span className="text-zinc-900 hyphens-auto [overflow-wrap:break-word] dark:text-zinc-100">{bySlug.get(entry.slug)?.title}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
