@@ -1,0 +1,22 @@
+{
+  "slug": "platform-cooperativism-consortium",
+  "name": "Platform Cooperativism Consortium (PCC)",
+  "description": "A research, community-building, and advocacy hub, based at The New School in New York, for platform cooperatives — businesses that sell goods or services mainly through a website, app, or protocol and are owned and democratically governed by their workers and users, as an alternative to venture-funded platforms. PCC says it supports hundreds of platform co-op businesses with tens of thousands of worker-owners worldwide. It has run a conference most years since 2014, publishes research and a large blog of case studies from around the world, runs a fellowship through its Institute for the Cooperative Digital Economy (ICDE), and has sister organizations and working groups in Japan, Hong Kong, Sweden, Australia, Germany, Italy, and Thailand. Affiliates include the U.S. Federation of Worker Cooperatives, the U.S. Solidarity Economy Network, the Sustainable Economies Law Center, NCBA, and the Oxford Internet Institute.",
+  "url": "https://platform.coop/",
+  "tags": ["platform-cooperatives", "research", "cooperative-development"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://platform.coop/",
+      "https://platform.coop/about/pcc/",
+      "https://platform.coop/events/solidarity-ai/",
+      "https://platform.coop/blog/nov-5/",
+      "https://platform.coop/blog/platform-co-op-school-community-assembly-highlights/"
+    ],
+    "notes": "Added the 2026 Solidarity AI conference in Bangkok. Left out: an ICDE fellow's research presentation on community-owned AI, posted as \"Nov 5\" (2026-10-20), because the post gives no time or way to attend; and two pre-conference sessions folded into the conference record rather than listed separately — a day-long Feminist AI workshop by IT for Change (2026-11-11, Chulalongkorn University) that lists a fixed roster of participants, and a Reporting on AI session (2026-11-10) whose time and location are still \"tbd\". Platform Co-op School has held online community assemblies (over a hundred attendees at a February 2023 unconference), but no current School dates were found. No Slack, Discord, or forum: community updates are a monthly one-way email."
+  }
+}

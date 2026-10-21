@@ -1,0 +1,23 @@
+{
+  "slug": "shared-capital-cooperative",
+  "name": "Shared Capital Cooperative",
+  "description": "A national Community Development Financial Institution (CDFI) loan fund that lends to cooperative businesses and housing co-ops across the US — and is itself a cooperative, owned and governed by the co-ops that borrow from and invest in it. Founded in 1978 by Twin Cities co-op leaders who pooled spare cash into a revolving loan fund because banks wouldn't lend to co-ops; headquartered in Minneapolis-St. Paul. It counts 330 member cooperatives in 35 states and DC, plus individual members (any co-op, group forming one, or individual can join; individuals buy a $100 equity share). Since 1978 it has made over 1,000 loans totaling more than $80 million; in 2025 the fund reached $24.7 million and closed 25 loans worth $6.5 million, 88% of them to co-ops of people of color, low-income, women, and LGBTQ communities. Also runs an Heirs' Property Relending Program and takes investment from social investors.",
+  "url": "https://sharedcapital.coop/",
+  "tags": ["financial-services", "community-investment", "cooperative-business"],
+  "memberCount": 330,
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://sharedcapital.coop/",
+      "https://sharedcapital.coop/about/",
+      "https://sharedcapital.coop/annualmeeting/",
+      "https://sharedcapital.coop/join/",
+      "https://sharedcapital.coop/news/"
+    ],
+    "notes": "Its one public event is the Annual General Meeting and Co-op Forum, and the 2026 edition has already happened: the page now thanks attendees and links the recording and materials (including a housing co-op panel with Pilsen Housing Cooperative, Students' Cooperative, and Spartan Housing Cooperative), without giving the date. Add the 2027 meeting once it's announced. No Slack, Discord, or forum: members interact through governance (board elections and ballot questions) and lending, not a discussion space."
+  }
+}

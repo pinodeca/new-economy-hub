@@ -1,0 +1,21 @@
+{
+  "slug": "project-equity",
+  "name": "Project Equity",
+  "description": "A US nonprofit, founded in 2014, that helps business owners sell their companies to their employees — framing employee ownership as a succession and exit strategy that secures a fair price for the owner while letting workers build equity. It advises on full and partial transitions (including through its Catalyst Fund), runs regional data studies on business and workforce numbers with local governments and economic-development partners to keep jobs in place, and works on policy to scale employee ownership nationally. Much of its outreach is webinars and mixers for business owners, co-hosted with Small Business Development Centers and regional partners across the country. A member of the Ashoka network.",
+  "url": "https://project-equity.org/",
+  "tags": ["worker-ownership", "cooperative-development", "education"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://project-equity.org/",
+      "https://project-equity.org/about-us/what-we-do/",
+      "https://project-equity.org/events-and-webinars/",
+      "https://project-equity.org/events-and-webinars/exit-planning-and-employee-ownership/"
+    ],
+    "notes": "Events are frequent but one-off and mostly regional — co-hosted webinars and mixers for business owners in a given state or county, about twenty listed so far in 2026. There's no cadence to model as a recurring event, so each is a dated record; expect this org's events to need regular top-ups rather than one recurring entry. The 3-week \"Exit, Succession Planning, and Employee Ownership Options\" series with the Orange County / Inland Empire SBDC was left out: its registration closed October 14. No Slack, Discord, or forum: Project Equity's audience is business owners it advises one-on-one, plus a one-way newsletter and social media."
+  }
+}
