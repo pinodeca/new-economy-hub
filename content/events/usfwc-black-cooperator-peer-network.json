@@ -4,6 +4,7 @@
   "description": "A space organized by the U.S. Federation of Worker Cooperatives for Black people in the cooperative movement to strategize, uplift one another, exchange resources, and build relationships. USFWC says you don't have to be a member to join, and that anyone interested in collective ownership is welcome whatever their level of experience. Held on Zoom in English; one hour.",
   "url": "https://www.usworker.coop/calendar/",
   "startAt": "2026-11-25",
+  "time": { "start": "17:00", "end": "18:00", "timeZone": "America/New_York" },
   "recurrence": {
     "schedule": "Fourth Wednesday of odd-numbered months (January, March, May, …), 5pm ET (2pm PT), one hour on Zoom. Check USFWC's calendar for the next date.",
     "confirmedAt": "2026-10-21"

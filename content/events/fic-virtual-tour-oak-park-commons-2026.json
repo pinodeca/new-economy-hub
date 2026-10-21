@@ -4,6 +4,7 @@
   "description": "A one-hour online tour, hosted by author and community-living guide Cynthia Tina for the Foundation for Intentional Community, of Oak Park Commons, a newly built 24-unit, consensus-governed intergenerational cohousing community in Oak Park, Illinois, with a shared kitchen, great room, and other common spaces. Part of FIC's ongoing Virtual Tour series for people new to community; past tours are on FIC's YouTube channel. Pay-what-you-can, starting at $0. 1-2pm CT.",
   "url": "https://www.ic.org/communiversity-library/webinar/virtual-tour-of-intentional-communities-oak-park-commons-cohousing/",
   "startAt": "2026-10-22",
+  "time": { "start": "13:00", "end": "14:00", "timeZone": "America/Chicago" },
   "isVirtual": true,
   "barrierToEntry": "LOW",
   "tags": ["intentional-communities", "cooperative-housing"],

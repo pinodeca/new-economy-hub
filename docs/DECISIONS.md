@@ -4,6 +4,41 @@ Short log of architectural calls and the reasoning behind them, so later
 readers (human or agent) don't relitigate settled questions without the
 context that settled them. Newest first.
 
+## 2026-10-21: "Add to calendar" is static files, plus an optional `Event.time`
+
+**Decision**: Every upcoming event card gets a Google Calendar link and an
+`.ics` download, and `/events.ics` carries every upcoming event as a feed
+people can subscribe to (Google, Apple, Outlook). All of it is generated at
+build time by `src/lib/calendar.ts`, through `force-static` route handlers,
+so the site stays a static export; the daily rebuild keeps the feed current.
+To make entries timed rather than all-day, `Event` gains an optional `time`
+(`start`, optional `end`, IANA `timeZone`), applied to every day or
+occurrence of the event.
+
+**Why**: Getting an event into someone's calendar is the shortest path from
+"found it" to "showed up", which is the site's whole point. `.ics` covers
+Apple, Outlook, and nearly everything else; Google gets its own link because
+it won't open an `.ics` from a click. A third-party widget was the
+alternative, and lost: it adds a client-side script and a dependency on an
+outside service for something a build step can do. The one library added,
+`timezones-ical-library`, supplies VTIMEZONE definitions — the part of
+iCalendar that's easy to get subtly wrong across DST changes.
+
+`time` is separate from `startAt` rather than turning it into a datetime
+because the date-only `startAt` is load-bearing (the upcoming/past split, the
+recurrence rule check) and every existing record would otherwise need
+rewriting. Times live in the event's own timezone, not UTC, so a 6pm-ET
+weekly meeting stays at 6pm across a DST change. `end` is optional so a
+source that only gives a start time doesn't force a guessed duration; such
+an entry marks the start only.
+
+**What it gives up**: recurring events without a `rule` get no calendar
+entry. Their cadence ("last Wednesday, except November") has no faithful
+RRULE, and a repeating entry on the wrong days is worse than none, so the
+card says the dates vary instead. Repeating entries start at the next
+occurrence rather than `startAt`, so adding one doesn't backfill past
+sessions.
+
 ## 2026-10-04: Past events get a post-event check, recorded on the event
 
 **Decision**: Keep past events, and add two optional `Event` fields:

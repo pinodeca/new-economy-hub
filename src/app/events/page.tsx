@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { EventList } from "@/components/EventList";
 import { PastEventList } from "@/components/PastEventList";
+import { FEED_PATH, SITE_URL } from "@/lib/calendar";
 import {
   getBuildDate,
   getOrganizationsBySlug,
   getPastEvents,
   getUpcomingEvents,
 } from "@/lib/content";
+
+// webcal:// is what makes calendar apps offer "subscribe" rather than a
+// one-time import.
+const FEED_WEBCAL = `${SITE_URL.replace(/^https:/, "webcal:")}${FEED_PATH}`;
 
 export default function EventsPage() {
   const upcoming = getUpcomingEvents();
@@ -21,6 +26,22 @@ export default function EventsPage() {
       <p className="mt-4 text-zinc-600 dark:text-zinc-400">
         Upcoming gatherings, especially ones with a low barrier to just show
         up.
+      </p>
+      <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+        Get every event in your calendar, updated as new ones are added:{" "}
+        <a
+          href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(FEED_WEBCAL)}`}
+          target="_blank"
+          rel="noreferrer"
+          className="underline hover:text-zinc-700 dark:hover:text-zinc-200"
+        >
+          subscribe in Google Calendar
+        </a>{" "}
+        or{" "}
+        <a href={FEED_WEBCAL} className="underline hover:text-zinc-700 dark:hover:text-zinc-200">
+          in Apple Calendar / Outlook
+        </a>
+        .
       </p>
 
       {upcoming.length === 0 ? (

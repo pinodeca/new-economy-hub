@@ -5,6 +5,7 @@
   "url": "https://bookkeeping.coop/financial-foundations-2/",
   "startAt": "2026-11-02",
   "endAt": "2026-11-23",
+  "time": { "start": "13:00", "end": "15:00", "timeZone": "America/New_York" },
   "recurrence": {
     "schedule": "Four Mondays — November 2, 9, 16, and 23, 2026 — 1-3pm ET (10am-12pm PT), on Zoom.",
     "rule": { "frequency": "WEEKLY", "weekday": "MO" },

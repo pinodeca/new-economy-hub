@@ -4,6 +4,7 @@
   "description": "A beginner-friendly two-hour online workshop from the Foundation for Intentional Community, led by Lee Warren, for people thinking about joining an intentional community. It works through assessing what you need, what you can offer, and what makes a community a good match, and ends with drafting a preliminary letter to your future community. Pay-what-you-can, starting at $0. 1-3pm CT.",
   "url": "https://www.ic.org/communiversity-library/webinar/community-seeking-101-a-grounded-first-step-for-new-communitarians/",
   "startAt": "2026-11-17",
+  "time": { "start": "13:00", "end": "15:00", "timeZone": "America/Chicago" },
   "isVirtual": true,
   "barrierToEntry": "LOW",
   "tags": ["intentional-communities", "education"],

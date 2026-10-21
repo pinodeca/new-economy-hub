@@ -97,6 +97,7 @@ export function EventList({
                     </>
                   )}
                 </div>
+                <AddToCalendar event={event} />
                 <TagList
                   tags={event.tags}
                   activeTag={tag}
@@ -109,5 +110,33 @@ export function EventList({
         </ul>
       )}
     </div>
+  );
+}
+
+const calendarLink =
+  "underline decoration-zinc-300 underline-offset-2 hover:text-zinc-700 dark:decoration-zinc-700 dark:hover:text-zinc-200";
+
+function AddToCalendar({ event }: { event: UpcomingEvent }) {
+  if (!event.calendar) {
+    // Only recurring events without a rule land here: their dates shift
+    // month to month, so a repeating entry would put sessions on wrong days.
+    return (
+      <p className="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+        Dates vary, so there&apos;s no calendar entry — check the schedule
+        above.
+      </p>
+    );
+  }
+  return (
+    <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+      Add to calendar:{" "}
+      <a href={event.calendar.googleUrl} target="_blank" rel="noreferrer" className={calendarLink}>
+        Google
+      </a>
+      <span aria-hidden> · </span>
+      <a href={event.calendar.icsPath} download className={calendarLink}>
+        Apple, Outlook &amp; others (.ics)
+      </a>
+    </p>
   );
 }
