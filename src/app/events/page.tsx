@@ -4,6 +4,7 @@ import { PastEventList } from "@/components/PastEventList";
 import { FEED_PATH, SITE_URL } from "@/lib/calendar";
 import {
   getBuildDate,
+  getEventCalendar,
   getOrganizationsBySlug,
   getPastEvents,
   getUpcomingEvents,
@@ -51,6 +52,7 @@ export default function EventsPage() {
       ) : (
         <EventList
           events={upcoming}
+          calendar={getEventCalendar(upcoming)}
           organizationsBySlug={organizationsBySlug}
         />
       )}

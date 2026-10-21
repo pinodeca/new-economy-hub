@@ -11,10 +11,12 @@ import path from "path";
 import { calendarLinks, type CalendarLinks } from "./calendar";
 import type { Event, Forum, Organization } from "./content-types";
 import {
+  formatEventTime,
   formatEventWhen,
   formatRecurrence,
   isPastEvent,
   nextOccurrence,
+  occurrenceDates,
   utcToday,
 } from "./event-dates";
 
@@ -92,6 +94,50 @@ export function getUpcomingEvents(): UpcomingEvent[] {
       cadence: formatRecurrence(event, cutoff),
       calendar: calendarLinks(event, cutoff),
     }));
+}
+
+/** One day an upcoming event happens on, for the calendar view. */
+export interface CalendarEntry {
+  date: string;
+  slug: string;
+  /** e.g. "6pm EDT"; absent for events with no `time`. */
+  time?: string;
+}
+
+export interface EventCalendar {
+  /** Build-time today, so the client highlights the same day the HTML does. */
+  today: string;
+  /** First day of each month the view can show, "YYYY-MM-01". */
+  months: string[];
+  entries: CalendarEntry[];
+}
+
+const CALENDAR_MONTHS = 12;
+
+/**
+ * Every date each upcoming event falls on, from today through the end of
+ * the 12th month — worked out here at build time, like the rest of the
+ * events page, so the client only has to page through it. Same day: earlier
+ * times first, untimed (all-day) entries ahead of them.
+ */
+export function getEventCalendar(events: Event[]): EventCalendar {
+  const cutoff = utcToday();
+  const now = new Date(cutoff);
+  const months = Array.from({ length: CALENDAR_MONTHS }, (_, i) =>
+    new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + i, 1)).toISOString().slice(0, 10),
+  );
+  const end = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + CALENDAR_MONTHS, 0);
+  const startOf = (slug: string) => events.find((e) => e.slug === slug)?.time?.start ?? "";
+  const entries: CalendarEntry[] = events
+    .flatMap((event) =>
+      occurrenceDates(event, cutoff, end).map((date) => ({
+        date,
+        slug: event.slug,
+        time: formatEventTime(event, date),
+      })),
+    )
+    .sort((a, b) => a.date.localeCompare(b.date) || startOf(a.slug).localeCompare(startOf(b.slug)));
+  return { today: new Date(cutoff).toISOString().slice(0, 10), months, entries };
 }
 
 /** Most recently finished first — the reverse of the upcoming list's order. */

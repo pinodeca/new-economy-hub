@@ -127,3 +127,50 @@ export function formatRecurrence(event: Event, cutoff: number = utcToday()): str
   parts.push(`schedule confirmed ${formatDate(new Date(recurrence.confirmedAt))}`);
   return parts.join(" · ");
 }
+
+/**
+ * Every date in [from, to] (UTC-midnight timestamps, inclusive) that an
+ * event happens on, as date-only ISO strings — what the calendar view
+ * plots. A rule-less recurring event contributes only its one known date
+ * (`startAt`): its other dates can't be computed, and guessing them would
+ * put sessions on wrong days.
+ */
+export function occurrenceDates(event: Event, from: number, to: number): string[] {
+  const anchor = Date.parse(event.startAt);
+  const last = event.endAt ? Date.parse(event.endAt) : event.recurrence ? Infinity : anchor;
+  const rule = event.recurrence?.rule;
+  if (event.recurrence && !rule) {
+    return anchor >= from && anchor <= to ? [event.startAt] : [];
+  }
+  const dates: string[] = [];
+  for (let t = Math.max(anchor, from); t <= Math.min(last, to); t += DAY_MS) {
+    if (!rule || matchesRule(t, rule, anchor)) dates.push(new Date(t).toISOString().slice(0, 10));
+  }
+  return dates;
+}
+
+/** "18:00" -> "6pm", "12:50" -> "12:50pm". */
+function formatClock(hhmm: string): string {
+  const [h, m] = hhmm.split(":").map(Number);
+  const suffix = h < 12 ? "am" : "pm";
+  const hour = h % 12 === 0 ? 12 : h % 12;
+  return m === 0 ? `${hour}${suffix}` : `${hour}:${String(m).padStart(2, "0")}${suffix}`;
+}
+
+/**
+ * An event's time of day on a given date, in its own timezone, e.g.
+ * "6pm EDT" or "1–2:30pm GMT+1". Shown in the event's timezone rather than
+ * the viewer's: it's computed at build time, and it matches how the
+ * organizer announced it. The abbreviation is read at noon UTC that day, so
+ * it's right on either side of a DST change.
+ */
+export function formatEventTime(event: Event, date: string): string | undefined {
+  const time = event.time;
+  if (!time) return undefined;
+  const zone = new Intl.DateTimeFormat("en-US", { timeZone: time.timeZone, timeZoneName: "short" })
+    .formatToParts(new Date(`${date}T12:00:00Z`))
+    .find((part) => part.type === "timeZoneName")?.value;
+  const start = formatClock(time.start);
+  const range = time.end ? `${start}–${formatClock(time.end)}` : start;
+  return zone ? `${range} ${zone}` : range;
+}
