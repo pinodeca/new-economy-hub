@@ -1,0 +1,18 @@
+{
+  "slug": "ujima-biplaw-mondays",
+  "title": "Biplaw Mondays: Open Restaurant Office Hours",
+  "description": "A weekly open office-hours session from Boston Ujima Project where current and aspiring food business owners can meet Ujima's Restaurant Fellow, restaurateur Biplaw Rai, for candid conversation and advice on the realities of running a food business — startup challenges, logistics and staffing, community engagement, branding, and growth. Online; RSVP through Ujima's events page.",
+  "url": "https://www.ujimaboston.com/events",
+  "startAt": "2026-10-19",
+  "recurrence": {
+    "schedule": "Every Monday at 12pm (Boston time), online. RSVP on Ujima's events page.",
+    "rule": { "frequency": "WEEKLY", "weekday": "MO" },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "LOW",
+  "tags": ["community-investment", "education", "solidarity-economy"],
+  "organizationSlugs": ["boston-ujima-project"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

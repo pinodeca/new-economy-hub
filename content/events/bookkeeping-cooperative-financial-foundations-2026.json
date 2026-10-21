@@ -1,0 +1,19 @@
+{
+  "slug": "bookkeeping-cooperative-financial-foundations-2026",
+  "title": "Financial Foundations (November 2026 series)",
+  "description": "A Bookkeeping Cooperative's most popular public workshop: four weekly 2-hour Zoom sessions covering essential financial terms and the four core financial reports — budget, cash flow, profit & loss, and balance sheet — as tools for a group's goals and values. Beginner-friendly and participatory, with closed captioning; ASL, CART, or advance slides on request at least two weeks before the first session. One ticket covers the full series, sliding scale $150-$2,000. Not recorded; slides and resources are shared with attendees.",
+  "url": "https://bookkeeping.coop/financial-foundations-2/",
+  "startAt": "2026-11-02",
+  "endAt": "2026-11-23",
+  "recurrence": {
+    "schedule": "Four Mondays — November 2, 9, 16, and 23, 2026 — 1-3pm ET (10am-12pm PT), on Zoom.",
+    "rule": { "frequency": "WEEKLY", "weekday": "MO" },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "MEDIUM",
+  "tags": ["financial-services", "education"],
+  "organizationSlugs": ["a-bookkeeping-cooperative"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

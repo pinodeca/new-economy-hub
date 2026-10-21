@@ -7,18 +7,13 @@
   "sourceType": "AI_GENERATED",
   "geoScope": "US",
   "research": {
-    "checkedAt": "2026-09-09",
+    "checkedAt": "2026-10-21",
     "events": "ADDED",
     "forums": "NONE_FOUND",
-    "sourcesChecked": [
-      "https://www.ujimaboston.com/",
-      "https://www.ujimaboston.com/events",
-      "https://www.ujimaboston.com/join"
-    ],
+    "sourcesChecked": ["https://www.ujimaboston.com/", "https://www.ujimaboston.com/events", "https://www.ujimaboston.com/join"],
     "notRepresentable": [
-      "#UjimaWednesdays runs every Wednesday at 6pm, and Biplaw Mondays open restaurant office hours run weekly. A single event date cannot express a weekly cadence, so only specific dated instances are listed.",
-      "Ujima Cafe is a twice-monthly series; the same limitation applies."
+      "Ujima Cafe runs twice a month through spring, summer, and fall, and its 2026 season ends with the 2026-10-22 Pumpkin Party (added as a single event). No 2027 dates are published, so there is no recurring series a reader can show up to until the season restarts — re-check in spring."
     ],
-    "notes": "Members-only member-team meetings (Coalitions & Policy, Anchor Institution Organizing, Publications) were found and deliberately left out as not open to newcomers. No Slack, Discord, or forum: members engage through in-person and hybrid meetings plus a one-way newsletter, which doesn't meet the Forum bar."
+    "notes": "Re-checked 2026-10-21 for the recurrence backfill: #UjimaWednesdays (weekly, 6pm, open to the public) and Biplaw Mondays (weekly open restaurant office hours, online) are now recurring events. The individual autumn 2026 #UjimaWednesdays talks (Hard Currencies, Monetary Trust, History of Money) are sessions of that series, not separate records. The events page's link to its own #UjimaWednesdays page (ujimaboston.com/ujimawednesdays) returned 404 on 2026-10-21. Member-team meetings (Faith in Solidarity — formerly Anchor Institution Organizing — and Publications) are still left out as aimed at voting members rather than newcomers. The \"Community Events\" section lists other groups' events, which belong to those groups, not Ujima. No Slack, Discord, or forum: members engage through in-person and hybrid meetings plus a one-way newsletter, which doesn't meet the Forum bar."
   }
 }

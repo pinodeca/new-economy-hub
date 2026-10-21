@@ -1,0 +1,19 @@
+{
+  "slug": "bookkeeping-cooperative-spreadsheets-2026",
+  "title": "Spreadsheets! Basics of Building Budget Templates",
+  "description": "A two-session, hands-on beginner workshop from A Bookkeeping Cooperative on the fundamentals of spreadsheets — formulas, multi-tab workbooks whose tabs talk to each other, layout, and formatting — taught by building a sample organizational budget template in Google Sheets. It teaches the spreadsheet skills, not budgeting itself. Participants must attend both sessions and need Google Sheets on a computer. Sliding-scale tickets ($125-$1,200) cover both sessions.",
+  "url": "https://bookkeeping.coop/spreadsheets-building-budget-templates/",
+  "startAt": "2026-12-07",
+  "endAt": "2026-12-14",
+  "recurrence": {
+    "schedule": "Two Mondays — December 7 and 14, 2026 — 1-3pm ET (10am-12pm PT), on Zoom.",
+    "rule": { "frequency": "WEEKLY", "weekday": "MO" },
+    "confirmedAt": "2026-10-21"
+  },
+  "isVirtual": true,
+  "barrierToEntry": "MEDIUM",
+  "tags": ["financial-services", "education"],
+  "organizationSlugs": ["a-bookkeeping-cooperative"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}
