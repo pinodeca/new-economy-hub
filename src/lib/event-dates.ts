@@ -6,6 +6,7 @@
 // toLocaleDateString's local-timezone defaults) so the displayed day doesn't
 // shift for viewers west of UTC, and compare them against a UTC cutoff.
 
+import { tzlib_get_offset } from "timezones-ical-library";
 import type { Event, RecurrenceRule, Weekday } from "./content-types";
 
 const MONTHS = [
@@ -126,4 +127,37 @@ export function formatRecurrence(event: Event, cutoff: number = utcToday()): str
   if (event.endAt) parts.push(`until ${formatDate(new Date(event.endAt))}`);
   parts.push(`schedule confirmed ${formatDate(new Date(recurrence.confirmedAt))}`);
   return parts.join(" · ");
+}
+
+/**
+ * Every date in [from, to] (UTC-midnight timestamps, inclusive) that an
+ * event happens on, as date-only ISO strings — what the calendar view
+ * plots. A rule-less recurring event contributes only its one known date
+ * (`startAt`): its other dates can't be computed, and guessing them would
+ * put sessions on wrong days.
+ */
+export function occurrenceDates(event: Event, from: number, to: number): string[] {
+  const anchor = Date.parse(event.startAt);
+  const last = event.endAt ? Date.parse(event.endAt) : event.recurrence ? Infinity : anchor;
+  const rule = event.recurrence?.rule;
+  if (event.recurrence && !rule) {
+    return anchor >= from && anchor <= to ? [event.startAt] : [];
+  }
+  const dates: string[] = [];
+  for (let t = Math.max(anchor, from); t <= Math.min(last, to); t += DAY_MS) {
+    if (!rule || matchesRule(t, rule, anchor)) dates.push(new Date(t).toISOString().slice(0, 10));
+  }
+  return dates;
+}
+
+/**
+ * The UTC instant an event's `time` falls at on a given date, as an ISO
+ * string — so the calendar view can show it in the viewer's own timezone.
+ * The offset is the event timezone's offset at that local date and time,
+ * which keeps DST right on either side of a change.
+ */
+export function eventInstant(date: string, hhmm: string, timeZone: string): string {
+  const offset = tzlib_get_offset(timeZone, date, hhmm); // "+HHMM"
+  if (!/^[+-]\d{4}$/.test(offset)) throw new Error(`No UTC offset for ${timeZone} on ${date} ${hhmm}: ${offset}`);
+  return new Date(`${date}T${hhmm}:00${offset.slice(0, 3)}:${offset.slice(3)}`).toISOString();
 }

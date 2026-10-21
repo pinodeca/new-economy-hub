@@ -11,10 +11,12 @@ import path from "path";
 import { calendarLinks, type CalendarLinks } from "./calendar";
 import type { Event, Forum, Organization } from "./content-types";
 import {
+  eventInstant,
   formatEventWhen,
   formatRecurrence,
   isPastEvent,
   nextOccurrence,
+  occurrenceDates,
   utcToday,
 } from "./event-dates";
 
@@ -92,6 +94,55 @@ export function getUpcomingEvents(): UpcomingEvent[] {
       cadence: formatRecurrence(event, cutoff),
       calendar: calendarLinks(event, cutoff),
     }));
+}
+
+/** One day an upcoming event happens on, for the calendar view. */
+export interface CalendarEntry {
+  /** The date in the event's own timezone — where an all-day entry goes. */
+  date: string;
+  slug: string;
+  /**
+   * UTC instants (ISO) for a timed entry. The calendar converts these to
+   * the viewer's timezone, which can also move the entry to another day.
+   */
+  start?: string;
+  end?: string;
+}
+
+export interface EventCalendar {
+  /** First day of each month the view can show, "YYYY-MM-01". */
+  months: string[];
+  entries: CalendarEntry[];
+}
+
+const CALENDAR_MONTHS = 12;
+
+/**
+ * Every date each upcoming event falls on, from today through the end of
+ * the 12th month — worked out here at build time, like the rest of the
+ * events page, so the client only has to page through it and convert times
+ * to the viewer's timezone.
+ */
+export function getEventCalendar(events: Event[]): EventCalendar {
+  const cutoff = utcToday();
+  const now = new Date(cutoff);
+  const months = Array.from({ length: CALENDAR_MONTHS }, (_, i) =>
+    new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + i, 1)).toISOString().slice(0, 10),
+  );
+  const end = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + CALENDAR_MONTHS, 0);
+  const entries: CalendarEntry[] = events.flatMap((event) =>
+    occurrenceDates(event, cutoff, end).map((date) => {
+      const time = event.time;
+      if (!time) return { date, slug: event.slug };
+      return {
+        date,
+        slug: event.slug,
+        start: eventInstant(date, time.start, time.timeZone),
+        ...(time.end ? { end: eventInstant(date, time.end, time.timeZone) } : {}),
+      };
+    }),
+  );
+  return { months, entries };
 }
 
 /** Most recently finished first — the reverse of the upcoming list's order. */
