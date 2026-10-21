@@ -4,6 +4,7 @@
   "description": "A 50-minute Zoom webinar for business owners, co-hosted by the DC Small Business Development Center and Project Equity, covering exit-planning options and how to prepare for a sale, then a deeper look at employee ownership: how it works, the different models, what makes a business ready, and how employee-ownership transactions are usually financed. 12pm ET.",
   "url": "https://project-equity.org/events-and-webinars/exit-planning-and-employee-ownership/",
   "startAt": "2026-11-19",
+  "time": { "start": "12:00", "end": "12:50", "timeZone": "America/New_York" },
   "isVirtual": true,
   "barrierToEntry": "LOW",
   "tags": ["worker-ownership", "education"],

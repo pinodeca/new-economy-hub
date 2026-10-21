@@ -114,6 +114,32 @@ file per occurrence:
 - Slugs for recurring events drop the year (`cooperation-jackson-build-and-fight-series`),
   since the record isn't tied to one.
 
+## Event times
+
+Set `time` whenever the source gives a time of day — it's what makes "add
+to calendar" create a timed entry instead of an all-day one:
+
+```json
+"startAt": "2026-11-19",
+"time": { "start": "12:00", "end": "12:50", "timeZone": "America/New_York" }
+```
+
+- 24-hour `HH:MM`, in the event's own timezone as an IANA name
+  (`America/New_York`, `America/Chicago`, `Europe/London`) — not `ET` or
+  `EST`, which `validate:content` rejects.
+- Use the timezone the source states. If it lists several ("1pm ET / 10am
+  PT"), any one is fine; they're the same moment.
+- Only set `end` if the source gives one or a duration ("90 minutes"). Don't
+  guess — without it the entry just marks the start.
+- On a recurring event it's the time of every session. Keep the time in
+  `recurrence.schedule` too: that's the line readers see.
+- Leave `time` out entirely when there's no time given (a multi-day
+  conference, say); the entry is then all-day.
+
+Recurring events with no `recurrence.rule` get no calendar entry at all —
+the card says their dates vary — so a rule is worth adding wherever the
+cadence fits one.
+
 ## Event links that survive the event
 
 When you add an event, also set `archivedUrl` to a snapshot of its `url`.

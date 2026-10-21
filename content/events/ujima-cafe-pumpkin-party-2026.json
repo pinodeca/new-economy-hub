@@ -4,6 +4,7 @@
   "description": "The last Ujima Cafe of Boston Ujima Project's 2026 season: an evening of community and pumpkin painting at Dorchester Food Co-op (195 Bowdoin St, Dorchester), a member of Ujima's Good Business Alliance. Ujima Cafe is a casual hangout that doubles as office hours, with free coffee, snacks, and curated menus — among the lowest-effort ways to meet this community in person. Starts 5pm; RSVP on Ujima's events page.",
   "url": "https://www.ujimaboston.com/events",
   "startAt": "2026-10-22",
+  "time": { "start": "17:00", "timeZone": "America/New_York" },
   "isVirtual": false,
   "city": "Boston, MA",
   "barrierToEntry": "LOW",

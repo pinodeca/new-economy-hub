@@ -4,6 +4,7 @@
   "description": "A Spanish-language, two-hour Zoom workshop from A Bookkeeping Cooperative on basic financial concepts and the four most common reports — profit & loss, budget, cash flow projection, and balance sheet. Interactive and designed for every level, from absolute beginners to people looking to communicate more clearly about finances. Sliding-scale tickets, including free tickets. 6-8pm ET (3-5pm PT).",
   "url": "https://bookkeeping.coop/talleres-publicos-de-cosmos/",
   "startAt": "2026-11-18",
+  "time": { "start": "18:00", "end": "20:00", "timeZone": "America/New_York" },
   "isVirtual": true,
   "barrierToEntry": "LOW",
   "tags": ["financial-services", "education", "spanish-language"],

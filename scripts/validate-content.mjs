@@ -24,6 +24,7 @@ const BARRIERS = ["LOW", "MEDIUM", "HIGH"];
 const PLATFORMS = ["SLACK", "DISCORD", "FORUM", "MAILING_LIST", "OTHER"];
 const FINDINGS = ["ADDED", "NONE_FOUND", "FOUND_NOT_REPRESENTABLE"];
 const WEEKDAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"]; // getUTCDay() order
+const TIME_ZONES = new Set(Intl.supportedValuesOf("timeZone"));
 const WEEKS_OF_MONTH = [1, 2, 3, 4, -1];
 // A recurring event with no end date stays listed until someone removes it,
 // so how long ago its cadence was confirmed is the only staleness signal.
@@ -234,6 +235,31 @@ function checkRecurrence(file, event) {
 }
 
 /**
+ * `Event.time` (see content-types.ts). A bad timezone wouldn't fail the
+ * build — it would quietly produce calendar entries at the wrong hour — so
+ * it's checked against the runtime's own IANA list.
+ */
+function checkTime(file, event) {
+  const time = event.time;
+  if (time === undefined) return;
+  if (!isPlainObject(time)) {
+    error(file, "`time` must be an object");
+    return;
+  }
+  const hhmm = /^([01]\d|2[0-3]):[0-5]\d$/;
+  if (!hhmm.test(time.start ?? "")) error(file, "`time.start` must be 24-hour \"HH:MM\", e.g. \"18:00\"");
+  if (time.end !== undefined) {
+    if (!hhmm.test(time.end)) error(file, "`time.end` must be 24-hour \"HH:MM\", e.g. \"19:30\"");
+    else if (hhmm.test(time.start ?? "") && time.end <= time.start) {
+      error(file, "`time.end` must be after `time.start` on the same day");
+    }
+  }
+  if (!TIME_ZONES.has(time.timeZone)) {
+    error(file, `\`time.timeZone\` must be an IANA timezone like "America/New_York" (got ${JSON.stringify(time.timeZone)})`);
+  }
+}
+
+/**
  * `Event.outcome` and `Event.archivedUrl` — the post-event check (see
  * content/RESEARCH.md). Like the research block, the point is that "checked,
  * it happened" and "nobody looked" must not look the same in content/.
@@ -422,6 +448,7 @@ function main() {
       error(file, `\`barrierToEntry\` must be one of ${BARRIERS.join(", ")} (got ${JSON.stringify(data.barrierToEntry)})`);
     }
     checkRecurrence(file, data);
+    checkTime(file, data);
     checkOutcome(file, data);
     checkOrganizationRefs(file, data, orgSlugs);
   }

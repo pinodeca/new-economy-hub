@@ -8,6 +8,7 @@
 
 import fs from "fs";
 import path from "path";
+import { calendarLinks, type CalendarLinks } from "./calendar";
 import type { Event, Forum, Organization } from "./content-types";
 import {
   formatEventWhen,
@@ -66,6 +67,8 @@ export function getOrganizationsBySlug(): Record<string, Organization> {
 export interface UpcomingEvent extends Event {
   when: string;
   cadence?: string;
+  /** Absent when the event can't be a faithful calendar entry (calendar.ts). */
+  calendar?: CalendarLinks;
 }
 
 /**
@@ -87,6 +90,7 @@ export function getUpcomingEvents(): UpcomingEvent[] {
       ...event,
       when: formatEventWhen(event, cutoff),
       cadence: formatRecurrence(event, cutoff),
+      calendar: calendarLinks(event, cutoff),
     }));
 }
 

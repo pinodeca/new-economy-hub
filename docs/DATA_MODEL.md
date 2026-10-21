@@ -38,6 +38,15 @@ because no verification process stood behind it — see
 [DECISIONS.md](DECISIONS.md). A record being in `main` means a human
 merged the PR, nothing more; the site doesn't claim otherwise.
 
+## Event times (`Event.time`)
+
+`startAt`/`endAt` are dates. An optional `time` adds the time of day —
+`start`, optional `end`, both 24-hour `HH:MM`, and an IANA `timeZone` —
+applied to every day of the event (every occurrence, for a recurring one).
+It exists for "add to calendar": with it, calendar entries are timed;
+without it, they're all-day. See [DECISIONS.md](DECISIONS.md) for why it's
+a separate field rather than a datetime `startAt`.
+
 ## Recurring events (`Event.recurrence`)
 
 An `Event` can repeat. `recurrence.schedule` is a plain-language cadence

@@ -4,6 +4,7 @@
   "description": "A free monthly 90-minute Zoom webinar from the U.S. Federation of Worker Cooperatives for groups and people at the very earliest stages of a worker cooperative project — the key steps toward getting off the ground, where problems often occur, and chapters on building a group's democratic capacity, business, and environment of support, in a participatory conversational format. Attendees are offered 30 minutes of free consulting from USFWC afterwards. Free, with no membership requirement stated on the registration page — one of the lowest-barrier entry points in this directory. Presented in English; USFWC posts Spanish-language sessions separately on its calendar. Donations optional.",
   "url": "https://www.usworker.coop/calendar/",
   "startAt": "2026-10-07",
+  "time": { "start": "15:00", "end": "16:30", "timeZone": "America/New_York" },
   "recurrence": {
     "schedule": "First Wednesday of every month, 3pm ET (12pm PT), 90 minutes on Zoom. Register for each session from USFWC's calendar.",
     "rule": { "frequency": "MONTHLY", "weekday": "WE", "weekOfMonth": 1 },

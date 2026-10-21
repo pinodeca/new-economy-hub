@@ -4,6 +4,7 @@
   "description": "A monthly meeting of the U.S. Federation of Worker Cooperatives' peer network for workers starting or operating cooperative cannabis businesses, to connect, learn, and organize. Free; one hour on Zoom; English.",
   "url": "https://www.usworker.coop/calendar/",
   "startAt": "2026-11-19",
+  "time": { "start": "13:00", "end": "14:00", "timeZone": "America/New_York" },
   "recurrence": {
     "schedule": "Third Thursday of every month, 1pm ET (10am PT), one hour on Zoom.",
     "rule": { "frequency": "MONTHLY", "weekday": "TH", "weekOfMonth": 3 },

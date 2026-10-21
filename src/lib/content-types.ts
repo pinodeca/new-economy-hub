@@ -122,6 +122,25 @@ export interface Recurrence {
   confirmedAt: string;
 }
 
+/**
+ * Time of day for an event, so "add to calendar" can make a timed entry
+ * instead of an all-day one. `startAt`/`endAt` stay date-only; this applies
+ * to each day (each occurrence, for a recurring event) in the event's own
+ * timezone. Leave it out when the source doesn't give a time — the entry is
+ * then all-day, which is honest, where a guessed time isn't.
+ */
+export interface EventTime {
+  /** 24-hour "HH:MM" local time, e.g. "18:00". */
+  start: string;
+  /**
+   * 24-hour "HH:MM", same day. Optional: only set it when the source gives
+   * an end or a duration. Without it, calendar entries mark the start only.
+   */
+  end?: string;
+  /** IANA timezone the times are in, e.g. "America/New_York". */
+  timeZone: string;
+}
+
 export type OutcomeStatus = "HAPPENED" | "CANCELLED" | "UNCONFIRMED";
 
 export type OutcomeLinkKind = "RECORDING" | "RECAP" | "PHOTOS" | "NEWS" | "OTHER";
@@ -166,6 +185,7 @@ export interface Event extends Provenance, Geography {
   archivedUrl?: string;
   startAt: string; // ISO 8601
   endAt?: string;
+  time?: EventTime;
   recurrence?: Recurrence;
   outcome?: EventOutcome;
   isVirtual: boolean;

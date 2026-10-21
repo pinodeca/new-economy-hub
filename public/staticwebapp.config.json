@@ -1,0 +1,5 @@
+{
+  "mimeTypes": {
+    ".ics": "text/calendar; charset=utf-8"
+  }
+}

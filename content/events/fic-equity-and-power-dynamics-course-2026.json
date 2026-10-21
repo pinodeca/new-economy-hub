@@ -5,6 +5,7 @@
   "url": "https://www.ic.org/communiversity-library/course/equity-power-dynamics/",
   "startAt": "2026-10-28",
   "endAt": "2026-12-09",
+  "time": { "start": "10:00", "end": "12:00", "timeZone": "America/Chicago" },
   "recurrence": {
     "schedule": "Six Wednesdays, 10am-12pm CT, on Zoom: October 28; November 4, 11, and 18; December 2 and 9, 2026 (no class on November 25).",
     "confirmedAt": "2026-10-21"
