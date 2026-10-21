@@ -1,0 +1,31 @@
+{
+  "slug": "foundation-for-intentional-community",
+  "name": "Foundation for Intentional Community (FIC)",
+  "description": "A US-based 501(c)(3), incorporated in 1986, that serves the intentional communities movement — ecovillages, cohousing, and other shared-living communities — as a resource hub, publisher, network builder, and fiscal sponsor. It runs the ic.org directory where communities worldwide list themselves (self-submitted listings, which this site doesn't mirror), a Needs & Offers board for openings and housing, the Communities bookstore, podcasts, and CommUniversity: online courses, webinars, and virtual tours of real communities, many free or pay-what-you-can. Its stated mission is social, ecological, and economic justice and resiliency through cooperative culture and intentional communities. Its team works remotely around the world, and in 2026 it launched a shared website and directory with the Global Ecovillage Network.",
+  "url": "https://www.ic.org/",
+  "tags": ["intentional-communities", "cooperative-housing", "education", "membership-network"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "FOUND_NOT_REPRESENTABLE",
+    "sourcesChecked": [
+      "https://www.ic.org/",
+      "https://www.ic.org/about-us/",
+      "https://www.ic.org/communiversity/",
+      "https://www.ic.org/workshops/",
+      "https://www.ic.org/collection/events/",
+      "https://www.ic.org/groups/",
+      "https://www.ic.org/communiversity-library/webinar/affordable-housing-through-intentional-community/",
+      "https://www.ic.org/communiversity-library/webinar/community-seeking-101-a-grounded-first-step-for-new-communitarians/",
+      "https://www.ic.org/communiversity-library/webinar/virtual-tour-of-intentional-communities-oak-park-commons-cohousing/",
+      "https://www.ic.org/communiversity-library/webinar/welcome-home-a-celebration-for-communities/",
+      "https://www.ic.org/communiversity-library/course/equity-power-dynamics/"
+    ],
+    "notRepresentable": [
+      "ic.org has a Groups section (https://www.ic.org/groups/), but it shows only a login screen to a logged-out visitor, so whether any group is active enough to clear the Forum bar couldn't be checked. Worth a look by someone with a free account."
+    ],
+    "notes": "Events come from each CommUniversity page, not the /events collection, which is empty (\"No Community in this collection\") — the self-contradiction RESEARCH_QUEUE.md warned about. CommUniversity pages list times in US Central (the site's timezone is America/Chicago). Added: the Affordable Housing panel, the Equity & Power Dynamics course, Community Seeking 101, and the Oak Park Commons virtual tour. Left out: \"Welcome Home\" (2026-11-12), a launch party for the new FIC/GEN directory aimed at communities updating their listings; and the self-paced library courses (Finding Your Community, Starting a Community), which have no date. The Virtual Tour series is ongoing but publishes no cadence, so only the dated tour is listed; past tours are on FIC's YouTube channel. Needs & Offers is a classifieds board, not a discussion space, and each course's discussion group is only for enrolled students."
+  }
+}

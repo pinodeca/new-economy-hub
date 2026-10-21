@@ -50,7 +50,7 @@ next US housing passes.
 | Organization | URL | Scope | Already spotted |
 | --- | --- | --- | --- |
 | Cooperative Housing International (CHI) | https://www.housinginternational.coop/ | `INTERNATIONAL` — the ICA's housing sector organization | Annual conference (Panama, with an online option, 17 Sept — year not stated on the page, likely alongside the ICA Global Conference, so probably already past) |
-| Co-operative Housing Federation of Canada (CHF Canada) | https://chfcanada.coop/ | `COUNTRY` CA — 900+ member housing co-ops | Online events, incl. an open-to-all Aging In Place Exchange Network chat (13 Oct 2026); annual meeting, date not given |
+| Co-operative Housing Federation of Canada (CHF Canada) | https://chfcanada.coop/ | `COUNTRY` CA — 900+ member housing co-ops | Online events, incl. an open-to-all Aging In Place Exchange Network chat (13 Oct 2026); annual meeting, date not given ⚠️ **Blocked to agents as of 2026-10-21:** returned 403 to curl and headless Chromium from an agent session (it was reachable on 2026-10-08, so likely IP-based blocking). |
 | Confederation of Co-operative Housing (CCH) | https://www.cch.coop/ | `COUNTRY` GB — co-op and community-led housing | 2026 annual conference already held (video and slides "coming soon"); accredited advisor training programme |
 
 ### Intentional communities
@@ -71,7 +71,6 @@ aren't open to a newcomer in the "join this week" sense.
 
 | Organization | URL | Scope | Already spotted |
 | --- | --- | --- | --- |
-| Foundation for Intentional Community (FIC) | https://www.ic.org/ | US-based hub, worldwide directory | CommUniversity online courses, dated: "Start Your Cooperative Business" (15 Oct 2026), "Equity & Power Dynamics" (28 Oct 2026). Member "Groups" and discussion groups — check whether they're active enough to clear the Forum bar. Its events page is self-contradictory ("no upcoming events" beside a listed Nov 2026 permaculture course), so source any event from its own page, not the listing. Funds a BIPOC Intentional Community Council |
 | Global Ecovillage Network (GEN) | https://ecovillage.org/ | `INTERNATIONAL` — 150+ communities, regional hubs | Groups, Needs & Offers, regional hubs, member-only groups. Visible events are all 2013–2015 — check whether activity has moved to the regional networks before concluding it's quiet |
 | Federation of Egalitarian Communities (FEC) | https://thefec.org/ | US income-sharing communes (Twin Oaks, East Wind, …) | ⚠️ No events or visitor programs on the homepage, and on 2026-10-08 the page carried unrelated product/brand links that look injected — **possibly compromised**. Confirm before citing it as a source, and look for visitor programs on member communities' own sites |
 | Cohousing Association of the US (Coho/US) | https://www.cohousing.org/ | US cohousing | ⚠️ cohousing.org now 301s to cohousingalliance.org, which returned 403 to automated fetching on 2026-10-08. A "Cohousing Alliance" brand also appears on cohousinginstitute.org, described as being developed by Coho/US. **Rebrand or program name — unresolved**; settle the org's current name before writing a record |
@@ -84,13 +83,9 @@ rather than add a seventh worker-co-op development org.
 | Organization | URL | Why it's on the list | Already spotted |
 | --- | --- | --- | --- |
 | The Democracy Collaborative | https://www.democracycollaborative.org/ | Originated "community wealth building"; the reference think-and-do tank for the whole US field | — |
-| Project Equity | https://project-equity.org/ | Employee-ownership conversions as a small-business succession path — a concrete "how do I actually do this" org | `/events-and-webinars/` lists dated webinars and in-person events |
 | Seed Commons | https://seedcommons.org/ | National non-extractive finance cooperative; the capital side of the worker co-ops already indexed | — |
-| Shared Capital Cooperative | https://sharedcapital.coop/ | Co-op-owned CDFI loan fund lending nationally to co-ops | 2026 annual meeting announced |
-| U.S. Solidarity Economy Network | https://ussen.org/ | The US national SSE network and RIPESS's US member — a hub connecting much of the rest of this list | Member signup plus a listserv (check whether the listserv is two-way — if so it clears the Forum bar) |
 | Grassroots Economic Organizing (GEO) | https://geo.coop/ | Worker-owned media collective covering this space; a discovery source for future passes as much as a record | — |
-| Platform Cooperativism Consortium | https://platform.coop/ | Platform co-ops and the digital economy — a sector with zero coverage today; network spans 60+ countries | Runs conferences and an annual fellowship program |
-| Sustainable Economies Law Center | https://www.theselc.org/ | Legal infrastructure for co-ops, land trusts, worker ownership | Active events calendar, incl. recurring "Legal Cafe" sessions — a natural `Event.recurrence` case |
+| Sustainable Economies Law Center | https://www.theselc.org/ | Legal infrastructure for co-ops, land trusts, worker ownership | Active events calendar, incl. recurring "Legal Cafe" sessions — a natural `Event.recurrence` case ⚠️ **Blocked to agents as of 2026-10-21:** Cloudflare's bot check rejects curl and headless Chromium alike — this pass needs a person, or an agent with a real browser session. |
 | NCBA CLUSA | https://ncbaclusa.coop/ | The cross-sector US co-op association, not worker-co-op-specific | `/events/`; annual IMPACT Conference |
 | ICA Group | https://ica-group.org/ | Oldest US worker-co-op development nonprofit; frequent partner of orgs already indexed | URL **not yet verified** — confirm before the pass |
 
