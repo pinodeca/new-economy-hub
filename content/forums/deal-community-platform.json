@@ -1,0 +1,11 @@
+{
+  "slug": "deal-community-platform",
+  "name": "DEAL Community Platform",
+  "description": "Doughnut Economics Action Lab's online community for anyone exploring or practicing Doughnut Economics — educators, policymakers, community members, businesses, artists, academics, and young people. Members get a public profile on a world map, post open-source tools, stories, and events, comment on each other's posts, and connect through six themes (communities and art, business, cities and regions, schools, research, government) and topics. Members agree to DEAL's guidelines on using the ideas with integrity.",
+  "platform": "FORUM",
+  "url": "https://doughnuteconomics.org/discover-the-community",
+  "tags": ["community", "movement-building"],
+  "organizationSlugs": ["doughnut-economics-action-lab"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "cominnesota",
+  "name": "CoMinnesota",
+  "description": "A statewide hub for cross-sector cooperation in Minnesota — which has more cooperatives than any other state — started in late 2011 by volunteers asking why the state's co-ops didn't collaborate and promote themselves across sectors. It works to raise public awareness of co-ops, connect credit unions, rural electric, worker, agricultural, housing, consumer, purchasing, and other co-ops, and is building a Minnesota Cooperative Directory. A program managed by CoNorth (formerly Northcountry Cooperative Foundation), guided by a steering committee drawn from each co-op sector, and funded in part by the McKnight Foundation and a USDA Rural Cooperative Development Grant. Runs Co-ops 101 sessions, a policy workgroup, and the LaunchBox starter resource for people new to the co-op model.",
+  "url": "https://www.cominnesota.coop/",
+  "tags": ["cooperative-business", "membership-network", "education"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://www.cominnesota.coop/",
+      "https://www.cominnesota.coop/about/",
+      "https://www.cominnesota.coop/eventbrite/",
+      "https://www.eventbrite.com/e/own-it-a-co-op-fest-tickets-1997477632369"
+    ],
+    "notes": "Found through U.S. Co-ops' news feed rather than RESEARCH_QUEUE.md. Added: Own It! A Co-op Fest (2026-10-29) and the next Co-ops 101 session (2026-12-09). Its events page also lists two save-the-dates that aren't CoMinnesota's: the Cooperative Network Annual Meeting (December 1-2, 2026, Eau Claire, WI) and the 2027 Minnesota Cooperative Summit (July 28-29, 2027, Mankato), which has its own website — both candidates for whoever runs them. Co-ops 101 looks like a repeating session with no published cadence, so only the dated one is listed. No forum: an email newsletter, LinkedIn, and Facebook, all one-way."
+  }
+}

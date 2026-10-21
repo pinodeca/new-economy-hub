@@ -1,0 +1,14 @@
+{
+  "slug": "cominnesota-co-ops-101-2026-12",
+  "title": "Co-ops 101 with CoMinnesota",
+  "description": "A lunch-hour Zoom session for the co-op curious: what cooperatives are, how they connect to the wider cooperative movement, and why they matter now, with time for questions. Register through CoMinnesota's events page. 12-1pm CT.",
+  "url": "https://www.cominnesota.coop/eventbrite/",
+  "startAt": "2026-12-09",
+  "time": { "start": "12:00", "end": "13:00", "timeZone": "America/Chicago" },
+  "isVirtual": true,
+  "tags": ["cooperative-business", "education"],
+  "barrierToEntry": "LOW",
+  "organizationSlugs": ["cominnesota"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US"
+}

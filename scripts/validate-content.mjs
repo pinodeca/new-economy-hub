@@ -24,7 +24,9 @@ const BARRIERS = ["LOW", "MEDIUM", "HIGH"];
 const PLATFORMS = ["SLACK", "DISCORD", "FORUM", "MAILING_LIST", "OTHER"];
 const FINDINGS = ["ADDED", "NONE_FOUND", "FOUND_NOT_REPRESENTABLE"];
 const WEEKDAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"]; // getUTCDay() order
-const TIME_ZONES = new Set(Intl.supportedValuesOf("timeZone"));
+// supportedValuesOf lists canonical zones only, which leaves out "UTC" — the
+// one sources most often give besides a local zone.
+const TIME_ZONES = new Set([...Intl.supportedValuesOf("timeZone"), "UTC"]);
 const WEEKS_OF_MONTH = [1, 2, 3, 4, -1];
 // A recurring event with no end date stays listed until someone removes it,
 // so how long ago its cadence was confirmed is the only staleness signal.

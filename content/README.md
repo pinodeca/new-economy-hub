@@ -125,8 +125,9 @@ to calendar" create a timed entry instead of an all-day one:
 ```
 
 - 24-hour `HH:MM`, in the event's own timezone as an IANA name
-  (`America/New_York`, `America/Chicago`, `Europe/London`) — not `ET` or
-  `EST`, which `validate:content` rejects.
+  (`America/New_York`, `America/Chicago`, `Europe/London`), or `UTC` when
+  that's what the source gives — not `ET` or `EST`, which
+  `validate:content` rejects.
 - Use the timezone the source states. If it lists several ("1pm ET / 10am
   PT"), any one is fine; they're the same moment.
 - Only set `end` if the source gives one or a duration ("90 minutes"). Don't

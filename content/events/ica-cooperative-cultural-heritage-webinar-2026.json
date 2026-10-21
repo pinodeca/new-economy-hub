@@ -1,0 +1,14 @@
+{
+  "slug": "ica-cooperative-cultural-heritage-webinar-2026",
+  "title": "Cooperatives in the International Decade of Culture for Sustainable Development",
+  "description": "A 90-minute global Zoom webinar from the International Cooperative Alliance and its Working Group on Cooperative Cultural Heritage, marking the International Day of Intangible Cultural Heritage. It looks at how cooperatives help communities sustain living traditions — crafts, cultural practices, the livelihoods tied to them — and pass them to younger generations, drawing on ICA's cooperative heritage list, and launches a policy brief linking co-ops to UNESCO's 2003 Convention and the International Decade of Culture for Sustainable Development (2027-2036). Open to members, friends, and partner organizations; interpretation in English, Spanish, French, and Portuguese. 13:00-14:30 CET.",
+  "url": "https://www.ica.coop/en/events/webinar-cooperatives-international-decade-culture-sustainable-development",
+  "startAt": "2026-10-30",
+  "time": { "start": "13:00", "end": "14:30", "timeZone": "Europe/Brussels" },
+  "isVirtual": true,
+  "barrierToEntry": "LOW",
+  "tags": ["cooperative-business", "education"],
+  "organizationSlugs": ["international-cooperative-alliance"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL"
+}

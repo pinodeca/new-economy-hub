@@ -1,0 +1,25 @@
+{
+  "slug": "us-co-ops",
+  "name": "U.S. Co-ops (Association of U.S. Cooperatives, formerly NCBA CLUSA)",
+  "description": "The cross-sector national association for US cooperatives of every kind — agricultural, consumer, credit union, electric, housing, worker, and more — and the only one that spans all sectors, by its own description. Its mission is to develop, advance, and protect cooperative enterprise through advocacy before Congress, public awareness, and international development work that has reached more than 85 countries. It traces its history to the Cooperative League of America, organized in 1916, which became the Cooperative League of the USA (CLUSA) and later the National Cooperative Business Association (NCBA CLUSA); it now operates as U.S. Co-ops, at us.coop (the old ncbaclusa.coop domain redirects there). It runs the annual Cooperative IMPACT Conference and Hike the Hill advocacy day, maintains the Cooperative Hall of Fame through its Cooperative Development Foundation, and offers individual, cooperative, and associate memberships.",
+  "url": "https://us.coop/",
+  "tags": ["cooperative-business", "membership-network", "advocacy"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "NONE_FOUND",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://us.coop/",
+      "https://us.coop/events/",
+      "https://us.coop/about-us/mission-and-values/",
+      "https://us.coop/about-us/100th-anniversary/",
+      "https://us.coop/membership/join/",
+      "https://us.coop/blog/event/10th-annual-cooperative-impact-conference/",
+      "https://us.coop/blog/event/10th-annual-national-home-care-cooperative-conference/",
+      "https://us.coop/blog/minnesota-co-op-fest-to-celebrate-the-power-of-people-centered-businesses/"
+    ],
+    "notes": "Its own flagship event, the 10th Cooperative IMPACT Conference, already took place (Washington DC, 2026-10-07 to 10-08; $750 non-member early-bird); add the 2027 edition once announced. The rest of its events calendar is other organizations' events: the 10th National Home Care Cooperative Conference (run by Elevate, Tacoma, ended 2026-10-21) and a Reuters food-and-agriculture forum. Its news feed also promotes CoMinnesota's \"Own It! A Co-op Fest\" (2026-10-29, Minneapolis), which belongs to CoMinnesota. The events list renders only with JavaScript, so it was read in a headless browser. No Slack, Discord, or forum: membership, a newsletter, and the Everything Co-op podcast are all one-way."
+  }
+}

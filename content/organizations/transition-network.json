@@ -1,0 +1,23 @@
+{
+  "slug": "transition-network",
+  "name": "Transition Network International",
+  "description": "The charity that supports the Transition Towns movement, which began in Britain and Ireland in 2006 and has grown into an international network of local community groups in some 70 countries. Transition groups are independent and locally led — community gardens, repair cafés, local food, renewable energy, new local businesses, sustainable transport — and share the aims of reducing dependence on fossil fuels, strengthening local economies, and building community. Regional and national hubs support groups with training, events, and funding connections; the international charity, organized sociocratically, offers guidance and training, connects groups and hubs, and works on policy. Its site lists 1,002 registered groups, 363 of them recently active, and more than 14,700 participants. It also runs Community Waves, a social platform for people doing community-led change, and an Inner and Cultural Transformation circle with online sessions.",
+  "url": "https://transitionnetwork.org/",
+  "tags": ["community", "movement-building", "solidarity-economy"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "INTERNATIONAL",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "ADDED",
+    "sourcesChecked": [
+      "https://transitionnetwork.org/",
+      "https://transitionnetwork.org/about/",
+      "https://news.transitionnetwork.org/gathering-journal-5-we-have-the-place-and-the-dates/",
+      "https://news.transitionnetwork.org/october-2026-reconnecting/",
+      "https://inner-cultural.transitionnetwork.org/nov-moon/",
+      "https://communitywaves.space/"
+    ],
+    "notes": "Added the 2027 Transition Global Gathering and the 2026-11-10 New Moon session. The homepage's own events widget shows \"No upcoming events listed\" even with JavaScript running; events are announced in the monthly e-news and on Community Waves' calendar instead. New Moon sessions look like a lunar-cycle series, which no recurrence rule can express, so only the dated one is listed. Left out: the Transition Communicators call (2026-11-11), an invite-only call for people doing comms for local groups and hubs; the free 1-1 support space, which is booked individually; and the many local-group events on the Community Waves calendar, which belong to those groups. Community Waves is added as a forum."
+  }
+}

@@ -86,8 +86,14 @@ rather than add a seventh worker-co-op development org.
 | Seed Commons | https://seedcommons.org/ | National non-extractive finance cooperative; the capital side of the worker co-ops already indexed | — |
 | Grassroots Economic Organizing (GEO) | https://geo.coop/ | Worker-owned media collective covering this space; a discovery source for future passes as much as a record | — |
 | Sustainable Economies Law Center | https://www.theselc.org/ | Legal infrastructure for co-ops, land trusts, worker ownership | Active events calendar, incl. recurring "Legal Cafe" sessions — a natural `Event.recurrence` case ⚠️ **Blocked to agents as of 2026-10-21:** Cloudflare's bot check rejects curl and headless Chromium alike — this pass needs a person, or an agent with a real browser session. |
-| NCBA CLUSA | https://ncbaclusa.coop/ | The cross-sector US co-op association, not worker-co-op-specific | `/events/`; annual IMPACT Conference |
 | ICA Group | https://ica-group.org/ | Oldest US worker-co-op development nonprofit; frequent partner of orgs already indexed | URL **not yet verified** — confirm before the pass |
+
+Researched 2026-10-21 and removed from the table: NCBA CLUSA, which now
+operates as **U.S. Co-ops** at us.coop (record `us-co-ops`). Leads that
+came out of it, not yet researched: the **Minnesota Cooperative Summit**
+(July 28-29, 2027, Mankato — has its own website) and **Cooperative
+Network** (WI/MN co-op association; annual meeting December 1-2, 2026,
+Eau Claire), both seen on CoMinnesota's events page.
 
 Dedup cautions for this batch:
 
@@ -107,9 +113,6 @@ Dedup cautions for this batch:
 | --- | --- | --- | --- |
 | RIPESS | https://www.ripess.org/ | The intercontinental SSE network of continental networks; the natural top of the international tree | Global forums on a multi-year cycle |
 | Wellbeing Economy Alliance (WEAll) | https://weall.org/ | 500+ member organizations; the "beyond GDP" wing of this space, which nothing indexed covers | National and regional hubs — possible future records of their own |
-| International Cooperative Alliance | https://www.ica.coop/en | The global co-op apex body; gives every co-op record already indexed an international anchor | **ICA Global Conference & Assemblies, 13–18 Sept 2026, Panama** — dated and imminent |
-| Doughnut Economics Action Lab | https://doughnuteconomics.org/ | Turns Doughnut Economics into practice; unusually strong on "how do I join in" | A community platform with regional and themed groups, plus an events calendar incl. recurring "Global Donut Days" |
-| Transition Network | https://transitionnetwork.org/ | 1,000+ registered local groups across 70 countries — the highest local-group density of anything on this list | Community Waves platform (communitywaves.space); webinars and a 2027 Global Gathering |
 
 ## United Kingdom — up to 5
 
