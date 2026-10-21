@@ -1,0 +1,26 @@
+{
+  "slug": "national-association-of-housing-cooperatives",
+  "name": "National Association of Housing Cooperatives (NAHC)",
+  "description": "The only national cooperative housing association in the US, by its own description: a 501(c)(3) federation of housing cooperatives, mutual housing associations, and other resident-owned or resident-controlled housing, plus the professionals, organizations, and individuals who work with them. Incorporated in 1960 after organizers from Greenbelt Veterans Housing Corporation (Maryland) and the Pennypack Woods co-op (Philadelphia) sought a national voice before Congress, with support from the Cooperative League of the USA. Members govern it through a national board; most join through one of its eight member associations and federations (regional bodies in California, New England, the Midwest, the Potomac region, New Jersey, and New York, among others), though housing co-ops, professionals, and interested individuals can also join directly. Runs board and manager training — including the Registered Cooperative Manager (RCM) certification — federal and state advocacy, the Cooperative Housing Quarterly, and a podcast.",
+  "url": "https://coophousing.org/",
+  "tags": ["cooperative-housing", "membership-network", "advocacy", "education"],
+  "sourceType": "AI_GENERATED",
+  "geoScope": "US",
+  "research": {
+    "checkedAt": "2026-10-21",
+    "events": "ADDED",
+    "forums": "NONE_FOUND",
+    "sourcesChecked": [
+      "https://coophousing.org/",
+      "https://coophousing.org/about-us/",
+      "https://coophousing.org/annual-conference/",
+      "https://coophousing.org/annual-conference/registration/",
+      "https://coophousing.org/annual-conference/schedule/",
+      "https://coophousing.org/annual-conference/rcm-training/",
+      "https://coophousing.org/trainings/",
+      "https://coophousing.org/member-associations/",
+      "https://coophousing.org/join-nahc/"
+    ],
+    "notes": "The 66th Annual Conference (2026-11-04 to 11-07) is added. Left out: the pre-conference Registered Cooperative Manager course (Nov 2-3, $900-$975 for non-members on top of conference registration) is professional certification for co-op managers, and the 3Rs board seminar and Emergency Preparedness course are delivered at a client co-op on request, with no public dates. No Slack, Discord, listserv, or forum: NAHC communicates through an email signup, the Cooperative Housing Quarterly, a podcast, and Facebook/LinkedIn pages, all one-way. Its eight regional member associations are candidates for passes of their own."
+  }
+}

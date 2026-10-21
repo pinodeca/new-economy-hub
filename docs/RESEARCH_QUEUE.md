@@ -43,9 +43,12 @@ bodies below are apex/federation organizations, the natural place to start
 and a directory of their members for later passes. URLs checked live
 2026-10-08.
 
+NAHC was researched and added 2026-10-21. Its eight member associations
+(listed at https://coophousing.org/member-associations/) are the natural
+next US housing passes.
+
 | Organization | URL | Scope | Already spotted |
 | --- | --- | --- | --- |
-| National Association of Housing Cooperatives (NAHC) | https://coophousing.org/ | US federation of housing co-ops | **66th Annual Conference, 4–7 Nov 2026, San Juan, Puerto Rico** — dated and upcoming; also Registered Cooperative Manager training |
 | Cooperative Housing International (CHI) | https://www.housinginternational.coop/ | `INTERNATIONAL` — the ICA's housing sector organization | Annual conference (Panama, with an online option, 17 Sept — year not stated on the page, likely alongside the ICA Global Conference, so probably already past) |
 | Co-operative Housing Federation of Canada (CHF Canada) | https://chfcanada.coop/ | `COUNTRY` CA — 900+ member housing co-ops | Online events, incl. an open-to-all Aging In Place Exchange Network chat (13 Oct 2026); annual meeting, date not given |
 | Confederation of Co-operative Housing (CCH) | https://www.cch.coop/ | `COUNTRY` GB — co-op and community-led housing | 2026 annual conference already held (video and slides "coming soon"); accredited advisor training programme |
