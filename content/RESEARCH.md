@@ -113,6 +113,36 @@ doesn't).
 A post-event check can be batched across organizations in one PR — it's a
 small, uniform edit per event, unlike a research pass.
 
+## Fetching pages from an agent session
+
+Hit during the 2026-10 research passes, so a new session doesn't spend an
+hour rediscovering them. Check whether each still holds; tools change.
+
+- **WebFetch can fail while `curl` works.** In one session WebFetch
+  returned `ENOTFOUND` for every host, even after the network policy was
+  opened, while `curl` reached them fine. Fall back to `curl` and convert
+  with `pandoc -f html -t plain` (installed) when that happens.
+- **Some sites 403 a bare user-agent.** ic.org rejected curl's default and
+  served the page to a full browser user-agent string plus
+  `Accept: text/html`. That's ordinary request headers, not evasion.
+- **JavaScript-rendered pages need a browser.** us.coop's events list,
+  transitionnetwork.org's pages, and cominnesota.coop came back as empty
+  shells to curl. The preinstalled Chromium works through Playwright —
+  launch it with `executablePath: '/opt/pw-browsers/chromium'` (don't run
+  `playwright install`), wait a few seconds, then read
+  `document.body.innerText` or the page's links.
+- **Look for a feed before scraping.** Doughnut Economics Action Lab
+  publishes its events as RSS at `/events.xml`, which beats parsing the
+  rendered page.
+- **Bot walls stop the pass — don't work around them.** Sustainable
+  Economies Law Center sits behind a Cloudflare challenge that blocked
+  curl and headless Chromium alike, and CHF Canada returns 403 to every
+  request from these sessions. Both are flagged in
+  `docs/RESEARCH_QUEUE.md`; leave them for a person rather than trying to
+  get past the block.
+- **archive.org** has its own notes in
+  [`README.md`](README.md#event-links-that-survive-the-event).
+
 ## PR granularity
 
 One research unit (an org plus whatever events/forums it turns out to
