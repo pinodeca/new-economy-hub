@@ -23,7 +23,12 @@ Azure/static export at all.
     `.github/workflows/azure-static-web-apps-ashy-stone-09563381e.yml`.
     Also builds a temporary preview environment for every open PR
     (torn down automatically when the PR closes/merges) — see that
-    workflow's `close_pull_request_job`.
+    workflow's `close_pull_request_job`. A preview's URL is
+    `https://ashy-stone-09563381e-<PR number>.westus2.6.azurestaticapps.net`;
+    the deploy job posts it as a PR comment (which needs the job's
+    `pull-requests`/`issues: write` permissions — before 2026-10-21 they
+    were missing and the comment failed silently), and it's also the last
+    "Visit your site at" line of the job's log.
   - **Free tier caps concurrent PR preview environments at 3** (plus the
     `default`/production one). A 4th simultaneously open PR's deploy job
     fails outright with `BadRequest: ... already has the maximum number
